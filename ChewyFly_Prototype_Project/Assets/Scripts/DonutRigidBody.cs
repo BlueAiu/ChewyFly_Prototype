@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DonutRigdBody : MonoBehaviour
+public class DonutRigidBody : MonoBehaviour
 {
     Rigidbody rb;
 
     [Header("ƒh[ƒiƒc‚Ì•‚—Í")]
     [Tooltip("•‚—ÍŒW”")]
-    [SerializeField] float buoyancy = 1000f;
+    [SerializeField] float buoyancy = 20f;
     [Tooltip("–û‚Ì•\–Ê‚ÌYÀ•W")]
     [SerializeField] float surfaceY = 0f;
 
-    [Header("ƒh[ƒiƒc‚Æ–û‚Ì–€C—Í")]
-    [Tooltip("–€C—ÍŒW”")]
-    [SerializeField] float friction = 100f;
+    [Header("–û’†‚Ì’ïR—Í")]
+    [Tooltip("’ïR—ÍŒW”")]
+    [SerializeField] float resistance = 2f;
 
 
     // Start is called before the first frame update
@@ -36,10 +36,10 @@ public class DonutRigdBody : MonoBehaviour
             //•‚—Í
             float depth = surfaceY - transform.position.y;
             float sinkVolume = Mathf.Min(depth + transform.localScale.y / 2, transform.localScale.y);
-            rb.AddForce(Vector3.up * buoyancy * sinkVolume * Time.deltaTime);
+            rb.AddForce(Vector3.up * buoyancy * sinkVolume);
 
             //–€C—Í
-            rb.AddForce(-rb.velocity * friction * Time.deltaTime);
+            rb.AddForce(-rb.velocity.normalized * rb.velocity.sqrMagnitude * resistance);
         }
     }
 }

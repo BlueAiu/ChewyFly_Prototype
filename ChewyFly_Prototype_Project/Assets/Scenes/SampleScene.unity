@@ -805,6 +805,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1085881880835205373, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
+      propertyPath: resistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2219543931052507336, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
       propertyPath: m_Constraints
       value: 0

@@ -81,9 +81,11 @@ public class PlayerInputSystemScript : MonoBehaviour
     {
         if(isLeftAngle && isRightAngle)
         {
+            //視点をリセットする
         }
         if(isRightAngle)
         {
+            //視点を右に向ける
         }
         if (isLeftAngle)
         {

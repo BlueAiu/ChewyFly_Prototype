@@ -28,23 +28,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //…•½•ûŒü‚ÌˆÚ“®
+        //ˆÚ“®
         var direction = input.isMove();
-        character.Move(direction * speed *  Time.deltaTime);
+        character.Move(direction * (speed *  Time.deltaTime));
 
-        //‚’¼•ûŒü‚ÌˆÚ“®
         velocityY -= gravity * Time.deltaTime;
+        character.Move(Vector3.up * (velocityY * Time.deltaTime));
 
-        character.Move(Vector3.up * velocityY * Time.deltaTime);
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        velocityY = 0f;
-
-        if (input.isJump())
+        //’…’n‚ÆƒWƒƒƒ“ƒv
+        if (character.isGrounded)
         {
-            velocityY = jumpPower;
+            velocityY = 0f;
+
+            if (input.isJump())
+            {
+                velocityY = jumpPower;
+            }
         }
     }
+
 }

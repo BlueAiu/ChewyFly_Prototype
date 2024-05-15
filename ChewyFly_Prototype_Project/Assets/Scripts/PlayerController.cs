@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("ジャンプ力")]
     [SerializeField] float jumpPower = 3f;
+    [Tooltip("終端速度 (jumpPower以上にすること)")]
+    [SerializeField] float terminalVelocity = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,13 +35,12 @@ public class PlayerController : MonoBehaviour
         character.Move(direction * (speed *  Time.deltaTime));
 
         velocityY -= gravity * Time.deltaTime;
+        velocityY = Mathf.Max(velocityY, -terminalVelocity);
         character.Move(Vector3.up * (velocityY * Time.deltaTime));
 
-        //着地とジャンプ
+        //ジャンプ
         if (character.isGrounded)
         {
-            velocityY = 0f;
-
             if (input.isJump())
             {
                 velocityY = jumpPower;

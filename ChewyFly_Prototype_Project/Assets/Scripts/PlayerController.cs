@@ -48,4 +48,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Donuts")
+        {
+            hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+        }
+    }
 }

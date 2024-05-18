@@ -7,6 +7,8 @@ public class DonutSphereReference : MonoBehaviour
     [Tooltip("自分の子の印オブジェクト")]
     [SerializeField] GameObject Mark;
 
+    public ObjectReferenceManeger objManeger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,8 @@ public class DonutSphereReference : MonoBehaviour
         if (!Mark.activeSelf)
         {
             Mark.SetActive(true);
-            Debug.Log("marked");
+
+            objManeger.EntryToUnion(this.gameObject);
         }
     }
 }

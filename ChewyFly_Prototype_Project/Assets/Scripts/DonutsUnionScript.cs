@@ -43,9 +43,10 @@ public class DonutsUnionScript : MonoBehaviour
         {
             i.GetComponent<Rigidbody>().isKinematic = true;
             i.transform.parent = this.transform;
-            
+            i.GetComponent<DonutSphereReference>().DisableMark();
         }
 
+        //もとオブジェクトを移動させる
         for (int i = 0; i < donutSpheres.Count; i++)
         {
             Vector3 lineUpPos = Vector3.zero;

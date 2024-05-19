@@ -34,4 +34,9 @@ public class DonutSphereReference : MonoBehaviour
             objManeger.EntryToUnion(this.gameObject);
         }
     }
+
+    public void DisableMark()
+    {
+        Mark.SetActive(false);
+    }
 }

@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class PlayerCameraRotation : MonoBehaviour
 {
-    [SerializeField] private GameObject cam;
-    InputScript input;
+    protected InputScript input;
+
+    [Tooltip("プレイヤーを映すカメラ")]
+    [SerializeField] protected GameObject playerCamera;
 
     [Tooltip("カメラの回転の速さ")]
     [SerializeField] float sensityvity = 180f;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()//Startよりさらに前に格納しておく
     {
-        if (cam == null)
-            cam = GameObject.Find("Main Camera");
         input = GetComponent<InputScript>();
+        if (playerCamera == null)
+            playerCamera = GameObject.Find("PlayerCameraParent");
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()//Updateの後にカメラの位置を制御する
     {
         float rot = 0;
-        if (input.isRotateCameraRight())
-            rot++;
-        if (input.isRotateCameraLeft())
-            rot--;
-        rot = rot * sensityvity * Time.deltaTime;
-        transform.Rotate(Vector3.up, rot);
+        if(input.isRotateCameraRight() && input.isRotateCameraLeft())//同時押しで視点リセット
+        {
+            playerCamera.transform.rotation = transform.rotation;
+        }
+        else
+        {
+            if (input.isRotateCameraRight())
+                rot++;
+            if (input.isRotateCameraLeft())
+                rot--;
+            playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+        }
+        playerCamera.transform.position = transform.position;//カメラをプレイヤーに移動させる
     }
 }

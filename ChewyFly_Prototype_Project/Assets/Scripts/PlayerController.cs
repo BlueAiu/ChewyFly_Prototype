@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PlayerCameraRotation
 {
     CharacterController character;
-    InputScript input;
+    //InputScript input;
 
     [Tooltip("移動の速さ")]
     [SerializeField] float speed = 5f;
@@ -14,17 +14,19 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("重力加速度")]
     [SerializeField] float gravity = 10f;
-
+    
     [Tooltip("ジャンプ力")]
     [SerializeField] float jumpPower = 3f;
     [Tooltip("終端速度 (jumpPower以上にすること)")]
     [SerializeField] float terminalVelocity = 3f;
 
+    [Tooltip("プレイヤーが移動方向に向く速さ")]
+    [SerializeField] float playerRotateSpeed = 450f;
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<CharacterController>();
-        input = GetComponent<InputScript>();
+        //input = GetComponent<InputScript>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,13 @@ public class PlayerController : MonoBehaviour
     {
         //移動
         var direction = input.isMove();
+        direction = playerCamera.transform.TransformDirection(direction);
+
+        if(direction.magnitude > 0)//入力されているなら
+        {
+            UpdateRotation(direction);
+        }
+
         character.Move(direction * (speed *  Time.deltaTime));
 
         velocityY -= gravity * Time.deltaTime;
@@ -46,6 +55,12 @@ public class PlayerController : MonoBehaviour
                 velocityY = jumpPower;
             }
         }
+    }
+    private void UpdateRotation(Vector3 dir)
+    {
+        Quaternion from = transform.rotation;
+        Quaternion to = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.RotateTowards(from, to, playerRotateSpeed * Time.deltaTime);
     }
 
 }

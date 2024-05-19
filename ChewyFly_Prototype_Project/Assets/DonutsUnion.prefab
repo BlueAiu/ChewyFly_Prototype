@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602fc29223cdd044fb8f71edd2813e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objManeger: {fileID: 0}
+  donutSpheres: []
+  overHeadHeight: 0.5
+  donutRadius: 0.8

@@ -7,6 +7,7 @@ public class DonutSphereReference : MonoBehaviour
     [Tooltip("自分の子の印オブジェクト")]
     [SerializeField] GameObject Mark;
 
+    [Tooltip("生成時に生成主から参照を渡される")]
     public ObjectReferenceManeger objManeger;
 
     // Start is called before the first frame update

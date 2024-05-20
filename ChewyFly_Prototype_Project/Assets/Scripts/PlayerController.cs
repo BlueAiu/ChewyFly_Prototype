@@ -63,4 +63,11 @@ public class PlayerController : PlayerCameraRotation
         transform.rotation = Quaternion.RotateTowards(from, to, playerRotateSpeed * Time.deltaTime);
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Donuts")
+        {
+            hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+        }
+    }
 }

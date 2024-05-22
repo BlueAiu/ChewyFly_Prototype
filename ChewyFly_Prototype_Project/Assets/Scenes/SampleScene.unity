@@ -327,6 +327,8 @@ MonoBehaviour:
   jumpPower: 5
   terminalVelocity: 5
   playerRotateSpeed: 450
+  flicBorder: 0.3
+  flicSpeed: 25
 --- !u!114 &270912496
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,9 @@ public class PlayerController : PlayerCameraRotation
     CharacterController character;
     //InputScript input;
 
+    [Tooltip("乗ってるドーナツ")]
+    [SerializeField] GameObject ridingDonut;
+
     [Tooltip("移動の速さ")]
     [SerializeField] float speed = 5f;
 
@@ -41,11 +44,17 @@ public class PlayerController : PlayerCameraRotation
             UpdateRotation(direction);
         }
 
-        character.Move(direction * (speed *  Time.deltaTime));
+        //character.Move(direction * (speed *  Time.deltaTime));
 
         velocityY -= gravity * Time.deltaTime;
         velocityY = Mathf.Max(velocityY, -terminalVelocity);
-        character.Move(Vector3.up * (velocityY * Time.deltaTime));
+        //character.Move(Vector3.up * (velocityY * Time.deltaTime));
+
+        Vector3 velocity = direction * speed + Vector3.up * velocityY;
+        if(ridingDonut == null)
+        {
+            character.Move(velocity * Time.deltaTime);
+        }
 
         //ジャンプ
         if (character.isGrounded)
@@ -67,7 +76,7 @@ public class PlayerController : PlayerCameraRotation
     {
         if (hit.gameObject.tag == "Donuts")
         {
-            hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+            //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
         }
     }
 }

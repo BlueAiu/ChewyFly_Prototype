@@ -67,7 +67,7 @@ public class PlayerController : PlayerCameraRotation
     {
         if (hit.gameObject.tag == "Donuts")
         {
-            hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+            //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
         }
     }
 }

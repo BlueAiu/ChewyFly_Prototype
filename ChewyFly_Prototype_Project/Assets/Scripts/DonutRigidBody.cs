@@ -16,6 +16,8 @@ public class DonutRigidBody : MonoBehaviour
     [Tooltip("’ïR—ÍŒW”")]
     [SerializeField] float resistance = 2f;
 
+    Vector3 impulse = Vector3.zero;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,17 +31,33 @@ public class DonutRigidBody : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        if(impulse != Vector3.zero)
+        {
+            rb.AddForce(impulse, ForceMode.Impulse);
+            impulse = Vector3.zero;
+        }
+    }
+
+    public void TakeImpulse(Vector3 _impulse)
+    {
+        impulse = _impulse;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if(other.name == "Oil")
         {
-            //•‚—Í
+            //’¾‚ñ‚Å‚¢‚é‘ÌÏ‚ğ‹‚ß‚é
             float depth = surfaceY - transform.position.y;
             float sinkVolume = Mathf.Min(depth + transform.localScale.y / 2, transform.localScale.y);
+
+            //•‚—Í
             rb.AddForce(Vector3.up * buoyancy * sinkVolume);
 
             //–€C—Í
-            rb.AddForce(-rb.velocity.normalized * rb.velocity.sqrMagnitude * resistance);
+            rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * resistance * sinkVolume));
         }
     }
 }

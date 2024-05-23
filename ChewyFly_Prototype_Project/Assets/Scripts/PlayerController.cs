@@ -33,6 +33,8 @@ public class PlayerController : PlayerCameraRotation
     [SerializeField] float flicBorder = 0.1f;
     [Tooltip("弾いたと判定する早さ")]
     [SerializeField] float flicSpeed = 5f;
+    [Tooltip("弾く力の強さ")]
+    [SerializeField] float flicPower = 20f;
     
     // Start is called before the first frame update
     void Start()
@@ -67,8 +69,11 @@ public class PlayerController : PlayerCameraRotation
         }
         else    //ドーナツの上に乗ってる場合
         {
-            if (isFlic(direction)) 
-                Debug.Log(-previousDirection.normalized);
+            if (isFlic(direction))
+            {
+                ridingDonut.GetComponent<DonutRigidBody>().
+                    TakeImpulse(previousDirection.normalized * -flicPower);
+            }
 
             previousDirection = direction;
         }

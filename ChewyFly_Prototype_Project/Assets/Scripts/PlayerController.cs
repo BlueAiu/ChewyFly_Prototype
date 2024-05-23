@@ -67,8 +67,14 @@ public class PlayerController : PlayerCameraRotation
                 velocityY = jumpPower;
             }
         }
-        else    //ドーナツの上に乗ってる場合
+    }
+
+    private void FixedUpdate()
+    {
+        if (ridingDonut != null)    //ドーナツに乗っている場合
         {
+            var direction = input.isMove();
+
             if (isFlic(direction))
             {
                 ridingDonut.GetComponent<DonutRigidBody>().
@@ -78,8 +84,6 @@ public class PlayerController : PlayerCameraRotation
             previousDirection = direction;
         }
     }
-
-
 
     private void UpdateRotation(Vector3 dir)
     {
@@ -96,7 +100,7 @@ public class PlayerController : PlayerCameraRotation
         if(previousDirection.sqrMagnitude <= flicBorder * flicBorder) return false;
 
         float deltaMagnitude = previousDirection.magnitude - dir.magnitude;
-        float rightInputSpeed = deltaMagnitude / Time.deltaTime;
+        float rightInputSpeed = deltaMagnitude / Time.fixedDeltaTime;
 
         if(rightInputSpeed > flicSpeed) return true;
         else return false;

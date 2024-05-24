@@ -74,6 +74,7 @@ public class PlayerController : PlayerCameraRotation
         if (ridingDonut != null)    //ドーナツに乗っている場合
         {
             var direction = input.isMove();
+            direction = playerCamera.transform.TransformDirection(direction);
 
             if (isFlic(direction))
             {

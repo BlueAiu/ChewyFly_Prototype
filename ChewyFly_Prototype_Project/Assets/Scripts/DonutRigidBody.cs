@@ -5,6 +5,7 @@ using UnityEngine;
 public class DonutRigidBody : MonoBehaviour
 {
     Rigidbody rb;
+    DonutsUnionScript union;
 
     [Header("ドーナツの浮力")]
     [Tooltip("浮力係数")]
@@ -23,12 +24,13 @@ public class DonutRigidBody : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        union = GetComponent<DonutsUnionScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -43,6 +45,7 @@ public class DonutRigidBody : MonoBehaviour
     public void TakeImpulse(Vector3 _impulse)
     {
         impulse = _impulse;
+        union.IsSticky = true;
     }
 
     private void OnTriggerStay(Collider other)

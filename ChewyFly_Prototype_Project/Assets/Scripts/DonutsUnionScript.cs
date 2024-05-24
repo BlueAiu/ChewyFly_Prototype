@@ -31,7 +31,7 @@ public class DonutsUnionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rb.velocity.sqrMagnitudeÅ@< stickySpeed * stickySpeed)
+        if (rb.velocity.sqrMagnitude < stickySpeed * stickySpeed)
         {
             IsSticky = false;
         }

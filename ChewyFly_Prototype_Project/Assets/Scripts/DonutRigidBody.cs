@@ -18,6 +18,9 @@ public class DonutRigidBody : MonoBehaviour
     [SerializeField] float resistance = 2f;
 
     Vector3 impulse = Vector3.zero;
+    Vector3 bounce = Vector3.zero;
+    [Tooltip("ƒoƒEƒ“ƒh‚Ì‹­‚³")]
+    [SerializeField] float boundPower = 20f;
 
 
     // Start is called before the first frame update
@@ -37,15 +40,21 @@ public class DonutRigidBody : MonoBehaviour
     {
         if(impulse != Vector3.zero)
         {
-            rb.AddForce(impulse, ForceMode.Impulse);
+            rb.AddForce(impulse, ForceMode.VelocityChange);
             impulse = Vector3.zero;
+            union.IsSticky = true;
+        }
+        
+        if (bounce != Vector3.zero)
+        {
+            rb.AddForce(bounce, ForceMode.VelocityChange);
+            bounce = Vector3.zero;
         }
     }
 
     public void TakeImpulse(Vector3 _impulse)
     {
-        impulse = _impulse;
-        union.IsSticky = true;
+        impulse += _impulse;
     }
 
     private void OnTriggerStay(Collider other)
@@ -61,6 +70,17 @@ public class DonutRigidBody : MonoBehaviour
 
             //–€ŽC—Í
             rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * resistance * sinkVolume));
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!union.IsSticky)
+        {
+            Vector3 boundDirection = transform.position - collision.transform.position;
+            boundDirection = boundDirection.normalized;
+
+            bounce += boundDirection * boundPower;
         }
     }
 }

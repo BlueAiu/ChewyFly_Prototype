@@ -94,6 +94,7 @@ MonoBehaviour:
   buoyancy: 20
   surfaceY: 0
   resistance: 2
+  boundPower: 2
 --- !u!1001 &5611300720236083268
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buoyancy: 20
-  surfaceY: 0
+  surfaceY: 1
   resistance: 2
   boundPower: 2
 --- !u!1001 &5611300720236083268

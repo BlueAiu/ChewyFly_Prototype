@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419900560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83d1b7c1224785642b1af9aa7078491b, type: 3}
   m_Name: 
@@ -1440,6 +1440,9 @@ MonoBehaviour:
   donutSphere: {fileID: 6765854060826148155, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   donutNeedSpheres: 6
+  spawnMin: {x: -5, y: 0, z: -5}
+  spawnMax: {x: 5, y: 2, z: 5}
+  spawnCount: 30
 --- !u!4 &1419900562
 Transform:
   m_ObjectHideFlags: 0
@@ -1449,7 +1452,7 @@ Transform:
   m_GameObject: {fileID: 1419900560}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42707554, y: 2.3574598, z: -0.5022686}
+  m_LocalPosition: {x: -0.02, y: 2.3574598, z: -0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

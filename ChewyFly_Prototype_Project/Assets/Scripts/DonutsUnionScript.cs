@@ -22,6 +22,10 @@ public class DonutsUnionScript : MonoBehaviour
     [Tooltip("ドーナツがくっつく速さ")]
     [SerializeField] public float stickySpeed = 5f;
 
+    int unionCount = 1;
+    [Tooltip("合体の最大数")]
+    [SerializeField] int unionCountMax = 6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +72,7 @@ public class DonutsUnionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Donuts" && IsSticky) 
+        if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
         {
             int childCount = collision.transform.childCount;
 
@@ -77,6 +81,7 @@ public class DonutsUnionScript : MonoBehaviour
                 var child = collision.transform.GetChild(0);
                 child.parent = transform;
                 child.localPosition -= new Vector3(0, child.localPosition.y, 0);
+                unionCount++;
             }
 
             rb.mass += collision.gameObject.GetComponent<Rigidbody>().mass;

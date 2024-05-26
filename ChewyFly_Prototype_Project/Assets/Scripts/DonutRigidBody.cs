@@ -22,6 +22,8 @@ public class DonutRigidBody : MonoBehaviour
     [Tooltip("ÉoÉEÉìÉhÇÃã≠Ç≥")]
     [SerializeField] float boundPower = 20f;
 
+    float torque = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +52,19 @@ public class DonutRigidBody : MonoBehaviour
             rb.AddForce(bounce, ForceMode.VelocityChange);
             bounce = Vector3.zero;
         }
+
+        rb.AddTorque(Vector3.up * torque, ForceMode.Acceleration);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }
 
     public void TakeImpulse(Vector3 _impulse)
     {
         impulse += _impulse;
+    }
+
+    public void SetTorque(float _torque)
+    {
+        torque = _torque;
     }
 
     private void OnTriggerStay(Collider other)
@@ -68,8 +78,10 @@ public class DonutRigidBody : MonoBehaviour
             //ïÇóÕ
             rb.AddForce(Vector3.up * buoyancy * sinkVolume);
 
-            //ñÄéCóÕ
+            //íÔçRóÕ
             rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * resistance * sinkVolume));
+
+            rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * resistance * sinkVolume));
         }
     }
 

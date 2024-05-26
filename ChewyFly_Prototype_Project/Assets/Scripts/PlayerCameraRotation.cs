@@ -22,18 +22,22 @@ public class PlayerCameraRotation : MonoBehaviour
     void LateUpdate()//Updateの後にカメラの位置を制御する
     {
         float rot = 0;
-        if(input.isRotateCameraRight() && input.isRotateCameraLeft())//同時押しで視点リセット
-        {
-            playerCamera.transform.rotation = transform.rotation;
-        }
-        else
-        {
-            if (input.isRotateCameraRight())
-                rot++;
-            if (input.isRotateCameraLeft())
-                rot--;
-            playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
-        }
+        //if(input.isRotateCameraRight() && input.isRotateCameraLeft())//同時押しで視点リセット
+        //{
+        //    playerCamera.transform.rotation = transform.rotation;
+        //}
+        //else
+        //{
+        //    if (input.isRotateCameraRight())
+        //        rot++;
+        //    if (input.isRotateCameraLeft())
+        //        rot--;
+        //    playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+        //}
+
+        rot = input.isRightStick().x;
+        playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+
         playerCamera.transform.position = transform.position;//カメラをプレイヤーに移動させる
     }
 }

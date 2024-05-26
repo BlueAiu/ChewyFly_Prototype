@@ -35,6 +35,9 @@ public class PlayerController : PlayerCameraRotation
     [SerializeField] float flicSpeed = 5f;
     [Tooltip("’e‚­—Í‚Ì‹­‚³")]
     [SerializeField] float flicPower = 20f;
+
+    [Tooltip("ƒh[ƒiƒc‚ğ‰ñ“]‚³‚¹‚é‘¬‚³")]
+    [SerializeField] float rotateSpeed = 5f;
     
     // Start is called before the first frame update
     void Start()
@@ -76,11 +79,16 @@ public class PlayerController : PlayerCameraRotation
             var direction = input.isMove();
             direction = playerCamera.transform.TransformDirection(direction);
 
+            var dounutRigid = ridingDonut.GetComponent<DonutRigidBody>();
+
+            //’e‚«“ü—Í
             if (isFlic(direction))
             {
-                ridingDonut.GetComponent<DonutRigidBody>().
-                    TakeImpulse(previousDirection.normalized * -flicPower);
+                dounutRigid.TakeImpulse(previousDirection.normalized * -flicPower);
             }
+
+            //‰ñ“]“ü—Í
+            dounutRigid.SetTorque(RotateInput() * rotateSpeed);
 
             previousDirection = direction;
         }
@@ -105,6 +113,16 @@ public class PlayerController : PlayerCameraRotation
 
         if(rightInputSpeed > flicSpeed) return true;
         else return false;
+    }
+
+    private float RotateInput()
+    {
+        float rotate = 0;
+        if (input.isRotateCameraRight())
+            rotate++;
+        if (input.isRotateCameraLeft())
+            rotate--;
+        return rotate;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

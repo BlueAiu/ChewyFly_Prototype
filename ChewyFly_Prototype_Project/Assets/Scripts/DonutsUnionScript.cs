@@ -17,16 +17,28 @@ public class DonutsUnionScript : MonoBehaviour
     [Tooltip("ドーナツの半径")]
     [SerializeField] float donutRadius = 1f;
 
+    Rigidbody rb;
+    public bool IsSticky { get; set; } = false;
+    [Tooltip("ドーナツがくっつく速さ")]
+    [SerializeField] public float stickySpeed = 5f;
+
+    int unionCount = 1;
+    [Tooltip("合体の最大数")]
+    [SerializeField] int unionCountMax = 6;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (rb.velocity.sqrMagnitude < stickySpeed * stickySpeed)
+        {
+            IsSticky = false;
+        }
     }
 
     public int AddSphere(GameObject obj)
@@ -55,6 +67,26 @@ public class DonutsUnionScript : MonoBehaviour
             lineUpPos *= donutRadius;
 
             donutSpheres[i].transform.position = transform.position +  lineUpPos;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
+        {
+            int childCount = collision.transform.childCount;
+
+            for(int i=0;i < childCount;i++)
+            {
+                var child = collision.transform.GetChild(0);
+                child.parent = transform;
+                child.localPosition -= new Vector3(0, child.localPosition.y, 0);
+                unionCount++;
+            }
+
+            rb.mass += collision.gameObject.GetComponent<Rigidbody>().mass;
+            Destroy(collision.gameObject);
+            IsSticky = false;
         }
     }
 }

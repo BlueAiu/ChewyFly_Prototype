@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6421514284340536435}
   m_Layer: 0
   m_Name: DonutsUnion
-  m_TagString: Untagged
+  m_TagString: Donuts
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,8 @@ MonoBehaviour:
   donutSpheres: []
   overHeadHeight: 0.5
   donutRadius: 0.8
+  stickySpeed: 1
+  unionCountMax: 6
 --- !u!54 &-6562012546730319946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -91,8 +93,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buoyancy: 20
-  surfaceY: 0
+  surfaceY: 1
   resistance: 2
+  boundPower: 2
 --- !u!1001 &5611300720236083268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,18 +104,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5622882611163696344}
     m_Modifications:
-    - target: {fileID: 1085881880835205373, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1085881880835205373, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
-      propertyPath: parentRigid
-      value: 
-      objectReference: {fileID: -6421514284340536435}
-    - target: {fileID: 6713655924170542141, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6757372017237255268, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -157,14 +148,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DonutSphere
       objectReference: {fileID: 0}
-    - target: {fileID: 7948449793892154402, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7948449793892154402, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 1226123547215074387ef7e8a320c0d9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

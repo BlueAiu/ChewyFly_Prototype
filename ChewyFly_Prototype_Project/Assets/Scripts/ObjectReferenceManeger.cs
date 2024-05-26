@@ -19,6 +19,13 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("ドーナツに必要なもとの数")]
     [SerializeField] int donutNeedSpheres = 6;
 
+    [Header("生成する範囲")]
+    [SerializeField] Vector3 spawnMin = Vector3.zero;
+    [SerializeField] Vector3 spawnMax = Vector3.zero;
+
+    [Tooltip("生成する数")]
+    [SerializeField] int spawnCount = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +36,10 @@ public class ObjectReferenceManeger : MonoBehaviour
         //Vector3 p = new Vector3(1, 2, 1);
         //CreateDonutSphere(p);
 
-        CreateDonutUnion();
+        for(int i = 0; i < spawnCount; i++)
+        {
+            CreateDonutUnion(RandomVector());
+        }
     }
 
     // Update is called once per frame
@@ -38,11 +48,18 @@ public class ObjectReferenceManeger : MonoBehaviour
         
     }
 
-    public void CreateDonutUnion()
+    Vector3 RandomVector()
     {
-        GameObject newUnion = Instantiate(donutUnion) as GameObject;
+        return new Vector3(Random.Range(spawnMin.x,spawnMax.x),
+            Random.Range(spawnMin.y,spawnMax.y),
+            Random.Range(spawnMin.z,spawnMax.z));
+    }
+
+    public void CreateDonutUnion(Vector3 position)
+    {
+        GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
-        currentDonutsUnion = newUnion.GetComponent<DonutsUnionScript>();
+        //currentDonutsUnion = newUnion.GetComponent<DonutsUnionScript>();
     }
 
     public void CreateDonutSphere(Vector3 position)

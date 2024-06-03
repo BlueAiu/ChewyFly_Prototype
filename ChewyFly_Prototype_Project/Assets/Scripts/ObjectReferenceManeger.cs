@@ -16,8 +16,8 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツ合体オブジェクト")]
     [SerializeField] GameObject donutUnion;
 
-    [Tooltip("ドーナツに必要なもとの数")]
-    [SerializeField] int donutNeedSpheres = 6;
+    //[Tooltip("ドーナツに必要なもとの数")]
+    //[SerializeField] int donutNeedSpheres = 6;
 
     [Header("生成する範囲")]
     [SerializeField] Vector3 spawnMin = Vector3.zero;
@@ -62,18 +62,20 @@ public class ObjectReferenceManeger : MonoBehaviour
         //currentDonutsUnion = newUnion.GetComponent<DonutsUnionScript>();
     }
 
-    public void CreateDonutSphere(Vector3 position)
-    {
-        GameObject newSphere = Instantiate(donutSphere, position, Quaternion.identity) as GameObject;
-        newSphere.GetComponent<DonutSphereReference>().objManeger = this;
-    }
+    //没
+    //public void CreateDonutSphere(Vector3 position)
+    //{
+    //    GameObject newSphere = Instantiate(donutSphere, position, Quaternion.identity) as GameObject;
+    //    newSphere.GetComponent<DonutSphereReference>().objManeger = this;
+    //}
 
-    public void EntryToUnion(GameObject obj)
-    {
-        int sphereCount = currentDonutsUnion.AddSphere(obj);
-        if(sphereCount >= donutNeedSpheres)
-        {
-            currentDonutsUnion.CombineDonuts(player.transform.position);
-        }
-    }
+    //没
+    //public void EntryToUnion(GameObject obj)
+    //{
+    //    int sphereCount = currentDonutsUnion.AddSphere(obj);
+    //    if(sphereCount >= donutNeedSpheres)
+    //    {
+    //        currentDonutsUnion.CombineDonuts(player.transform.position);
+    //    }
+    //}
 }

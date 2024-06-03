@@ -14,8 +14,10 @@ public class DonutRigidBody : MonoBehaviour
     [SerializeField] float surfaceY = 0f;
 
     [Header("油中の抵抗力")]
-    [Tooltip("抵抗力係数")]
-    [SerializeField] float resistance = 2f;
+    [Tooltip("移動の抵抗力係数")]
+    [SerializeField] float movementResistance = 2f;
+    [Tooltip("回転の抵抗力係数")]
+    [SerializeField] float rotationResistance = 2f;
 
     Vector3 impulse = Vector3.zero;
     Vector3 bounce = Vector3.zero;
@@ -24,12 +26,16 @@ public class DonutRigidBody : MonoBehaviour
 
     float torque = 0;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        union = GetComponent<DonutsUnionScript>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        union = GetComponent<DonutsUnionScript>();
+
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class DonutRigidBody : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //プレイヤーから受け取った弾き入力
         if(impulse != Vector3.zero)
         {
             rb.AddForce(impulse, ForceMode.VelocityChange);
@@ -47,21 +54,26 @@ public class DonutRigidBody : MonoBehaviour
             union.IsSticky = true;
         }
         
+        //ドーナツ同士の衝突時に受け取ったバウンド
         if (bounce != Vector3.zero)
         {
-            rb.AddForce(bounce, ForceMode.VelocityChange);
+            rb.AddForce(bounce, ForceMode.Impulse);
             bounce = Vector3.zero;
         }
 
+        //プレイヤーから受け取った回転入力
         rb.AddTorque(Vector3.up * torque, ForceMode.Acceleration);
+        //乗ってるドーナツが転覆しないようにする
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }
 
+    //プレイヤーから弾き入力を受け取る
     public void TakeImpulse(Vector3 _impulse)
     {
         impulse += _impulse;
     }
 
+    //プレイヤーから回転入力を受け取る
     public void SetTorque(float _torque)
     {
         torque = _torque;
@@ -69,6 +81,7 @@ public class DonutRigidBody : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        //油に浸かっているとき
         if(other.name == "Oil")
         {
             //沈んでいる体積を求める
@@ -79,19 +92,22 @@ public class DonutRigidBody : MonoBehaviour
             rb.AddForce(Vector3.up * buoyancy * sinkVolume);
 
             //抵抗力
-            rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * resistance * sinkVolume));
+            rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * movementResistance * sinkVolume));
 
-            rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * resistance * sinkVolume));
+            rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * rotationResistance * sinkVolume));
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        //ドーナツ同士のバウンド
         if (!union.IsSticky)
         {
+            //バウンドの方向を計算
             Vector3 boundDirection = transform.position - collision.transform.position;
             boundDirection = boundDirection.normalized;
 
+            //バウンドの力量を保存
             bounce += boundDirection * boundPower;
         }
     }

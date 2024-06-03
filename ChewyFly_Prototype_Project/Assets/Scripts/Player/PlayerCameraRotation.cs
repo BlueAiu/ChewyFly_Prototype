@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCameraRotation : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerCameraRotation : MonoBehaviour
     void LateUpdate()//Updateの後にカメラの位置を制御する
     {
         float rot = 0;
+        //Debug.Log(Gamepad.current.rightStickButton.isPressed);
         //if(input.isRotateCameraRight() && input.isRotateCameraLeft())//同時押しで視点リセット
         //{
         //    playerCamera.transform.rotation = transform.rotation;

@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : PlayerCameraRotation
+public class PlayerController : MonoBehaviour
 {
     CharacterController character;
-    //InputScript input;
+    InputScript input;
+
+    [Tooltip("プレイヤーを映すカメラ")]
+    [SerializeField] protected GameObject playerCamera;
 
     [Tooltip("乗ってるドーナツ")]
     [SerializeField] GameObject ridingDonut;
 
+    [Header("空中にいるときの移動")]
     [Tooltip("移動の速さ")]
     [SerializeField] float speed = 5f;
 
@@ -26,9 +30,9 @@ public class PlayerController : PlayerCameraRotation
     [Tooltip("プレイヤーが移動方向に向く速さ")]
     [SerializeField] float playerRotateSpeed = 450f;
 
-    [Header("ドーナツを弾く")]
     Vector3 previousDirection = Vector3.zero;
 
+    [Header("ドーナツの上に乗っている場合の弾き操作")]
     [Tooltip("小さいと判定する境界")]
     [SerializeField] float flicBorder = 0.1f;
     [Tooltip("弾いたと判定する早さ")]
@@ -38,18 +42,25 @@ public class PlayerController : PlayerCameraRotation
 
     [Tooltip("ドーナツを回転させる速さ")]
     [SerializeField] float rotateSpeed = 5f;
-    
+
+    private void Awake()//Startよりさらに前に格納しておく
+    {
+        character = GetComponent<CharacterController>();
+        input = GetComponent<InputScript>();
+        if (playerCamera == null)
+            playerCamera = GameObject.Find("PlayerCameraParent");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        character = GetComponent<CharacterController>();
-        //input = GetComponent<InputScript>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        var direction = input.isMove();
+        var direction = input.isLeftStick();
         direction = playerCamera.transform.TransformDirection(direction);
 
         UpdateRotation(direction);
@@ -65,7 +76,7 @@ public class PlayerController : PlayerCameraRotation
             character.Move(velocity * Time.deltaTime);
 
             //ジャンプ
-            if (character.isGrounded && input.isJump())
+            if (character.isGrounded && input.isAButton())
             {
                 velocityY = jumpPower;
             }
@@ -76,7 +87,7 @@ public class PlayerController : PlayerCameraRotation
     {
         if (ridingDonut != null)    //ドーナツに乗っている場合
         {
-            var direction = input.isMove();
+            var direction = input.isLeftStick();
             direction = playerCamera.transform.TransformDirection(direction);
 
             var dounutRigid = ridingDonut.GetComponent<DonutRigidBody>();
@@ -94,6 +105,8 @@ public class PlayerController : PlayerCameraRotation
         }
     }
 
+    //左スティックの方向にプレイヤーの正面を向ける
+    //FacingForward
     private void UpdateRotation(Vector3 dir)
     {
         if (dir.sqrMagnitude <= 0) return;  //入力されているなら
@@ -118,9 +131,9 @@ public class PlayerController : PlayerCameraRotation
     private float RotateInput()
     {
         float rotate = 0;
-        if (input.isRotateCameraRight())
+        if (input.isRightShoulder())
             rotate++;
-        if (input.isRotateCameraLeft())
+        if (input.isLeftShoulder())
             rotate--;
         return rotate;
     }

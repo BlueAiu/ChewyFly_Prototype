@@ -330,6 +330,7 @@ MonoBehaviour:
   flicBorder: 0.3
   flicSpeed: 25
   flicPower: 5
+  rotateSpeed: 5
 --- !u!114 &270912496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +338,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270912489}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d30033de56fae0146bfe61fd3bdc18c4, type: 3}
   m_Name: 
@@ -2031,6 +2032,10 @@ PrefabInstance:
     - target: {fileID: -6421514284340536435, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: surfaceY
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6421514284340536435, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+      propertyPath: resistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5622882611163696344, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: m_LocalPosition.x

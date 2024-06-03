@@ -11,11 +11,11 @@ public class DonutsUnionScript : MonoBehaviour
     [SerializeField]
     List<GameObject> donutSpheres = new List<GameObject>();
 
-    [Header("合体時")]
-    [Tooltip("プレイヤーの頭上の高さ")]
-    [SerializeField] float overHeadHeight = 2f;
-    [Tooltip("ドーナツの半径")]
-    [SerializeField] float donutRadius = 1f;
+    //[Header("合体時")]
+    //[Tooltip("プレイヤーの頭上の高さ")]
+    //[SerializeField] float overHeadHeight = 2f;
+    //[Tooltip("ドーナツの半径")]
+    //[SerializeField] float donutRadius = 1f;
 
     Rigidbody rb;
     public bool IsSticky { get; set; } = false;
@@ -26,49 +26,58 @@ public class DonutsUnionScript : MonoBehaviour
     [Tooltip("合体の最大数")]
     [SerializeField] int unionCountMax = 6;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //速度が遅いとくっつかない
         if (rb.velocity.sqrMagnitude < stickySpeed * stickySpeed)
         {
             IsSticky = false;
         }
     }
 
-    public int AddSphere(GameObject obj)
-    {
-        donutSpheres.Add(obj);
-        return donutSpheres.Count;
-    }
+    //ドーナツをリストに追加(没)
+    //public int AddSphere(GameObject obj)
+    //{
+    //    donutSpheres.Add(obj);
+    //    return donutSpheres.Count;
+    //}
 
-    public void CombineDonuts(Vector3 position)
-    {
-        transform.position = position + Vector3.up * overHeadHeight;
+    //印のついたドーナツを合体(没)
+    //public void CombineDonuts(Vector3 position)
+    //{
+    //    transform.position = position + Vector3.up * overHeadHeight;
 
-        foreach(var i in donutSpheres)
-        {
-            i.GetComponent<Rigidbody>().isKinematic = true;
-            i.transform.parent = this.transform;
-            i.GetComponent<DonutSphereReference>().DisableMark();
-        }
+    //    //もとオブジェクトを自分の子にする
+    //    foreach(var i in donutSpheres)
+    //    {
+    //        i.GetComponent<Rigidbody>().isKinematic = true;
+    //        i.transform.parent = this.transform;
+    //        i.GetComponent<DonutSphereReference>().DisableMark();
+    //    }
 
-        //もとオブジェクトを移動させる
-        for (int i = 0; i < donutSpheres.Count; i++)
-        {
-            Vector3 lineUpPos = Vector3.zero;
-            lineUpPos.x = Mathf.Cos(i * Mathf.PI / (donutSpheres.Count / 2));
-            lineUpPos.z = Mathf.Sin(i * Mathf.PI / (donutSpheres.Count / 2));
-            lineUpPos *= donutRadius;
+    //    //もとオブジェクトを移動させる
+    //    for (int i = 0; i < donutSpheres.Count; i++)
+    //    {
+    //        Vector3 lineUpPos = Vector3.zero;
+    //        lineUpPos.x = Mathf.Cos(i * Mathf.PI / (donutSpheres.Count / 2));
+    //        lineUpPos.z = Mathf.Sin(i * Mathf.PI / (donutSpheres.Count / 2));
+    //        lineUpPos *= donutRadius;
 
-            donutSpheres[i].transform.position = transform.position +  lineUpPos;
-        }
-    }
+    //        donutSpheres[i].transform.position = transform.position +  lineUpPos;
+    //    }
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -76,6 +85,7 @@ public class DonutsUnionScript : MonoBehaviour
         {
             int childCount = collision.transform.childCount;
 
+            //相手の子を全てこっちに移す
             for(int i=0;i < childCount;i++)
             {
                 var child = collision.transform.GetChild(0);
@@ -84,8 +94,11 @@ public class DonutsUnionScript : MonoBehaviour
                 unionCount++;
             }
 
+            //質量を加算
             rb.mass += collision.gameObject.GetComponent<Rigidbody>().mass;
+            //衝突相手を消去
             Destroy(collision.gameObject);
+            //くっつけた直後はくっつかない
             IsSticky = false;
         }
     }

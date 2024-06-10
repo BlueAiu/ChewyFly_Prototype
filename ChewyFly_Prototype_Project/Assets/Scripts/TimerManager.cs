@@ -1,25 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class TimerManager : MonoBehaviour
+public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
 {
     [Tooltip("プレイヤー")]
     [SerializeField] GameObject player;
-
-    [Tooltip("ゲームの制限時間(秒)")]
-    [SerializeField] float timeLimit = 180f;
-
-    [Tooltip("カウントダウンの1ごとの秒数")]
-    [SerializeField] float timePerCountdown = 1f;
 
     [Tooltip("カウントダウンのテキスト")]
     [SerializeField] TextMeshProUGUI countdownText;
 
     [Tooltip("制限時間のテキスト")]
-    [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] Image timerCircleImage;
+    //[Tooltip("制限時間のテキスト")]
+    //[SerializeField] TextMeshProUGUI timerText;
+
+    [Header("ゲームの制限時間")]
+    [Tooltip("ゲームの制限時間(秒)")]
+    [SerializeField] float timeLimit = 180f;
+
+    [Tooltip("カウントダウンの1ごとの秒数")]//例えば0.5にすれば1.5秒で始まります
+    [SerializeField] float timePerCountdown = 1f;
 
     float countdownTimer;
     float timer;
@@ -30,20 +34,21 @@ public class TimerManager : MonoBehaviour
             player = GameObject.FindWithTag("Player");
         player.GetComponent<PlayerController>().enabled = false;
 
-
         countdownText.enabled = true;
         countdownText.text = "3";
-
         countdownTimer = timePerCountdown * 3f;
+
         timer = timeLimit;
-        timerText.enabled = true;
-        timerText.text = (Mathf.Floor(timer * 10) / 10).ToString();
+        timerCircleImage.fillAmount = 1f;
+
+        //timerText.enabled = true;
+        //timerText.text = (Mathf.Floor(timer * 10) / 10).ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (countdownTimer > 0)
+        if (countdownTimer > 0)//カウントダウン状態
         {
             countdownTimer -= Time.deltaTime;
             countdownText.text = ((int)(countdownTimer / timePerCountdown) + 1).ToString();
@@ -56,7 +61,7 @@ public class TimerManager : MonoBehaviour
         }
         else
         {
-            if(-1 < countdownTimer)//ゲームスタートを表示する余韻
+            if(-1 < countdownTimer)//"ゲームスタート"を表示する余韻
             {
                 countdownTimer -= Time.deltaTime;
                 if(countdownTimer < -1)
@@ -65,17 +70,22 @@ public class TimerManager : MonoBehaviour
                 }
                 else
                 {
-                    countdownText.alpha = 1 + countdownTimer;
+                    countdownText.alpha = 1 + countdownTimer;//すこしずつ透明にしていきます
                 }
             }
 
-            timer -= Time.deltaTime; 
-            timerText.text = (Mathf.Floor(timer * 10) / 10).ToString();
+            GamePlayTimer();
+        }
+    }
+    void GamePlayTimer()
+    {
+        timer -= Time.deltaTime;
+        timerCircleImage.fillAmount = timer / timeLimit;
 
-            if (timer <= 0)//終了
-            {
-                SceneManager.LoadScene("ResultScene");
-            }
+        //timerText.text = (Mathf.Floor(timer * 10) / 10).ToString();
+        if (timer <= 0)//終了
+        {
+            SceneManager.LoadScene("ResultScene");
         }
     }
 }

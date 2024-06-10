@@ -11,7 +11,7 @@ public class ResultManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        restartButton.Select();//始まった時点でスタートボタンを選択状態にしておきます
+        restartButton.Select();//始まった時点でリスタートボタンを選択状態にしておきます
     }
 
     // Update is called once per frame

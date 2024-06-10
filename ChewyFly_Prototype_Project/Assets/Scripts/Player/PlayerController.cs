@@ -74,12 +74,12 @@ public class PlayerController : MonoBehaviour
             Vector3 velocity = direction * speed + Vector3.up * velocityY;
 
             character.Move(velocity * Time.deltaTime);
-
-            //ジャンプ
-            if (character.isGrounded && input.isAButton())
-            {
-                velocityY = jumpPower;
-            }
+        }
+        else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ
+        {
+            ridingDonut = null;
+            transform.parent = null;
+            velocityY = jumpPower;
         }
     }
 
@@ -140,8 +140,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "Donuts")
+        if (hit.gameObject.tag == "Donuts" && character.isGrounded) //ドーナツに着地
         {
+            ridingDonut = hit.transform.parent.gameObject;
+            transform.parent = ridingDonut.transform;
             //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
         }
     }

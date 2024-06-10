@@ -7,11 +7,14 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("プレイヤー")]
     [SerializeField] GameObject player;
 
-    [Tooltip("完成時に新しいものに変えられる")]
-    public DonutsUnionScript currentDonutsUnion;
+    [Tooltip("ゲーム上のドーナツ達")]
+    [SerializeField] List<GameObject> donutsList;
 
-    [Tooltip("生成するドーナツのもと")]
-    [SerializeField] GameObject donutSphere;
+    //[Tooltip("完成時に新しいものに変えられる")]
+    //public DonutsUnionScript currentDonutsUnion;
+
+    //[Tooltip("生成するドーナツのもと")]
+    //[SerializeField] GameObject donutSphere;
 
     [Tooltip("生成するドーナツ合体オブジェクト")]
     [SerializeField] GameObject donutUnion;
@@ -59,7 +62,34 @@ public class ObjectReferenceManeger : MonoBehaviour
     {
         GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
+        donutsList.Add(newUnion);
         //currentDonutsUnion = newUnion.GetComponent<DonutsUnionScript>();
+    }
+
+    public void RemoveDonut(GameObject donut)
+    {
+        donutsList.Remove(donut);
+        Destroy(donut);
+    }
+
+    //プレイヤーと最も距離の近いドーナツを探す
+    public GameObject ClosestDonut()
+    {
+        GameObject closestDonut = null;
+        float closestSqrDistance = float.MaxValue;
+
+        foreach(var donut in donutsList)
+        {
+            float sqrDistnce = (player.transform.position - donut.transform.position).sqrMagnitude;
+
+            if(sqrDistnce < closestSqrDistance)
+            {
+                closestDonut = donut;
+                closestSqrDistance = sqrDistnce;
+            }
+        }
+
+        return closestDonut;
     }
 
     //没

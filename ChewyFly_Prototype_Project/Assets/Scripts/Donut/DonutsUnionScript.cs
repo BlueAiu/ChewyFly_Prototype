@@ -97,7 +97,8 @@ public class DonutsUnionScript : MonoBehaviour
             //¿—Ê‚ğ‰ÁZ
             rb.mass += collision.gameObject.GetComponent<Rigidbody>().mass;
             //Õ“Ë‘Šè‚ğÁ‹
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            objManeger.RemoveDonut(collision.gameObject);
             //‚­‚Á‚Â‚¯‚½’¼Œã‚Í‚­‚Á‚Â‚©‚È‚¢
             IsSticky = false;
         }

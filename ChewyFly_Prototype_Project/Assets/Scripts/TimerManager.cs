@@ -57,12 +57,14 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
         if (countdownTimer > 0)//カウントダウン状態
         {
             countdownTimer -= Time.deltaTime;
-            countdownText.text = ((int)(countdownTimer / timePerCountdown) + 1).ToString();
-
             if (countdownTimer <= 0)
             {
                 player.GetComponent<PlayerController>().enabled = true;
                 countdownText.text = "GameStart!";
+            }
+            else
+            {
+                countdownText.text = ((int)(countdownTimer / timePerCountdown) + 1).ToString();
             }
         }
         else

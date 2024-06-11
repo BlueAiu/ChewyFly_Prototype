@@ -25,8 +25,14 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [Tooltip("カウントダウンの1ごとの秒数")]//例えば0.5にすれば1.5秒で始まります
     [SerializeField] float timePerCountdown = 1f;
 
+    [Tooltip("ゲームスタート!が消えるまでの時間")]
+    [SerializeField] float countdownFadeTime = 1f;
+
     float countdownTimer;
     float timer;
+
+    const int countdownNum = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +41,8 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
         player.GetComponent<PlayerController>().enabled = false;
 
         countdownText.enabled = true;
-        countdownText.text = "3";
-        countdownTimer = timePerCountdown * 3f;
+        countdownText.text = countdownNum.ToString();
+        countdownTimer = timePerCountdown * countdownNum;
 
         timer = timeLimit;
         timerCircleImage.fillAmount = 1f;
@@ -61,16 +67,16 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
         }
         else
         {
-            if(-1 < countdownTimer)//"ゲームスタート"を表示する余韻
+            if(-countdownFadeTime < countdownTimer)//"ゲームスタート"を表示する余韻
             {
                 countdownTimer -= Time.deltaTime;
-                if(countdownTimer < -1)
+                if(countdownTimer <= -countdownFadeTime)
                 {
                     countdownText.enabled = false;
                 }
                 else
                 {
-                    countdownText.alpha = 1 + countdownTimer;//すこしずつ透明にしていきます
+                    countdownText.alpha = 1 +  countdownTimer / countdownFadeTime;//すこしずつ透明にしていきます
                 }
             }
 

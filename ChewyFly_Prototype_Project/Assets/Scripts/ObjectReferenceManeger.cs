@@ -29,6 +29,9 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成する数")]
     [SerializeField] int spawnCount = 10;
 
+    [Tooltip("完成したドーナツを置く先")]
+    [SerializeField] Vector3 storageArea;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +93,14 @@ public class ObjectReferenceManeger : MonoBehaviour
         }
 
         return closestDonut;
+    }
+
+    public void CompleteDonut(GameObject donut)
+    {
+        donutsList.Remove(donut);
+        player.GetComponent<PlayerController>().DetachDonut();
+
+        donut.transform.position = storageArea;
     }
 
     //没

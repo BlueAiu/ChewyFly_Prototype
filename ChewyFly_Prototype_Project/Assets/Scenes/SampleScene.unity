@@ -261,11 +261,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 1746990158}
   ridingDonut: {fileID: 39569745}
+  objManeger: {fileID: 1419900561}
   speed: 2
   gravity: 10
   jumpPower: 5
   terminalVelocity: 5
   playerRotateSpeed: 450
+  aboveDonut: 1
   flicBorder: 0.3
   flicSpeed: 25
   flicPower: 5
@@ -1743,6 +1745,7 @@ MonoBehaviour:
   spawnMin: {x: -5, y: 0, z: -5}
   spawnMax: {x: 5, y: 2, z: 5}
   spawnCount: 30
+  storageArea: {x: 13, y: 2, z: 0}
 --- !u!4 &1419900562
 Transform:
   m_ObjectHideFlags: 0
@@ -1765,7 +1768,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419900560}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43aaf64acfe95314faf1a8d096f3af24, type: 3}
   m_Name: 
@@ -1775,6 +1778,7 @@ MonoBehaviour:
   timerCircleImage: {fileID: 1308142869}
   timeLimit: 5
   timePerCountdown: 0.6
+  countdownFadeTime: 1
 --- !u!1 &1491997713
 GameObject:
   m_ObjectHideFlags: 0

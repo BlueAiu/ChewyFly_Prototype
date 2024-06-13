@@ -10,8 +10,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーを映すカメラ")]
     [SerializeField] protected GameObject playerCamera;
 
-    [Tooltip("乗ってるドーナツ")]
+    [Tooltip("乗っているドーナツ")]
     [SerializeField] GameObject ridingDonut;
+
+    [Tooltip("ゲームルールオブジェクト")]
+    [SerializeField] ObjectReferenceManeger objManeger;
 
     [Header("空中にいるときの移動")]
     [Tooltip("移動の速さ")]
@@ -29,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("プレイヤーが移動方向に向く速さ")]
     [SerializeField] float playerRotateSpeed = 450f;
+
+    [Tooltip("ドーナツの上に移動させるときのy座標のずれ")]
+    [SerializeField] float aboveDonut = 1f;
 
     Vector3 previousDirection = Vector3.zero;
 
@@ -77,8 +83,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ
         {
-            ridingDonut = null;
-            transform.parent = null;
+            DetachDonut();
             velocityY = jumpPower;
         }
     }
@@ -103,6 +108,19 @@ public class PlayerController : MonoBehaviour
 
             previousDirection = direction;
         }
+    }
+
+    public void DetachDonut()
+    {
+        ridingDonut = null;
+        transform.parent = null;
+    }
+
+    public void AttachDonut(GameObject donut)
+    {
+        if (donut.GetComponent<DonutsUnionScript>().IsComplete) return;
+        ridingDonut = donut;
+        transform.parent = donut.transform;
     }
 
     //左スティックの方向にプレイヤーの正面を向ける
@@ -142,9 +160,18 @@ public class PlayerController : MonoBehaviour
     {
         if (hit.gameObject.tag == "Donuts" && character.isGrounded) //ドーナツに着地
         {
-            ridingDonut = hit.transform.parent.gameObject;
-            transform.parent = ridingDonut.transform;
+            AttachDonut(hit.transform.parent.gameObject);
             //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.name == "Oil")   //油に着水
+        {
+            DetachDonut();
+            var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
+            character.Move(targetPos - transform.position);
         }
     }
 }

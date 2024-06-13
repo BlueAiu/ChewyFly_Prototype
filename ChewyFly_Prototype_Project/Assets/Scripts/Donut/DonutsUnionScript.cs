@@ -18,13 +18,18 @@ public class DonutsUnionScript : MonoBehaviour
     //[SerializeField] float donutRadius = 1f;
 
     Rigidbody rb;
+    //くっつけられる状態であるか
     public bool IsSticky { get; set; } = false;
     [Tooltip("ドーナツがくっつく速さ")]
     [SerializeField] public float stickySpeed = 5f;
 
+    //くっついているドーナツの数
     int unionCount = 1;
     [Tooltip("合体の最大数")]
     [SerializeField] int unionCountMax = 6;
+
+    //ドーナツが完成しているか
+    public bool IsComplete { get; private set; } = false;
 
     private void Awake()
     {
@@ -101,6 +106,13 @@ public class DonutsUnionScript : MonoBehaviour
             objManeger.RemoveDonut(collision.gameObject);
             //くっつけた直後はくっつかない
             IsSticky = false;
+
+            if(unionCount >= unionCountMax) //ドーナツが完成する
+            {
+                IsComplete = true;
+                rb.velocity = Vector3.zero;
+                objManeger.CompleteDonut(this.gameObject);
+            }
         }
     }
 }

@@ -7,12 +7,9 @@ public class LoadSceneManager : MonoBehaviour
 {
     void Awake()
     {
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1.0f;//TimeScaleは最初で1にしておく
     }
-    void Update()
-    {
-        Debug.Log(Time.timeScale);
-    }
+
     public void LoadSceneName(string sceneName)//渡されたシーン名のシーンを読み込みます
     {
         SceneManager.LoadScene(sceneName);

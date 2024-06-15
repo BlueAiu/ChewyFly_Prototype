@@ -20,9 +20,4 @@ public class TitleManager : MonoBehaviour
     {
         
     }
-
-    public void LoadSceneName(string sceneName)//渡されたシーン名のシーンを読み込みます
-    {
-        SceneManager.LoadScene(sceneName);
-    }
 }

@@ -21,7 +21,6 @@ public class PauseScreen : MonoBehaviour
     void Awake()
     {
         input = GetComponent<InputScript>();
-        isPause = false;
         SetMenuActive(false);
     }
 
@@ -32,13 +31,11 @@ public class PauseScreen : MonoBehaviour
         {
             if (isPause)
             {
-                isPause = false;
                 Time.timeScale = 1f;
                 SetMenuActive(false);
             }
             else
             {
-                isPause = true;
                 Time.timeScale = 0;
                 SetMenuActive(true);
             }
@@ -46,6 +43,7 @@ public class PauseScreen : MonoBehaviour
     }
     void SetMenuActive(bool isActive)//メニューの表示/非表示
     {
+        isPause = isActive;
         pauseMenuParent.SetActive(isActive);
         if (isActive)
         {

@@ -614,6 +614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1191623651}
   - component: {fileID: 1191623650}
+  - component: {fileID: 1191623652}
   m_Layer: 0
   m_Name: TitleSceneManager
   m_TagString: Untagged
@@ -651,6 +652,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1191623652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191623649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8b8b3e892c88c4ea4197ca53b82266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1442029377
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,8 +986,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1191623650}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+      - m_Target: {fileID: 1191623652}
+        m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
         m_MethodName: LoadSceneName
         m_Mode: 5
         m_Arguments:

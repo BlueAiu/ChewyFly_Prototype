@@ -16,11 +16,16 @@ public class DonutSphereColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetComponent<Renderer>().material = materials[ColorNum];
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void BakeDonut()
     {
         if (colorNum < changeTimes.Length)
         {

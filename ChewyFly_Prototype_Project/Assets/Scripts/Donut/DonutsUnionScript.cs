@@ -7,7 +7,7 @@ public class DonutsUnionScript : MonoBehaviour
     [Tooltip("生成時に生成主から参照を渡される")]
     public ObjectReferenceManeger objManeger;
 
-    [Tooltip("印のついたもとを記録するリスト")]
+    [Tooltip("子のドーナツを記録するリスト")]
     [SerializeField]
     List<GameObject> donutSpheres = new List<GameObject>();
 
@@ -31,6 +31,9 @@ public class DonutsUnionScript : MonoBehaviour
     //ドーナツが完成しているか
     public bool IsComplete { get; private set; } = false;
 
+    //ドーナツの質量の増加倍率
+    [SerializeField] float donutMassRate = 1f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -39,7 +42,10 @@ public class DonutsUnionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (donutSpheres.Count == 0)
+        {
+            donutSpheres.Add(transform.GetChild(0).gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -96,13 +102,13 @@ public class DonutsUnionScript : MonoBehaviour
                 var child = collision.transform.GetChild(0);
                 child.parent = transform;
                 child.localPosition -= new Vector3(0, child.localPosition.y, 0);
+                donutSpheres.Add(child.gameObject);
                 unionCount++;
             }
 
-            //質量を加算
-            rb.mass += collision.gameObject.GetComponent<Rigidbody>().mass;
+            //質量を計算
+            rb.mass = 1 + (unionCount - 1) * donutMassRate;
             //衝突相手を消去
-            //Destroy(collision.gameObject);
             objManeger.RemoveDonut(collision.gameObject);
             //くっつけた直後はくっつかない
             IsSticky = false;
@@ -112,6 +118,17 @@ public class DonutsUnionScript : MonoBehaviour
                 IsComplete = true;
                 rb.velocity = Vector3.zero;
                 objManeger.CompleteDonut(this.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.name == "Oil") //油に浸かっている時焼き色を変える
+        {
+            foreach(var sphere in donutSpheres)
+            {
+                sphere.GetComponent<DonutSphereColor>().BakeDonut();
             }
         }
     }

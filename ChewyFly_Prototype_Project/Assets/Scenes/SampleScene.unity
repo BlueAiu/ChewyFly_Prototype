@@ -2791,12 +2791,12 @@ PrefabInstance:
       objectReference: {fileID: 1419900561}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: donutSpheres.Array.size
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: donutSpheres.Array.data[0]
       value: 
-      objectReference: {fileID: 39569745}
+      objectReference: {fileID: 2004534475}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: donutSpheres.Array.data[1]
       value: 
@@ -2873,6 +2873,11 @@ PrefabInstance:
       addedObject: {fileID: 270912494}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+--- !u!1 &2004534475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1169383588995368319, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  m_PrefabInstance: {fileID: 1971711229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2048943895
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class DonutSphereColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Renderer>().material = materials[ColorNum];
+        GetComponent<Renderer>().material = materials[colorNum];
     }
 
     // Update is called once per frame

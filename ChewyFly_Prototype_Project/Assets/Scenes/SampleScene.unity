@@ -2142,7 +2142,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419900560}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43aaf64acfe95314faf1a8d096f3af24, type: 3}
   m_Name: 
@@ -2817,6 +2817,10 @@ PrefabInstance:
       propertyPath: donutSpheres.Array.data[5]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4772831859787862167, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f55992f07ed63ed4ca527d4dc0f55e07, type: 2}
     - target: {fileID: 5622882611163696344, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

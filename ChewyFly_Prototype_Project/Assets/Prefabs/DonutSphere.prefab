@@ -95,8 +95,7 @@ GameObject:
   - component: {fileID: 6531868320890708267}
   - component: {fileID: 1144997391326390483}
   - component: {fileID: 7948449793892154402}
-  - component: {fileID: 1085881880835205373}
-  - component: {fileID: 6713655924170542141}
+  - component: {fileID: 1061263262009397273}
   m_Layer: 0
   m_Name: DonutSphere
   m_TagString: Donuts
@@ -191,23 +190,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1085881880835205373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6765854060826148155}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b166917c8e12d414799d708d23b49089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buoyancy: 30
-  surfaceY: 1
-  resistance: 2
-  boundPower: 20
---- !u!114 &6713655924170542141
+--- !u!114 &1061263262009397273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,8 +199,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6765854060826148155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d67b719905bac6479d4c22e7d2479b9, type: 3}
+  m_Script: {fileID: 11500000, guid: ad02972278afe08408ae08b3da271637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mark: {fileID: 237316681018038718}
-  objManeger: {fileID: 0}
+  materials:
+  - {fileID: 2100000, guid: f55992f07ed63ed4ca527d4dc0f55e07, type: 2}
+  - {fileID: 2100000, guid: 535c557d0fc9ba94fb6a4e082613b012, type: 2}
+  - {fileID: 2100000, guid: 4a1bbb0bb6f7aab44b98f200556f8c9f, type: 2}
+  - {fileID: 2100000, guid: 4ceede03011a8d0418d759db044ad837, type: 2}
+  changeTimes:
+  - 3
+  - 3
+  - 3

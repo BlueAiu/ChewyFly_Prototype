@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objManeger: {fileID: 0}
-  donutSpheres: []
-  overHeadHeight: 0.5
-  donutRadius: 0.8
+  donutSpheres:
+  - {fileID: 1169383588995368319}
   stickySpeed: 1
   unionCountMax: 6
+  donutMassRate: 1
 --- !u!54 &-6562012546730319946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -94,7 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buoyancy: 20
   surfaceY: 1
-  resistance: 2
+  movementResistance: 2
+  rotationResistance: 2
   boundPower: 2
 --- !u!1001 &5611300720236083268
 PrefabInstance:
@@ -156,5 +157,10 @@ PrefabInstance:
 --- !u!4 &1159776179046571040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6757372017237255268, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
+  m_PrefabInstance: {fileID: 5611300720236083268}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1169383588995368319 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6765854060826148155, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
   m_PrefabInstance: {fileID: 5611300720236083268}
   m_PrefabAsset: {fileID: 0}

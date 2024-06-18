@@ -26,8 +26,14 @@ public class ObjectReferenceManeger : MonoBehaviour
     [SerializeField] Vector3 spawnMin = Vector3.zero;
     [SerializeField] Vector3 spawnMax = Vector3.zero;
 
-    [Tooltip("生成する数")]
-    [SerializeField] int spawnCount = 10;
+    [Tooltip("ゲーム開始直後に生成する数")]
+    [SerializeField] int startSpawnCount = 10;
+
+    [Tooltip("時間ごとに生成する周期")]
+    [SerializeField] float spawnTimePeriod = 5f;
+
+    [Tooltip("最低限ゲーム上に存在するドーナツの数")]
+    [SerializeField] int minimumDonutCount = 15;
 
     [Tooltip("完成したドーナツを置く先")]
     [SerializeField] Vector3 storageArea;
@@ -42,16 +48,21 @@ public class ObjectReferenceManeger : MonoBehaviour
         //Vector3 p = new Vector3(1, 2, 1);
         //CreateDonutSphere(p);
 
-        for(int i = 0; i < spawnCount; i++)
+        for(int i = 0; i < startSpawnCount; i++)
         {
-            CreateDonutUnion(RandomVector());
+            CreateDonutUnion();
         }
+
+        InvokeRepeating(nameof(CreateDonutUnion), spawnTimePeriod, spawnTimePeriod);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(donutsList.Count < minimumDonutCount)
+        {
+            CreateDonutUnion();
+        }
     }
 
     Vector3 RandomVector()
@@ -61,8 +72,9 @@ public class ObjectReferenceManeger : MonoBehaviour
             Random.Range(spawnMin.z,spawnMax.z));
     }
 
-    public void CreateDonutUnion(Vector3 position)
+    public void CreateDonutUnion()
     {
+        var position = RandomVector();
         GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
@@ -71,6 +83,10 @@ public class ObjectReferenceManeger : MonoBehaviour
 
     public void RemoveDonut(GameObject donut)
     {
+        if(player.transform.parent == donut.transform)
+        {
+            player.GetComponent<PlayerController>().DetachDonut();
+        }
         donutsList.Remove(donut);
         Destroy(donut);
     }

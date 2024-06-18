@@ -131,7 +131,7 @@ public class DonutsUnionScript : MonoBehaviour
             {
                 var sphereColor = sphere.GetComponent<DonutSphereColor>();
                 sphereColor.BakeDonut();
-                bakedValue += sphereColor.BakedValue();
+                bakedValue += sphereColor.BakedNum;
             }
 
             if(bakedValue == (int)DonutBakedState.Burnt * donutSpheres.Count)   //全て焦げた時、ドーナツを消去

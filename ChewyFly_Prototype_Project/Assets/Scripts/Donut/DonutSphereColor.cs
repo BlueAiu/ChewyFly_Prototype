@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum DonutBakedState
+{
+    Unburnt,
+    First,
+    Second,
+    Burnt
+}
+
 public class DonutSphereColor : MonoBehaviour
 {
     [Tooltip("ドーナツの色マテリアル")]
@@ -38,5 +46,10 @@ public class DonutSphereColor : MonoBehaviour
                 changeTimer = 0f;
             }
         }
+    }
+
+    public int BakedValue()
+    {
+        return colorNum;
     }
 }

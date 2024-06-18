@@ -124,11 +124,19 @@ public class DonutsUnionScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.name == "Oil") //油に浸かっている時焼き色を変える
+        if(other.name == "Oil") //油に浸かっている時
         {
-            foreach(var sphere in donutSpheres)
+            int bakedValue = 0;
+            foreach(var sphere in donutSpheres) //焼き色を変える
             {
-                sphere.GetComponent<DonutSphereColor>().BakeDonut();
+                var sphereColor = sphere.GetComponent<DonutSphereColor>();
+                sphereColor.BakeDonut();
+                bakedValue += sphereColor.BakedValue();
+            }
+
+            if(bakedValue == (int)DonutBakedState.Burnt * donutSpheres.Count)   //全て焦げた時、ドーナツを消去
+            {
+                objManeger.RemoveDonut(gameObject);
             }
         }
     }

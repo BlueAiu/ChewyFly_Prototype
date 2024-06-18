@@ -71,6 +71,10 @@ public class ObjectReferenceManeger : MonoBehaviour
 
     public void RemoveDonut(GameObject donut)
     {
+        if(player.transform.parent == donut.transform)
+        {
+            player.GetComponent<PlayerController>().DetachDonut();
+        }
         donutsList.Remove(donut);
         Destroy(donut);
     }

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DonutsUnionScript : MonoBehaviour
+public partial class DonutsUnionScript : MonoBehaviour
 {
     [Tooltip("生成時に生成主から参照を渡される")]
     public ObjectReferenceManeger objManeger;
 
     [Tooltip("子のドーナツを記録するリスト")]
-    [SerializeField]
-    List<GameObject> donutSpheres = new List<GameObject>();
+    [SerializeField] public
+    Dictionary<GameObject, Transform[]>donutSpheres = new Dictionary<GameObject, Transform[]>();
 
     //[Header("合体時")]
     //[Tooltip("プレイヤーの頭上の高さ")]
@@ -44,7 +44,7 @@ public class DonutsUnionScript : MonoBehaviour
     {
         if (donutSpheres.Count == 0)
         {
-            donutSpheres.Add(transform.GetChild(0).gameObject);
+            donutSpheres.Add(transform.GetChild(0).gameObject, new Transform[triConnection]);
         }
     }
 
@@ -92,28 +92,12 @@ public class DonutsUnionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
         {
-            int childCount = collision.transform.childCount;
+            MergeDonuts(collision);
 
-            //相手の子を全てこっちに移す
-            for(int i=0;i < childCount;i++)
-            {
-                var child = collision.transform.GetChild(0);
-                child.parent = transform;
-                child.localPosition -= new Vector3(0, child.localPosition.y, 0);
-                donutSpheres.Add(child.gameObject);
-                unionCount++;
-            }
-
-            //質量を計算
-            rb.mass = 1 + (unionCount - 1) * donutMassRate;
-            //衝突相手を消去
-            objManeger.RemoveDonut(collision.gameObject);
-            //くっつけた直後はくっつかない
-            IsSticky = false;
-
-            if(unionCount >= unionCountMax) //ドーナツが完成する
+            if (unionCount >= unionCountMax) //ドーナツが完成する
             {
                 IsComplete = true;
                 rb.velocity = Vector3.zero;
@@ -129,7 +113,7 @@ public class DonutsUnionScript : MonoBehaviour
             int bakedValue = 0;
             foreach(var sphere in donutSpheres) //焼き色を変える
             {
-                var sphereColor = sphere.GetComponent<DonutSphereColor>();
+                var sphereColor = sphere.Key.GetComponent<DonutSphereColor>();
                 sphereColor.BakeDonut();
                 bakedValue += sphereColor.BakedNum;
             }

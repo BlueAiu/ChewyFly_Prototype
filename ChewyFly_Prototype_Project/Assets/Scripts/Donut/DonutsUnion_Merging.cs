@@ -26,7 +26,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         var ourHitSphere = ContactSphere(transform, hitPoint);
         var otherHitSphere = ContactSphere(otherDonut, hitPoint);
 
-        ConnectDonuts(ourHitSphere, otherHitSphere, hitPoint, out connectDirection);
+        ConnectHitDonuts(ourHitSphere, otherHitSphere, hitPoint, out connectDirection);
 
         AdjustRotation(otherDonut, connectDirection);
 
@@ -65,7 +65,8 @@ public partial class DonutsUnionScript : MonoBehaviour
         for (int i = 0; i < childCount; i++)
         {
             var sphere = parents.GetChild(i);
-            if (sphere.tag != "Donuts") break;
+            if (sphere.tag != "Donuts") continue;
+            
             float Distance = (hitPoint - sphere.position).sqrMagnitude;
 
             if( Distance < minDistance )
@@ -78,14 +79,16 @@ public partial class DonutsUnionScript : MonoBehaviour
         return returnSphere;
     }
 
-    void ConnectDonuts(Transform ourDonut, Transform otherDonut, Vector3 hitPoint, out Vector3 connectDirection)
+    void ConnectHitDonuts(Transform ourDonut, Transform otherDonut, Vector3 hitPoint, out Vector3 connectDirection)
     {
         connectDirection = Vector3.zero;
         //自分のドーナツの接続に相手のを登録
         int connectNum = 0;
         float minDistance = float.MaxValue;
-        for (int i = 0; i < fullCircleRadian / triRadian; i++) 
+        for (int i = 0; i < triConnection; i++) 
         {
+            if (donutSpheres[ourDonut.gameObject][i] != null) continue;
+
             var connectPoint = ourDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
             float distance = (transform.TransformPoint(connectPoint) - otherDonut.position).sqrMagnitude;
 
@@ -100,11 +103,14 @@ public partial class DonutsUnionScript : MonoBehaviour
         donutSpheres[ourDonut.gameObject][connectNum] = otherDonut;
 
         //相手のドーナツの接続に自分のを登録
+        var otherDonutSpheres = otherDonut.parent.GetComponent<DonutsUnionScript>().donutSpheres;
         minDistance = float.MaxValue;
-        for (int i = 0;i < fullCircleRadian / triRadian; i++)
+        for (int i = 0;i < triConnection; i++)
         {
-            var connextPoint = otherDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
-            float distance = (otherDonut.parent.TransformPoint(connextPoint) - ourDonut.position).sqrMagnitude;
+            if (otherDonutSpheres[otherDonut.gameObject][i] != null) continue;
+
+            var connectPoint = otherDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
+            float distance = (otherDonut.parent.TransformPoint(connectPoint) - ourDonut.position).sqrMagnitude;
 
             if(distance < minDistance)
             {
@@ -112,7 +118,7 @@ public partial class DonutsUnionScript : MonoBehaviour
                 minDistance = distance;
             }
         }
-        otherDonut.parent.GetComponent<DonutsUnionScript>().donutSpheres[otherDonut.gameObject][connectNum] = ourDonut;
+        otherDonutSpheres[otherDonut.gameObject][connectNum] = ourDonut;
     }
 
     //回転を調整する
@@ -140,26 +146,9 @@ public partial class DonutsUnionScript : MonoBehaviour
     //位置を調整する
     void AdjustPosition(Transform ourDonut, Transform otherDonut, Vector3 connectDirection)
     {
-        //Vector3 localOtherPosition = transform.InverseTransformPoint(otherDonut.position);
-        //float xCoefficient, yCoefficient;
-        //クラメルの公式を用いて三角座標を割り出す
-        // xCoefficient * triangleX + yCoefficient * triangleY = localOtherPosition
-        // xCoefficient * triangleX.x + yCoefficient * triangleY.x = localOtherPosition.x
-        // xCoefficient * triangleX.z + yCoefficient * triangleY.z = localOtherPosition.z
-        //xCoefficient = (localOtherPosition.x * triangleAxisY.z - localOtherPosition.z * triangleAxisY.x)
-        //    / (triangleAxisX.x * triangleAxisY.z - triangleAxisX.z * triangleAxisY.x);
-        //yCoefficient = (triangleAxisX.x * localOtherPosition.z - triangleAxisX.z * localOtherPosition.x)
-        //    / (triangleAxisX.x * triangleAxisY.z - triangleAxisX.z * triangleAxisY.x);
-        //sphereDistanceの整数倍になるように四捨五入
-        //xCoefficient = Mathf.Round(xCoefficient / sphereDistance) * sphereDistance;
-        //yCoefficient = Mathf.Round(yCoefficient / sphereDistance) * sphereDistance;
-
-        //Vector3 closePosition = xCoefficient * triangleAxisX + yCoefficient * triangleAxisY;
-        //otherDonut.position = transform.TransformPoint(closePosition);
-
-        Vector3 changePosition = otherDonut.position - transform.TransformPoint(ourDonut.localPosition + connectDirection);
+        Vector3 changePosition = transform.TransformPoint(ourDonut.localPosition + connectDirection) - otherDonut.position;
         otherDonut.parent.position += changePosition;
 
-        otherDonut.parent.position = transform.TransformPoint(ourDonut.localPosition + connectDirection) - otherDonut.localPosition;
+        //otherDonut.parent.position = transform.TransformPoint(ourDonut.localPosition + connectDirection) - otherDonut.localPosition;
     }
 }

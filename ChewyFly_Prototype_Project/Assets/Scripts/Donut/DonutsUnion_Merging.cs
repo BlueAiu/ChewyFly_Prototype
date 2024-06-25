@@ -23,12 +23,11 @@ public partial class DonutsUnionScript : MonoBehaviour
     {
         var otherDonut = otherDonutcol.transform;
         var hitPoint = otherDonutcol.contacts[0].point;
-        Vector3 connectDirection = Vector3.zero;
 
         var ourHitSphere = ContactSphere(transform, hitPoint);
         var otherHitSphere = ContactSphere(otherDonut, hitPoint);
 
-        ConnectHitDonuts(ourHitSphere, otherHitSphere, hitPoint, out connectDirection);
+        var connectDirection = ConnectDonutsDirection(ourHitSphere, otherHitSphere, hitPoint);
 
         AdjustRotation(otherDonut, connectDirection);
 
@@ -79,47 +78,29 @@ public partial class DonutsUnionScript : MonoBehaviour
         return returnSphere;
     }
 
-    void ConnectHitDonuts(Transform ourDonut, Transform otherDonut, Vector3 hitPoint, out Vector3 connectDirection)
+    //Ú‘±‚ÌŒü‚«‚ğ’²‚×‚é
+    Vector3 ConnectDonutsDirection(Transform ourDonut, Transform otherDonut, Vector3 hitPoint)
     {
-        connectDirection = Vector3.zero;
-        //©•ª‚Ìƒh[ƒiƒc‚ÌÚ‘±‚É‘Šè‚Ì‚ğ“o˜^
-        int connectNum = 0;
+        var connectDirection = Vector3.zero;
+
         float minDistance = float.MaxValue;
         for (int i = 0; i < triConnection; i++) 
         {
-            //if (donutSpheres[ourDonut.gameObject][i] != null) continue;
-
+            //Ú‘±æ‚ÌˆÊ’u‚©‚çÅ‚à‘Šè‚Ì‚à‚Ì‚Æ‹ß‚¢‚à‚Ì‚ğ’T‚·
             var connectPoint = ourDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
             if (hexaPositions.Contains(CloseHexaPosition(connectPoint))) continue;
+
             float distance = (transform.TransformPoint(connectPoint) - otherDonut.position).sqrMagnitude;
 
             if( distance < minDistance )
             {
-                connectNum = i;
                 minDistance = distance;
 
                 connectDirection = new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
             }
         }
-        //donutSpheres[ourDonut.gameObject][connectNum] = otherDonut;
 
-        //‘Šè‚Ìƒh[ƒiƒc‚ÌÚ‘±‚É©•ª‚Ì‚ğ“o˜^
-        var otherDonutSpheres = otherDonut.parent.GetComponent<DonutsUnionScript>().donutSpheres;
-        minDistance = float.MaxValue;
-        for (int i = 0;i < triConnection; i++)
-        {
-            //if (otherDonutSpheres[otherDonut.gameObject][i] != null) continue;
-
-            var connectPoint = otherDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
-            float distance = (otherDonut.parent.TransformPoint(connectPoint) - ourDonut.position).sqrMagnitude;
-
-            if(distance < minDistance)
-            {
-                connectNum = i;
-                minDistance = distance;
-            }
-        }
-        //otherDonutSpheres[otherDonut.gameObject][connectNum] = ourDonut;
+        return connectDirection;
     }
 
     //‰ñ“]‚ğ’²®‚·‚é

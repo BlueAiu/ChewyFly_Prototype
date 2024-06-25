@@ -53,6 +53,7 @@ MonoBehaviour:
   stickySpeed: 1
   unionCountMax: 6
   donutMassRate: 1
+  sphereDistance: 0.9
 --- !u!54 &-6562012546730319946
 Rigidbody:
   m_ObjectHideFlags: 0

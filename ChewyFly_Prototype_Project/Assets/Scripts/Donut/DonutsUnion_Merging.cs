@@ -11,11 +11,13 @@ public partial class DonutsUnionScript : MonoBehaviour
     const float fullCircleRadian = 2 * Mathf.PI;
     const int fullCircleDegrees = 360;
 
+    List<Vector2> hexaPositions = new List<Vector2>();
+
     [Tooltip("DonutSphere“¯Žm‚ÌŠÔ‚Ì‹——£")]
     [SerializeField] float sphereDistance = 0.8f;
 
-    //readonly Vector3 triangleAxisX = new Vector3 (1, 0, 0);
-    //readonly Vector3 triangleAxisY = new Vector3 (0.5f, 0, Mathf.Sqrt(3) / 2);
+    readonly Vector3 triangleAxisX = new Vector3 (1, 0, 0);
+    readonly Vector3 triangleAxisY = new Vector3 (0.5f, 0, Mathf.Sqrt(3) / 2);
 
     void MergeDonuts(Collision otherDonutcol)
     {
@@ -40,11 +42,9 @@ public partial class DonutsUnionScript : MonoBehaviour
             var child = otherDonut.GetChild(0);
             child.parent = transform;
             child.localPosition -= new Vector3(0, child.localPosition.y, 0);
+            donutSpheres.Add(child.gameObject);
+            hexaPositions.Add(CloseHexaPosition(child.localPosition));
             unionCount++;
-        }
-        foreach(var sphere in otherDonut.GetComponent<DonutsUnionScript>().donutSpheres)
-        {
-            donutSpheres.Add(sphere.Key, sphere.Value);
         }
 
         //Ž¿—Ê‚ðŒvŽZ
@@ -87,9 +87,10 @@ public partial class DonutsUnionScript : MonoBehaviour
         float minDistance = float.MaxValue;
         for (int i = 0; i < triConnection; i++) 
         {
-            if (donutSpheres[ourDonut.gameObject][i] != null) continue;
+            //if (donutSpheres[ourDonut.gameObject][i] != null) continue;
 
             var connectPoint = ourDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
+            if (hexaPositions.Contains(CloseHexaPosition(connectPoint))) continue;
             float distance = (transform.TransformPoint(connectPoint) - otherDonut.position).sqrMagnitude;
 
             if( distance < minDistance )
@@ -100,14 +101,14 @@ public partial class DonutsUnionScript : MonoBehaviour
                 connectDirection = new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
             }
         }
-        donutSpheres[ourDonut.gameObject][connectNum] = otherDonut;
+        //donutSpheres[ourDonut.gameObject][connectNum] = otherDonut;
 
         //‘ŠŽè‚Ìƒh[ƒiƒc‚ÌÚ‘±‚ÉŽ©•ª‚Ì‚ð“o˜^
         var otherDonutSpheres = otherDonut.parent.GetComponent<DonutsUnionScript>().donutSpheres;
         minDistance = float.MaxValue;
         for (int i = 0;i < triConnection; i++)
         {
-            if (otherDonutSpheres[otherDonut.gameObject][i] != null) continue;
+            //if (otherDonutSpheres[otherDonut.gameObject][i] != null) continue;
 
             var connectPoint = otherDonut.localPosition + new Vector3(Mathf.Cos(i * triRadian), 0, Mathf.Sin(i * triRadian)) * sphereDistance;
             float distance = (otherDonut.parent.TransformPoint(connectPoint) - ourDonut.position).sqrMagnitude;
@@ -118,7 +119,7 @@ public partial class DonutsUnionScript : MonoBehaviour
                 minDistance = distance;
             }
         }
-        otherDonutSpheres[otherDonut.gameObject][connectNum] = ourDonut;
+        //otherDonutSpheres[otherDonut.gameObject][connectNum] = ourDonut;
     }
 
     //‰ñ“]‚ð’²®‚·‚é
@@ -150,5 +151,26 @@ public partial class DonutsUnionScript : MonoBehaviour
         otherDonut.parent.position += changePosition;
 
         //otherDonut.parent.position = transform.TransformPoint(ourDonut.localPosition + connectDirection) - otherDonut.localPosition;
+    }
+
+    //˜ZŠpÀ•W‚ÅÅ‚à‹ß‚¢‚à‚Ì‚ð‹‚ß‚é
+    Vector2 CloseHexaPosition(Vector3 donutLocalPosition)
+    {
+        Vector2 hexaPosition = Vector2.zero;
+
+        //ƒNƒ‰ƒƒ‹‚ÌŒöŽ®‚ð—p‚¢‚ÄŽOŠpÀ•W‚ðŠ„‚èo‚·
+        // hexapos.x * triAxisX + hexapos.y * triAxisY = donutLocalPosition
+        // hexapos.x * triAxisX.x + hexapos.y * triAxisY.x = donutLocalPosition.x
+        // hexapos.x * triAxisX.z + hexapos.y * triAxisY.z = donutLocalPosition.z
+        hexaPosition.x = (donutLocalPosition.x * triangleAxisY.z - donutLocalPosition.z * triangleAxisY.x)
+            / (triangleAxisX.x * triangleAxisY.z - triangleAxisX.z * triangleAxisY.x);
+        hexaPosition.y = (triangleAxisX.x * donutLocalPosition.z - triangleAxisX.z * donutLocalPosition.x)
+            / (triangleAxisX.x * triangleAxisY.z - triangleAxisX.z * triangleAxisY.x);
+
+        //sphereDistance‚Ì®””{‚É‚È‚é‚æ‚¤‚ÉŽlŽÌŒÜ“ü
+        hexaPosition.x = Mathf.Round(hexaPosition.x);
+        hexaPosition.y = Mathf.Round(hexaPosition.y);
+
+        return hexaPosition;
     }
 }

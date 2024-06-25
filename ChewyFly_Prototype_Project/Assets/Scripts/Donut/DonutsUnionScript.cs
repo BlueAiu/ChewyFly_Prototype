@@ -9,7 +9,7 @@ public partial class DonutsUnionScript : MonoBehaviour
 
     [Tooltip("子のドーナツを記録するリスト")]
     [SerializeField] public
-    Dictionary<GameObject, Transform[]>donutSpheres = new Dictionary<GameObject, Transform[]>();
+    List<GameObject>donutSpheres = new List<GameObject>();
 
     //[Header("合体時")]
     //[Tooltip("プレイヤーの頭上の高さ")]
@@ -44,7 +44,11 @@ public partial class DonutsUnionScript : MonoBehaviour
     {
         if (donutSpheres.Count == 0)
         {
-            donutSpheres.Add(transform.GetChild(0).gameObject, new Transform[triConnection]);
+            donutSpheres.Add(transform.GetChild(0).gameObject);
+        }
+        if(hexaPositions.Count == 0)
+        {
+            hexaPositions.Add(Vector2.zero);
         }
     }
 
@@ -113,7 +117,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             int bakedValue = 0;
             foreach(var sphere in donutSpheres) //焼き色を変える
             {
-                var sphereColor = sphere.Key.GetComponent<DonutSphereColor>();
+                var sphereColor = sphere.GetComponent<DonutSphereColor>();
                 sphereColor.BakeDonut();
                 bakedValue += sphereColor.BakedNum;
             }

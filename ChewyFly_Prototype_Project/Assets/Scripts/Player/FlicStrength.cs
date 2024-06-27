@@ -9,28 +9,28 @@ public class FlicStrength : MonoBehaviour
     PlayerController playerController;
     InputScript input;
 
-    [SerializeField] GameObject arrow;
+    [SerializeField] GameObject arrowSprite;
+    [SerializeField] Transform arrowParent;
     [Header("矢印が最大何倍まで伸びるか(1以上)")]
     [SerializeField] float maxArrowLength;
 
     [SerializeField] float minFlicBorder;
 
-    [SerializeField] float maxScaleFactor;
-    Vector3 arrowLocalScale;
-
+    [Header("スティックを倒した時間における加える力")]
     [SerializeField] AnimationCurve flicPowerCurve;
     float lastPowerCurveTime;
 
-    //[SerializeField] float maxFlicTime;
+    [Header("最大までためた時の加える力")]
     [SerializeField] float maxFlicPower;
 
+    [Header("はじいたときの上方向への力")]
     [SerializeField] float flicUpPower;
 
+    Vector3 arrowLocalScale;
     float flicTime;
     Vector3 flicPreviousDirection;
     float arrowStretchOrigin;
     float arrowZSize;
-
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -38,16 +38,16 @@ public class FlicStrength : MonoBehaviour
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
         input = GetComponent<InputScript>();
-        arrowLocalScale = arrow.transform.localScale;
-        arrowStretchOrigin = arrow.transform.localPosition.z - arrowLocalScale.z / 2;
+        arrowLocalScale = arrowSprite.transform.localScale;
 
-        Renderer arrowRenderer = arrow.GetComponent<Renderer>();
+        Renderer arrowRenderer = arrowSprite.GetComponent<Renderer>();
         if (arrowRenderer != null)
         {
             // バウンディングボックスのサイズを取得
             Vector3 size =  arrowRenderer.bounds.size;
             arrowZSize = size.z;// z軸方向の大きさを取得
         }
+        arrowStretchOrigin = arrowSprite.transform.localPosition.z - arrowZSize / 2;
         Keyframe lastKey = flicPowerCurve.keys[flicPowerCurve.length - 1];
         lastPowerCurveTime = lastKey.time;
     }
@@ -61,10 +61,6 @@ public class FlicStrength : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
-    
-    private void FixedUpdate()
-    {
         if (playerController.ridingDonut != null)    //ドーナツに乗っている場合
         {
             var direction = input.isLeftStick();
@@ -72,50 +68,46 @@ public class FlicStrength : MonoBehaviour
 
             if (direction.sqrMagnitude > minFlicBorder * minFlicBorder)
             {
-                arrow.SetActive(true);
+                arrowSprite.SetActive(true);
                 flicTime += Time.deltaTime;
                 flicPreviousDirection = direction;
-                StretchArrow();
+                StretchArrow(direction);
             }
             else
             {
-                arrow.SetActive(false);
+                arrowSprite.SetActive(false);
                 if (flicTime > 0)
                 {
                     flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
                     float flicPower = flicPowerCurve.Evaluate(flicTime);
 
                     var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
-                    Debug.Log(flicPower * maxFlicPower + "で押された");
                     dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
                         + Vector3.up * flicUpPower);
                     flicTime = 0f;
                 }
             }
         }
+        else
+        {
+            arrowSprite.SetActive(false);
+            flicTime = 0f;
+        }
     }
-    void StretchArrow()
+
+    void StretchArrow(Vector3 arrowDir)//矢印を回転、引き延ばす
     {
+        Quaternion rotation = Quaternion.LookRotation(-arrowDir);
+        arrowParent.rotation = rotation;
         if (flicTime < lastPowerCurveTime)
         {
             float scaleFactor = 1 + (flicTime / lastPowerCurveTime) * (maxArrowLength - 1);
             // スケールを変更
             Vector3 newScale = arrowLocalScale;
             newScale.z *= scaleFactor;
-            arrow.transform.localScale = newScale;
+            arrowSprite.transform.localScale = newScale;
 
-            arrow.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
+            arrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
         }
     }
-    /*private bool isFlic(Vector3 dir)
-    {fixedPoint + arrow.transform.right * arrow.transform.localScale.x / 2
-        if (dir.sqrMagnitude > flicBorder * flicBorder) return false;
-        if (previousDirection.sqrMagnitude <= flicBorder * flicBorder) return false;
-
-        float deltaMagnitude = previousDirection.magnitude - dir.magnitude;
-        float rightInputSpeed = deltaMagnitude / Time.fixedDeltaTime;
-
-        if (rightInputSpeed > flicSpeed) return true;
-        else return false;
-    }*/
 }

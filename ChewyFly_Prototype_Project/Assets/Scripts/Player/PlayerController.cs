@@ -8,10 +8,10 @@ public class PlayerController : MonoBehaviour
     InputScript input;
 
     [Tooltip("プレイヤーを映すカメラ")]
-    [SerializeField] protected GameObject playerCamera;
+    [SerializeField] public GameObject playerCamera;
 
     [Tooltip("乗っているドーナツ")]
-    [SerializeField] GameObject ridingDonut;
+    [SerializeField] public GameObject ridingDonut;
 
     [Tooltip("ゲームルールオブジェクト")]
     [SerializeField] ObjectReferenceManeger objManeger;
@@ -92,17 +92,18 @@ public class PlayerController : MonoBehaviour
     {
         if (ridingDonut != null)    //ドーナツに乗っている場合
         {
+            
             var direction = input.isLeftStick();
             direction = playerCamera.transform.TransformDirection(direction);
 
             var dounutRigid = ridingDonut.GetComponent<DonutRigidBody>();
 
             //弾き入力
-            if (isFlic(direction))
-            {
-                dounutRigid.TakeImpulse(previousDirection.normalized * -flicPower);
-            }
-
+            //if (isFlic(direction))
+            //{
+            //    dounutRigid.TakeImpulse(previousDirection.normalized * -flicPower);
+            //}
+            
             //回転入力
             dounutRigid.SetTorque(RotateInput() * rotateSpeed);
 

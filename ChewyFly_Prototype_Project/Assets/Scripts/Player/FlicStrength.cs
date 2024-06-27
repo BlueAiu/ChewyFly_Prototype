@@ -17,6 +17,7 @@ public class FlicStrength : MonoBehaviour
     [SerializeField] float minFlicBorder;
 
     [Header("スティックを倒した時間における加える力")]
+    [Tooltip("最後のキーの横軸の値で力が最大までたまるまでの時間が決まります")]
     [SerializeField] AnimationCurve flicPowerCurve;
     float lastPowerCurveTime;
 

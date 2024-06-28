@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         character = GetComponent<CharacterController>();
         input = GetComponent<InputScript>();
         if (playerCamera == null)
-            playerCamera = GameObject.Find("PlayerCameraParent");
+            playerCamera = GameObject.Find("CameraAxes");
     }
 
     // Start is called before the first frame update

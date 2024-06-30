@@ -310,9 +310,6 @@ MonoBehaviour:
   terminalVelocity: 5
   playerRotateSpeed: 450
   aboveDonut: 1
-  flicBorder: 0.3
-  flicSpeed: 25
-  flicPower: 5
   rotateSpeed: 5
 --- !u!114 &270912496
 MonoBehaviour:
@@ -397,6 +394,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxFlicPower: 40
   flicUpPower: 1
+  stickSpeed: 25
 --- !u!1001 &332682669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2259,7 +2257,7 @@ MonoBehaviour:
   spawnMin: {x: -5, y: 0, z: -5}
   spawnMax: {x: 5, y: 2, z: 5}
   startSpawnCount: 25
-  spawnTimePeriod: 2
+  spawnTimePeriod: 10
   minimumDonutCount: 15
   storageArea: {x: 13, y: 2, z: 0}
 --- !u!4 &1419900562

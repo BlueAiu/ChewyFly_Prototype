@@ -38,13 +38,13 @@ public class PlayerController : MonoBehaviour
 
     Vector3 previousDirection = Vector3.zero;
 
-    [Header("ƒh[ƒiƒc‚Ìã‚Éæ‚Á‚Ä‚¢‚éê‡‚Ì’e‚«‘€ì")]
-    [Tooltip("¬‚³‚¢‚Æ”»’è‚·‚é‹«ŠE")]
-    [SerializeField] float flicBorder = 0.1f;
-    [Tooltip("’e‚¢‚½‚Æ”»’è‚·‚é‘‚³")]
-    [SerializeField] float flicSpeed = 5f;
-    [Tooltip("’e‚­—Í‚Ì‹­‚³")]
-    [SerializeField] float flicPower = 20f;
+    //[Header("ƒh[ƒiƒc‚Ìã‚Éæ‚Á‚Ä‚¢‚éê‡‚Ì’e‚«‘€ì")]
+    //[Tooltip("¬‚³‚¢‚Æ”»’è‚·‚é‹«ŠE")]
+    //[SerializeField] float flicBorder = 0.1f;
+    //[Tooltip("’e‚¢‚½‚Æ”»’è‚·‚é‘‚³")]
+    //[SerializeField] float flicSpeed = 5f;
+    //[Tooltip("’e‚­—Í‚Ì‹­‚³")]
+    //[SerializeField] float flicPower = 20f;
 
     [Tooltip("ƒh[ƒiƒc‚ð‰ñ“]‚³‚¹‚é‘¬‚³")]
     [SerializeField] float rotateSpeed = 5f;
@@ -135,17 +135,17 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(from, to, playerRotateSpeed * Time.deltaTime);
     }
 
-    private bool isFlic(Vector3 dir)
-    {
-        if(dir.sqrMagnitude > flicBorder * flicBorder) return false;
-        if(previousDirection.sqrMagnitude <= flicBorder * flicBorder) return false;
+    //private bool isFlic(Vector3 dir)
+    //{
+    //    if(dir.sqrMagnitude > flicBorder * flicBorder) return false;
+    //    if(previousDirection.sqrMagnitude <= flicBorder * flicBorder) return false;
 
-        float deltaMagnitude = previousDirection.magnitude - dir.magnitude;
-        float rightInputSpeed = deltaMagnitude / Time.fixedDeltaTime;
+    //    float deltaMagnitude = previousDirection.magnitude - dir.magnitude;
+    //    float rightInputSpeed = deltaMagnitude / Time.fixedDeltaTime;
 
-        if(rightInputSpeed > flicSpeed) return true;
-        else return false;
-    }
+    //    if(rightInputSpeed > flicSpeed) return true;
+    //    else return false;
+    //}
 
     private float RotateInput()
     {

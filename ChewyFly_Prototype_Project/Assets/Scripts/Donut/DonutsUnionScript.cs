@@ -4,6 +4,9 @@ using UnityEngine;
 
 public partial class DonutsUnionScript : MonoBehaviour
 {
+    Rigidbody rb;
+    AudioSource mergeSE;
+
     [Tooltip("生成時に生成主から参照を渡される")]
     public ObjectReferenceManeger objManeger;
 
@@ -17,7 +20,6 @@ public partial class DonutsUnionScript : MonoBehaviour
     //[Tooltip("ドーナツの半径")]
     //[SerializeField] float donutRadius = 1f;
 
-    Rigidbody rb;
     //くっつけられる状態であるか
     public bool IsSticky { get; set; } = false;
     [Tooltip("ドーナツがくっつく速さ")]
@@ -31,8 +33,13 @@ public partial class DonutsUnionScript : MonoBehaviour
     //ドーナツが完成しているか
     public bool IsComplete { get; private set; } = false;
 
-    //ドーナツの質量の増加倍率
+    [Tooltip("ドーナツの質量の増加倍率")]
     [SerializeField] float donutMassRate = 1f;
+
+    [Tooltip("くっつくSEを鳴らし始めるタイミング")]
+    [SerializeField] float mergeSETiming = 0.1f;
+
+
 
     private void Awake()
     {
@@ -50,6 +57,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         {
             hexaPositions.Add(Vector2.zero);
         }
+        mergeSE = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -100,6 +108,8 @@ public partial class DonutsUnionScript : MonoBehaviour
         if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
         {
             MergeDonuts(collision);
+            mergeSE.time = mergeSETiming;    //音声ファイルの最初の無音部分を飛ばしている。
+            mergeSE.Play();
 
             if (unionCount >= unionCountMax) //ドーナツが完成する
             {

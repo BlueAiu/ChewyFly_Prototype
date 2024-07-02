@@ -33,8 +33,13 @@ public partial class DonutsUnionScript : MonoBehaviour
     //ドーナツが完成しているか
     public bool IsComplete { get; private set; } = false;
 
-    //ドーナツの質量の増加倍率
+    [Tooltip("ドーナツの質量の増加倍率")]
     [SerializeField] float donutMassRate = 1f;
+
+    [Tooltip("くっつくSEを鳴らし始めるタイミング")]
+    [SerializeField] float mergeSETiming = 0.1f;
+
+
 
     private void Awake()
     {
@@ -103,7 +108,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
         {
             MergeDonuts(collision);
-            mergeSE.time = 0.1f;    //音声ファイルの最初の無音部分を飛ばしている。
+            mergeSE.time = mergeSETiming;    //音声ファイルの最初の無音部分を飛ばしている。
             mergeSE.Play();
 
             if (unionCount >= unionCountMax) //ドーナツが完成する

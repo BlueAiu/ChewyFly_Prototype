@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 270912493}
   - component: {fileID: 270912492}
   - component: {fileID: 270912490}
+  - component: {fileID: 270912500}
   - component: {fileID: 270912496}
   - component: {fileID: 270912495}
   - component: {fileID: 270912497}
@@ -395,6 +396,15 @@ MonoBehaviour:
   maxFlicPower: 40
   flicUpPower: 1
   stickSpeed: 25
+  flicCoolTime: 0.5
+--- !u!81 &270912500
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270912489}
+  m_Enabled: 1
 --- !u!1001 &332682669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1554,7 +1564,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1562,14 +1571,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2256,7 +2257,7 @@ MonoBehaviour:
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   spawnMin: {x: -5, y: 0, z: -5}
   spawnMax: {x: 5, y: 2, z: 5}
-  startSpawnCount: 25
+  startSpawnCount: 15
   spawnTimePeriod: 10
   minimumDonutCount: 15
   storageArea: {x: 13, y: 2, z: 0}

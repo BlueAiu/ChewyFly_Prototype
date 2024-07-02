@@ -97,7 +97,7 @@ MonoBehaviour:
   buoyancy: 20
   surfaceY: 1
   movementResistance: 2
-  rotationResistance: 2
+  rotationResistance: 3
   boundPower: 2
 --- !u!82 &7004148563289123019
 AudioSource:

@@ -186,7 +186,6 @@ GameObject:
   - component: {fileID: 270912494}
   - component: {fileID: 270912493}
   - component: {fileID: 270912492}
-  - component: {fileID: 270912500}
   - component: {fileID: 270912490}
   - component: {fileID: 270912496}
   - component: {fileID: 270912495}
@@ -311,9 +310,6 @@ MonoBehaviour:
   terminalVelocity: 5
   playerRotateSpeed: 450
   aboveDonut: 1
-  flicBorder: 0.3
-  flicSpeed: 25
-  flicPower: 5
   rotateSpeed: 5
 --- !u!114 &270912496
 MonoBehaviour:
@@ -398,14 +394,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxFlicPower: 40
   flicUpPower: 1
---- !u!81 &270912500
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 270912489}
-  m_Enabled: 1
+  stickSpeed: 25
 --- !u!1001 &332682669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1565,6 +1554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
+  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1572,6 +1562,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!81 &963194226
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2259,7 +2257,7 @@ MonoBehaviour:
   spawnMin: {x: -5, y: 0, z: -5}
   spawnMax: {x: 5, y: 2, z: 5}
   startSpawnCount: 25
-  spawnTimePeriod: 2
+  spawnTimePeriod: 10
   minimumDonutCount: 15
   storageArea: {x: 13, y: 2, z: 0}
 --- !u!4 &1419900562

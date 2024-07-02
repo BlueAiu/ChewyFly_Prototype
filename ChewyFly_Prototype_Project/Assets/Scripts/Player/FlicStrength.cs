@@ -27,8 +27,15 @@ public class FlicStrength : MonoBehaviour
     [Header("はじいたときの上方向への力")]
     [SerializeField] float flicUpPower;
 
+    [Header("弾き入力を検知するスティックの速さ")]
+    [SerializeField] float stickSpeed = 40f;
+
+    [Header("次に弾き入力ができるまでの時間")]
+    [SerializeField] float flicCoolTime = 0.5f;
+
     Vector3 arrowLocalScale;
     float flicTime;
+    float lastFlicTime;
     Vector3 flicPreviousDirection;
     float arrowStretchOrigin;
     float arrowZSize;
@@ -36,6 +43,7 @@ public class FlicStrength : MonoBehaviour
     private void Awake()//Startよりさらに前に格納しておく
     {
         flicTime = 0f;
+        lastFlicTime = 0f;
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
         input = GetComponent<InputScript>();
@@ -60,34 +68,40 @@ public class FlicStrength : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (playerController.ridingDonut != null)    //ドーナツに乗っている場合
         {
             var direction = input.isLeftStick();
             direction = playerController.playerCamera.transform.TransformDirection(direction);
 
-            if (direction.sqrMagnitude > minFlicBorder * minFlicBorder)
+            lastFlicTime += Time.fixedDeltaTime;
+
+            if (IsFlic(direction))  //弾かれる処理
+            {
+                flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
+                float flicPower = flicPowerCurve.Evaluate(flicTime);
+
+                var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
+                dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
+                    + Vector3.up * flicUpPower);
+                flicTime = 0f;
+                lastFlicTime = 0f;
+            }
+
+            if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
             {
                 arrowSprite.SetActive(true);
-                flicTime += Time.deltaTime;
-                flicPreviousDirection = direction;
+                flicTime += Time.fixedDeltaTime;
                 StretchArrow(direction);
             }
             else
             {
                 arrowSprite.SetActive(false);
-                if (flicTime > 0)
-                {
-                    flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
-                    float flicPower = flicPowerCurve.Evaluate(flicTime);
-
-                    var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
-                    dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
-                        + Vector3.up * flicUpPower);
-                    flicTime = 0f;
-                }
+                flicTime = 0f;
             }
+
+            flicPreviousDirection = direction;
         }
         else
         {
@@ -110,5 +124,17 @@ public class FlicStrength : MonoBehaviour
 
             arrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
         }
+    }
+
+    private bool IsFlic(Vector3 dir)
+    {
+        if(flicTime <= 0f) return false;
+        if (flicPreviousDirection.sqrMagnitude <= minFlicBorder * minFlicBorder) return false;
+
+        float deltaMagnitude = (dir - flicPreviousDirection).magnitude;
+        float rightInputSpeed = deltaMagnitude / Time.fixedDeltaTime;
+
+        if (rightInputSpeed < stickSpeed) return false;
+        else return true;
     }
 }

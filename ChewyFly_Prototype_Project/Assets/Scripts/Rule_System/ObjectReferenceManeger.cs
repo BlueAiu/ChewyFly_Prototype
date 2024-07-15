@@ -38,6 +38,9 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("完成したドーナツを置く先")]
     [SerializeField] Vector3 storageArea;
 
+    //完成したドーナツの数
+    public static int madeDonuts { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,8 @@ public class ObjectReferenceManeger : MonoBehaviour
         //CreateDonutSphere_Test
         //Vector3 p = new Vector3(1, 2, 1);
         //CreateDonutSphere(p);
+
+        madeDonuts = 0;
 
         for(int i = 0; i < startSpawnCount; i++)
         {
@@ -115,6 +120,8 @@ public class ObjectReferenceManeger : MonoBehaviour
     {
         donutsList.Remove(donut);
         player.GetComponent<PlayerController>().DetachDonut();
+
+        madeDonuts++;
 
         donut.transform.position = storageArea;
     }

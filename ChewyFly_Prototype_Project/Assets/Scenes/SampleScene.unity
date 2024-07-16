@@ -2283,7 +2283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419900560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43aaf64acfe95314faf1a8d096f3af24, type: 3}
   m_Name: 
@@ -2291,7 +2291,7 @@ MonoBehaviour:
   player: {fileID: 270912489}
   countdownText: {fileID: 453074924}
   timerCircleImage: {fileID: 1308142869}
-  timeLimit: 5
+  timeLimit: 20
   timePerCountdown: 0.6
   countdownFadeTime: 1
 --- !u!114 &1419900564

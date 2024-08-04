@@ -309,7 +309,7 @@ MonoBehaviour:
   gravity: 10
   terminalVelocity: 5
   playerRotateSpeed: 450
-  aboveDonut: 1
+  aboveDonut: 0.5
   rotateSpeed: 5
 --- !u!114 &270912496
 MonoBehaviour:

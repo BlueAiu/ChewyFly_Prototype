@@ -170,6 +170,7 @@ public class PlayerController : MonoBehaviour
         DetachDonut();
 
         Vector3 direction = target - transform.position;
+        Debug.Log(direction);
         
         velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
     }
@@ -187,10 +188,11 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.name == "Oil")   //ñ˚Ç…íÖêÖ
         {
-            DetachDonut();
+            //DetachDonut();
             var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
-            character.Move(targetPos - transform.position);
-            velocity = Vector3.zero;
+            //character.Move(targetPos - transform.position);
+            //velocity = Vector3.zero;
+            JumpTo(targetPos);
         }
     }
 }

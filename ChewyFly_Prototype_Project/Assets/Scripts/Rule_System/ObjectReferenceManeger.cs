@@ -119,7 +119,9 @@ public class ObjectReferenceManeger : MonoBehaviour
     public void CompleteDonut(GameObject donut)
     {
         donutsList.Remove(donut);
-        player.GetComponent<PlayerController>().DetachDonut();
+
+        player.GetComponent<PlayerController>().
+            JumpTo(ClosestDonut().transform.position);
 
         madeDonuts++;
 

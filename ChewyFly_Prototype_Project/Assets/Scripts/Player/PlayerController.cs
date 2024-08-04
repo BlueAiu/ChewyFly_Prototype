@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = 10f;
     
     //[Tooltip("ジャンプ力")]
-    //[SerializeField] float jumpPower = 3f;
+    //[SerializeField] float jumpPower = 5f;
     [Tooltip("終端速度 (jumpPower以上にすること)")]
     [SerializeField] float terminalVelocity = 3f;
 
@@ -162,6 +163,15 @@ public class PlayerController : MonoBehaviour
         if (input.isLeftShoulder())
             rotate--;
         return rotate;
+    }
+
+    public void JumpTo(Vector3 target)  //跳んでから着地までの時間と飛距離が比例している
+    {
+        DetachDonut();
+
+        Vector3 direction = target - transform.position;
+        
+        velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

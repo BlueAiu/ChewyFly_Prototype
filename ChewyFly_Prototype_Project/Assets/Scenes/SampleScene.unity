@@ -397,7 +397,7 @@ MonoBehaviour:
   flicUpPower: 1
   stickSpeed: 25
   flicCoolTime: 0.5
-  jumpPower: 8
+  jumpPower: 12
 --- !u!81 &270912500
 AudioListener:
   m_ObjectHideFlags: 0

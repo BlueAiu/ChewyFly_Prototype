@@ -150,8 +150,7 @@ public class FlicStrength : MonoBehaviour
             float flicPower = jumpArrowSprite.transform.localScale.z;
             var controller = GetComponent<PlayerController>();
 
-            controller.DetachDonut();
-            controller.velocity = (-flicPreviousDirection.normalized + Vector3.up) * Mathf.Sqrt(flicPower) * jumpPower;
+            controller.JumpTo(transform.position + -flicPreviousDirection.normalized * (flicPower * jumpPower));
 
             flicTime = 0f;
             lastFlicTime = 0f;

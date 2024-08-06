@@ -337,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 1746990158}
   sensityvity: 180
+  resetSensityvity: 800
 --- !u!114 &270912498
 MonoBehaviour:
   m_ObjectHideFlags: 0

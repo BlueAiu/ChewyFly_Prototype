@@ -170,7 +170,6 @@ public class PlayerController : MonoBehaviour
         DetachDonut();
 
         Vector3 direction = target - transform.position;
-        Debug.Log(direction);
         
         velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
     }

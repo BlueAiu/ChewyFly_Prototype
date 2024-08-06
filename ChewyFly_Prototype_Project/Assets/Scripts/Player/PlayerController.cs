@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,17 +17,19 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ゲームルールオブジェクト")]
     [SerializeField] ObjectReferenceManeger objManeger;
 
-    [Header("空中にいるときの移動")]
-    [Tooltip("移動の速さ")]
-    [SerializeField] float speed = 5f;
+    //[Header("空中にいるときの移動")]
+    //[Tooltip("移動の速さ")]
+    //[SerializeField] float speed = 5f;
 
-    float velocityY = 0f;
+    public Vector3 velocity { get; set; } = Vector3.zero;
+
+    //float velocityY = 0f;
 
     [Tooltip("重力加速度")]
     [SerializeField] float gravity = 10f;
     
-    [Tooltip("ジャンプ力")]
-    [SerializeField] float jumpPower = 3f;
+    //[Tooltip("ジャンプ力")]
+    //[SerializeField] float jumpPower = 5f;
     [Tooltip("終端速度 (jumpPower以上にすること)")]
     [SerializeField] float terminalVelocity = 3f;
 
@@ -74,18 +77,23 @@ public class PlayerController : MonoBehaviour
         if(ridingDonut == null)
         {
             //移動
-            velocityY -= gravity * Time.deltaTime;
-            velocityY = Mathf.Max(velocityY, -terminalVelocity);
+            //velocityY -= gravity * Time.deltaTime;
+            //velocityY = Mathf.Max(velocityY, -terminalVelocity);
 
-            Vector3 velocity = direction * speed + Vector3.up * velocityY;
+            //Vector3 velocity = direction * speed + Vector3.up * velocityY;
+
+            if(velocity.y > -terminalVelocity)
+            {
+                velocity += Vector3.down * (gravity * Time.deltaTime);
+            }
 
             character.Move(velocity * Time.deltaTime);
         }
-        else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ
-        {
-            DetachDonut();
-            velocityY = jumpPower;
-        }
+        //else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ
+        //{
+        //    DetachDonut();
+        //    velocityY = jumpPower;
+        //}
     }
 
     private void FixedUpdate()
@@ -157,6 +165,15 @@ public class PlayerController : MonoBehaviour
         return rotate;
     }
 
+    public void JumpTo(Vector3 target)  //跳んでから着地までの時間と飛距離が比例している
+    {
+        DetachDonut();
+
+        Vector3 direction = target - transform.position;
+        
+        velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.tag == "Donuts" && character.isGrounded) //ドーナツに着地
@@ -170,9 +187,11 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.name == "Oil")   //油に着水
         {
-            DetachDonut();
+            //DetachDonut();
             var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
-            character.Move(targetPos - transform.position);
+            //character.Move(targetPos - transform.position);
+            //velocity = Vector3.zero;
+            JumpTo(targetPos);
         }
     }
 }

@@ -10,6 +10,7 @@ public class FlicStrength : MonoBehaviour
     InputScript input;
 
     [SerializeField] GameObject arrowSprite;
+    [SerializeField] GameObject jumpArrowSprite;
     [SerializeField] Transform arrowParent;
     [Header("ñÓàÛÇ™ç≈ëÂâΩî{Ç‹Ç≈êLÇ—ÇÈÇ©(1à»è„)")]
     [SerializeField] float maxArrowLength;
@@ -33,12 +34,17 @@ public class FlicStrength : MonoBehaviour
     [Header("éüÇ…íeÇ´ì¸óÕÇ™Ç≈Ç´ÇÈÇ‹Ç≈ÇÃéûä‘")]
     [SerializeField] float flicCoolTime = 0.5f;
 
+    [Header("íeÇ´ÉWÉÉÉìÉvÇÃÉWÉÉÉìÉvóÕ")]
+    [SerializeField] float jumpPower = 5f;
+
     Vector3 arrowLocalScale;
     float flicTime;
     float lastFlicTime;
     Vector3 flicPreviousDirection;
     float arrowStretchOrigin;
     float arrowZSize;
+
+    public bool isJumpMode { get; private set; } = false;
 
     private void Awake()//StartÇÊÇËÇ≥ÇÁÇ…ëOÇ…äiî[ÇµÇƒÇ®Ç≠
     {
@@ -67,47 +73,108 @@ public class FlicStrength : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (playerController.ridingDonut != null)
+        {
+            if (input.isAButton())
+            {
+                isJumpMode = !isJumpMode;
+                flicTime = 0;
+                arrowSprite.SetActive(false);
+                jumpArrowSprite.SetActive(false);
+            }
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if (playerController.ridingDonut != null)    //ÉhÅ[ÉiÉcÇ…èÊÇ¡ÇƒÇ¢ÇÈèÍçá
         {
-            var direction = input.isLeftStick();
-            direction = playerController.playerCamera.transform.TransformDirection(direction);
-
-            lastFlicTime += Time.fixedDeltaTime;
-
-            if (IsFlic(direction))  //íeÇ©ÇÍÇÈèàóù
+            if (isJumpMode)
             {
-                flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
-                float flicPower = flicPowerCurve.Evaluate(flicTime);
-
-                var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
-                dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
-                    + Vector3.up * flicUpPower);
-                flicTime = 0f;
-                lastFlicTime = 0f;
-            }
-
-            if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
-            {
-                arrowSprite.SetActive(true);
-                flicTime += Time.fixedDeltaTime;
-                StretchArrow(direction);
+                FlicJump();
             }
             else
             {
-                arrowSprite.SetActive(false);
-                flicTime = 0f;
+                FlicDonut();
             }
+        }
+        else
+        {
+            arrowSprite.SetActive(false);
+            jumpArrowSprite.SetActive(false);
+            flicTime = 0f;
+        }
+    }
 
-            flicPreviousDirection = direction;
+    void FlicDonut()
+    {
+        var direction = input.isLeftStick();
+        direction = playerController.playerCamera.transform.TransformDirection(direction);
+
+        lastFlicTime += Time.fixedDeltaTime;
+
+        if (IsFlic(direction))  //íeÇ©ÇÍÇÈèàóù
+        {
+            flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
+            float flicPower = flicPowerCurve.Evaluate(flicTime);
+
+            var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
+            dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
+                + Vector3.up * flicUpPower);
+            flicTime = 0f;
+            lastFlicTime = 0f;
+        }
+
+        if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
+        {
+            arrowSprite.SetActive(true);
+            flicTime += Time.fixedDeltaTime;
+            StretchArrow(direction);
         }
         else
         {
             arrowSprite.SetActive(false);
             flicTime = 0f;
         }
+
+        flicPreviousDirection = direction;
+    }
+
+    void FlicJump()
+    {
+        var direction = input.isLeftStick();
+        direction = playerController.playerCamera.transform.TransformDirection(direction);
+
+        lastFlicTime += Time.fixedDeltaTime;
+
+        if (IsFlic(direction))  //íeÇ©ÇÍÇÈèàóù
+        {
+            
+            float flicPower = jumpArrowSprite.transform.localScale.z;
+            var controller = GetComponent<PlayerController>();
+
+            controller.JumpTo(transform.position + -flicPreviousDirection.normalized * (flicPower * jumpPower));
+
+            flicTime = 0f;
+            lastFlicTime = 0f;
+        }
+
+        if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
+        {
+            jumpArrowSprite.SetActive(true);
+            flicTime += Time.fixedDeltaTime;
+            StretchArrow(direction);
+        }
+        else
+        {
+            jumpArrowSprite.SetActive(false);
+            flicTime = 0f;
+        }
+
+        flicPreviousDirection = direction;
     }
 
     void StretchArrow(Vector3 arrowDir)//ñÓàÛÇâÒì]ÅAà¯Ç´âÑÇŒÇ∑
@@ -121,8 +188,10 @@ public class FlicStrength : MonoBehaviour
             Vector3 newScale = arrowLocalScale;
             newScale.z *= scaleFactor;
             arrowSprite.transform.localScale = newScale;
+            jumpArrowSprite.transform.localScale = newScale;
 
             arrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
+            jumpArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
         }
     }
 

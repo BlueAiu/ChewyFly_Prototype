@@ -73,6 +73,20 @@ public class FlicStrength : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (playerController.ridingDonut != null)
+        {
+            if (input.isAButton())
+            {
+                isJumpMode = !isJumpMode;
+                flicTime = 0;
+                arrowSprite.SetActive(false);
+                jumpArrowSprite.SetActive(false);
+            }
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -85,14 +99,6 @@ public class FlicStrength : MonoBehaviour
             else
             {
                 FlicDonut();
-            }
-
-            if (input.isAButton())
-            {
-                isJumpMode = !isJumpMode;
-                flicTime = 0;
-                arrowSprite.SetActive(false);
-                jumpArrowSprite.SetActive(false);
             }
         }
         else

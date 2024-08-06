@@ -112,6 +112,20 @@ public class InputScript : MonoBehaviour
             return Keyboard.current.escapeKey.wasPressedThisFrame;
         return Gamepad.current.startButton.wasPressedThisFrame;
     }*/
+    public bool isRightStickButton()//xBoxコントローラーの右スティック押し込み
+    {
+        bool gamepadInput = false;
+        if (Gamepad.current != null)
+            gamepadInput = Gamepad.current.rightStickButton.IsPressed();
+        return gamepadInput || Keyboard.current.pKey.wasPressedThisFrame;
+    }
+    public bool isLeftStickButton()//xBoxコントローラーの左スティック押し込み
+    {
+        bool gamepadInput = false;
+        if (Gamepad.current != null)
+            gamepadInput = Gamepad.current.leftStickButton.IsPressed();
+        return gamepadInput || Keyboard.current.oKey.wasPressedThisFrame;
+    }
     public bool isBackButton()//xBoxコントローラーのBACKボタン
     {
         bool gamepadInput = false;

@@ -13,6 +13,10 @@ public class PlayerCameraRotation : MonoBehaviour
     [Tooltip("カメラの回転の速さ")]
     [SerializeField] float sensityvity = 180f;
 
+    [Tooltip("視点リセット時のカメラの回転の速さ")]
+    [SerializeField] float resetSensityvity = 800f;
+    bool isResetCamera = false;
+
     private void Awake()//Startよりさらに前に格納しておく
     {
         input = GetComponent<InputScript>();
@@ -38,7 +42,24 @@ public class PlayerCameraRotation : MonoBehaviour
         //}
 
         rot = input.isRightStick().x;
-        playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+        if (input.isRightStickButton())
+        {
+            isResetCamera = true;
+        }
+
+        if (rot != 0)
+        {
+            playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+            isResetCamera = false;
+        }
+        else if(isResetCamera)
+        {
+            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, transform.rotation, resetSensityvity * Time.deltaTime);
+            if (Quaternion.Angle(transform.rotation, playerCamera.transform.rotation) < 0.1f)
+            {
+                isResetCamera = false;
+            }
+        }
 
         playerCamera.transform.position = transform.position;//カメラをプレイヤーに移動させる
     }

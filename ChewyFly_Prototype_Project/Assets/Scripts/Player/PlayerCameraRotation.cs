@@ -17,6 +17,18 @@ public class PlayerCameraRotation : MonoBehaviour
     [SerializeField] float resetSensityvity = 800f;
     bool isResetCamera = false;
 
+
+    [Header("©“®ƒJƒƒ‰‰ñ“]")]
+    [Tooltip("’†S‚©‚ç‚±‚Ì‹——£‚æ‚è“à‘¤‚¾‚Æ©“®‰ñ“]‚µ‚È‚¢")]
+    [SerializeField] float nonRotationalAreaRadius = 3f;
+    [Tooltip("ƒJƒƒ‰‰ñ“]‘€ì‚ğ‚µ‚½Œã‚±‚Ì‹——£‚ğ—£‚ê‚é‚Ü‚Å©“®‰ñ“]‚µ‚È‚¢")]
+    [SerializeField] float reapplicationDistance = 1f;
+    [Tooltip("©“®‰ñ“]‚Ì‰ñ“]‘¬")]
+    [SerializeField] float autoRotateSensityvity = 120f;
+
+    bool canRotatoAuto = false;
+    Vector3 lastInputPosition = Vector3.zero;
+
     private void Awake()//Start‚æ‚è‚³‚ç‚É‘O‚ÉŠi”[‚µ‚Ä‚¨‚­
     {
         input = GetComponent<InputScript>();
@@ -61,6 +73,30 @@ public class PlayerCameraRotation : MonoBehaviour
             }
         }
 
+        AutoCameraRotation();
+
         playerCamera.transform.position = transform.position;//ƒJƒƒ‰‚ğƒvƒŒƒCƒ„[‚ÉˆÚ“®‚³‚¹‚é
+    }
+
+    void AutoCameraRotation()
+    {
+        if(canRotatoAuto && 
+            Vector3.SqrMagnitude(transform.position - Vector3.zero) > nonRotationalAreaRadius * nonRotationalAreaRadius)
+        {
+            Vector3 centerDir = (Vector3.zero + Vector3.up * transform.position.y) - transform.position;
+            Quaternion lookCenter = Quaternion.LookRotation(centerDir, Vector3.up);
+
+            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, lookCenter, autoRotateSensityvity * Time.deltaTime);
+        }
+
+        if(input.isRightStick() != Vector3.zero || input.isRightStickButton())
+        {
+            lastInputPosition = transform.position;
+            canRotatoAuto = false;
+        }
+        else if(Vector3.SqrMagnitude(transform.position - lastInputPosition) > reapplicationDistance * reapplicationDistance)
+        {
+            canRotatoAuto= true;
+        }
     }
 }

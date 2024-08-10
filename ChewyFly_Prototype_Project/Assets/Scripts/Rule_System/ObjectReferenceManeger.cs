@@ -35,9 +35,6 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("最低限ゲーム上に存在するドーナツの数")]
     [SerializeField] int minimumDonutCount = 15;
 
-    [Tooltip("完成したドーナツを置く先")]
-    [SerializeField] Vector3 storageArea;
-
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
 
@@ -125,7 +122,7 @@ public class ObjectReferenceManeger : MonoBehaviour
 
         madeDonuts++;
 
-        donut.transform.position = storageArea;
+        donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }
 
     //没

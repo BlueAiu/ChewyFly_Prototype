@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DonutRigidBody : MonoBehaviour
+public partial class DonutRigidBody : MonoBehaviour
 {
     Rigidbody rb;
     DonutsUnionScript union;
@@ -35,17 +35,19 @@ public class DonutRigidBody : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        cameraAxis = GameObject.Find("CameraAxis").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        FinishedDonutMove();
     }
 
     private void FixedUpdate()
     {
+        if (isFinishMoving) return;
+
         //ƒvƒŒƒCƒ„[‚©‚çó‚¯æ‚Á‚½’e‚«“ü—Í
         if(impulse != Vector3.zero)
         {

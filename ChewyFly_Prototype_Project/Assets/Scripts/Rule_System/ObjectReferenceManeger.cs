@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectReferenceManeger : MonoBehaviour
+public partial class ObjectReferenceManeger : MonoBehaviour
 {
     [Tooltip("プレイヤー")]
     [SerializeField] GameObject player;
@@ -10,17 +10,8 @@ public class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("ゲーム上のドーナツ達")]
     [SerializeField] List<GameObject> donutsList;
 
-    //[Tooltip("完成時に新しいものに変えられる")]
-    //public DonutsUnionScript currentDonutsUnion;
-
-    //[Tooltip("生成するドーナツのもと")]
-    //[SerializeField] GameObject donutSphere;
-
-    [Tooltip("生成するドーナツ合体オブジェクト")]
+    [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
-
-    //[Tooltip("ドーナツに必要なもとの数")]
-    //[SerializeField] int donutNeedSpheres = 6;
 
     [Header("生成する範囲")]
     [SerializeField] Vector3 spawnMin = Vector3.zero;
@@ -38,15 +29,13 @@ public class ObjectReferenceManeger : MonoBehaviour
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         if (player == null)
             player = GameObject.FindWithTag("Player");
-
-        //CreateDonutSphere_Test
-        //Vector3 p = new Vector3(1, 2, 1);
-        //CreateDonutSphere(p);
 
         madeDonuts = 0;
 
@@ -74,15 +63,16 @@ public class ObjectReferenceManeger : MonoBehaviour
             Random.Range(spawnMin.z,spawnMax.z));
     }
 
+    //新たなドーナツを鍋に追加する
     public void CreateDonutUnion()
     {
         var position = RandomVector();
         GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
-        //currentDonutsUnion = newUnion.GetComponent<DonutsUnionScript>();
     }
 
+    //ドーナツを鍋から除外する
     public void RemoveDonut(GameObject donut)
     {
         if(player.transform.parent == donut.transform)
@@ -113,6 +103,7 @@ public class ObjectReferenceManeger : MonoBehaviour
         return closestDonut;
     }
 
+    //ドーナツが完成したとき行われる
     public void CompleteDonut(GameObject donut)
     {
         donutsList.Remove(donut);
@@ -121,6 +112,9 @@ public class ObjectReferenceManeger : MonoBehaviour
             JumpTo(ClosestDonut().transform.position);
 
         madeDonuts++;
+
+        if (IsIdealDonut(donut))
+            Debug.Log("It is ideal donut.");
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }

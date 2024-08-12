@@ -45,6 +45,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
 
         InvokeRepeating(nameof(CreateDonutUnion), spawnTimePeriod, spawnTimePeriod);
+        SetDonutScoreText();
     }
 
     // Update is called once per frame
@@ -113,8 +114,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         madeDonuts++;
 
-        if (IsIdealDonut(donut))
-            Debug.Log("It is ideal donut.");
+        AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }

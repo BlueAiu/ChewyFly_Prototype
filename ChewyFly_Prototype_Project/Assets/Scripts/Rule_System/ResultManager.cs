@@ -11,6 +11,7 @@ public class ResultManager : MonoBehaviour
     [SerializeField] private Button titleButton;
 
     [SerializeField] TMP_Text resultText;
+    [SerializeField] TMP_Text scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class ResultManager : MonoBehaviour
 
         resultText.text = "You made " +
             ObjectReferenceManeger.madeDonuts.ToString() + " donuts.";
+        scoreText.text = "Score:  " +
+            ObjectReferenceManeger.totalScore.ToString();
     }
 
     // Update is called once per frame

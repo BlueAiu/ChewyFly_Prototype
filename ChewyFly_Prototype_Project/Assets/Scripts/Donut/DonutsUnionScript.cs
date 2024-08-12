@@ -26,7 +26,7 @@ public partial class DonutsUnionScript : MonoBehaviour
     [SerializeField] public float stickySpeed = 5f;
 
     //くっついているドーナツの数
-    int unionCount = 1;
+    public int unionCount { get; private set; } = 1;
     [Tooltip("合体の最大数")]
     [SerializeField] int unionCountMax = 6;
 

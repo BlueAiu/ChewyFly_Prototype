@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public partial class ObjectReferenceManeger : MonoBehaviour
 {
+    [Header("累計スコア")]
+    [SerializeField] public static int totalScore = 0;
+
     [Header("ドーナツのスコア計算")]
-    //[SerializeField] int baseDonutScore = 160;
+    [Tooltip("基礎点")]
+    [SerializeField] int donutScore_base = 160;
+    [Tooltip("形が完璧な場合の追加点")]
+    [SerializeField] int donutScore_ideal = 200;
+    [Tooltip("6個を超えた場合の加算点")]
+    [SerializeField] int donutScore_over = 30;
+
+    [Header("スコア表示用のテキスト")]
+    [SerializeField] TMP_Text donutScoreText;
 
     const int checkRange = 10;
     const int idealDonutNum = 6;
@@ -54,5 +66,31 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
 
         return maxFitDonuts;
+    }
+    void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点
+    {
+        int donutScore = donutScore_base;//まず基礎点
+
+        if (IsIdealDonut(donut)) //理想的な形なら加算
+        {
+            donutScore += donutScore_ideal;
+            Debug.Log("It is ideal donut.");
+        }
+
+        int unionCount = donut.GetComponent<DonutsUnionScript>().unionCount;
+        if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
+        {
+            for (int i = 1; i <= unionCount - idealDonutNum; i++)
+            {
+                donutScore += donutScore_over;
+            }
+        }
+
+        totalScore += donutScore;
+        SetDonutScoreText();
+    }
+    void SetDonutScoreText() //UIに現在のスコアを表示
+    {
+        donutScoreText.text = "Score:" + totalScore.ToString();
     }
 }

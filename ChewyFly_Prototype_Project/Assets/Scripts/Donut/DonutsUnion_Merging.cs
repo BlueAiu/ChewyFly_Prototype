@@ -11,7 +11,7 @@ public partial class DonutsUnionScript : MonoBehaviour
     const float fullCircleRadian = 2 * Mathf.PI;
     const int fullCircleDegrees = 360;
 
-    List<Vector2> hexaPositions = new List<Vector2>();
+    public List<Vector2> hexaPositions { get; private set; } = new List<Vector2>();
 
     [Tooltip("DonutSphere“¯Žm‚ÌŠÔ‚Ì‹——£")]
     [SerializeField] float sphereDistance = 0.8f;

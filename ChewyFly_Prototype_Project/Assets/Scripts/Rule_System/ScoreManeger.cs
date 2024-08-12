@@ -5,8 +5,7 @@ using UnityEngine;
 
 public partial class ObjectReferenceManeger : MonoBehaviour
 {
-    [Header("累計スコア")]
-    [SerializeField] public static int totalScore = 0;
+    [SerializeField] public static int totalScore { get; private set; } = 0;
 
     [Header("ドーナツのスコア計算")]
     [Tooltip("基礎点")]

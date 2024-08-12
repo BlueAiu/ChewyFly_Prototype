@@ -38,6 +38,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             player = GameObject.FindWithTag("Player");
 
         madeDonuts = 0;
+        totalScore = 0;
 
         for(int i = 0; i < startSpawnCount; i++)
         {

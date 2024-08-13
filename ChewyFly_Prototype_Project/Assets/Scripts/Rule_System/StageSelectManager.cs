@@ -6,14 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class StageSelectManager : MonoBehaviour
 {
-    [SerializeField] private Button startButton;
+    [SerializeField] private Button stage1Button;
+    [SerializeField] private Button stage2Button;
+    [SerializeField] private Button stage3Button;
+    [SerializeField] private Button tutorialButton;
     [SerializeField] private Button optionButton;
-    [SerializeField] private Button creditButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        startButton.Select();
+        stage1Button.Select();
     }
 
     // Update is called once per frame

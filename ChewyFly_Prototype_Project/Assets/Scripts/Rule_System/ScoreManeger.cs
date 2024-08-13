@@ -73,16 +73,12 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (IsIdealDonut(donut)) //理想的な形なら加算
         {
             donutScore += donutScore_ideal;
-            Debug.Log("It is ideal donut.");
         }
 
         int unionCount = donut.GetComponent<DonutsUnionScript>().unionCount;
         if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
         {
-            for (int i = 1; i <= unionCount - idealDonutNum; i++)
-            {
-                donutScore += donutScore_over;
-            }
+            donutScore += (unionCount - idealDonutNum) * donutScore_over;
         }
 
         totalScore += donutScore;

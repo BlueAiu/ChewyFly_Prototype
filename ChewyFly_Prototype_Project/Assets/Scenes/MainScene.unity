@@ -2383,11 +2383,15 @@ MonoBehaviour:
   donutsList:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  spawnMin: {x: -5, y: 0, z: -5}
-  spawnMax: {x: 5, y: 2, z: 5}
+  donutSpawnMin: {x: -5, y: 1, z: -5}
+  donutSpawnMax: {x: 5, y: 1.5, z: 5}
   startSpawnCount: 15
   spawnTimePeriod: 10
   minimumDonutCount: 15
+  oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
+  bubbleSpawnPeriod: 3
+  bubbleSpawnMin: {x: -5, y: -2, z: -5}
+  bubbleSpawnMax: {x: 5, y: -1, z: 5}
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30
@@ -2401,7 +2405,7 @@ Transform:
   m_GameObject: {fileID: 1419900560}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 2.3574598, z: -0.53}
+  m_LocalPosition: {x: -0.57, y: 2.3574598, z: -0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2422,7 +2426,7 @@ MonoBehaviour:
   player: {fileID: 270912489}
   countdownText: {fileID: 453074924}
   timerCircleImage: {fileID: 1308142869}
-  timeLimit: 20
+  timeLimit: 300
   timePerCountdown: 0.6
   countdownFadeTime: 1
 --- !u!114 &1419900564
@@ -3079,6 +3083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1920122546}
+  - component: {fileID: 1920122547}
   m_Layer: 0
   m_Name: WallParent
   m_TagString: Untagged
@@ -3109,6 +3114,19 @@ Transform:
   - {fileID: 415181670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1920122547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920122545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b014256236d834dbd73849b86aeccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  donutBoundPower: 3
 --- !u!1001 &1971711229
 PrefabInstance:
   m_ObjectHideFlags: 0

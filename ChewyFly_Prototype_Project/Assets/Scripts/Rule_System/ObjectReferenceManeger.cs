@@ -14,8 +14,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [SerializeField] GameObject donutUnion;
 
     [Header("生成する範囲")]
-    [SerializeField] Vector3 spawnMin = Vector3.zero;
-    [SerializeField] Vector3 spawnMax = Vector3.zero;
+    [SerializeField] Vector3 donutSpawnMin = Vector3.zero;
+    [SerializeField] Vector3 donutSpawnMax = Vector3.zero;
 
     [Tooltip("ゲーム開始直後に生成する数")]
     [SerializeField] int startSpawnCount = 10;
@@ -25,6 +25,16 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Tooltip("最低限ゲーム上に存在するドーナツの数")]
     [SerializeField] int minimumDonutCount = 15;
+
+    [Header("ドーナツを弾く泡生成")]
+    [Tooltip("生成する泡オブジェクト")]
+    [SerializeField] GameObject oilBubble;
+
+    [Tooltip("泡を生成する周期")]
+    [SerializeField] float bubbleSpawnPeriod = 3f;
+
+    [SerializeField] Vector3 bubbleSpawnMin = Vector3.zero;
+    [SerializeField] Vector3 bubbleSpawnMax = Vector3.zero;
 
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
@@ -47,6 +57,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         InvokeRepeating(nameof(CreateDonutUnion), spawnTimePeriod, spawnTimePeriod);
         SetDonutScoreText();
+
+        InvokeRepeating(nameof(CreateBubble), bubbleSpawnPeriod, bubbleSpawnPeriod);
     }
 
     // Update is called once per frame
@@ -58,7 +70,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
     }
 
-    Vector3 RandomVector()
+    Vector3 RandomVector(Vector3 spawnMin, Vector3 spawnMax)
     {
         return new Vector3(Random.Range(spawnMin.x,spawnMax.x),
             Random.Range(spawnMin.y,spawnMax.y),
@@ -68,7 +80,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //新たなドーナツを鍋に追加する
     public void CreateDonutUnion()
     {
-        var position = RandomVector();
+        var position = RandomVector(donutSpawnMin, donutSpawnMax);
         GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
@@ -118,6 +130,13 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
+    }
+
+    //泡を生成する
+    void CreateBubble()
+    {
+        var position = RandomVector(bubbleSpawnMin, bubbleSpawnMax);
+        Instantiate(oilBubble, position, Quaternion.identity);
     }
 
     //没

@@ -27,6 +27,8 @@ public class OptionManager : OptionValues
     public bool OnUseSlider { get; private set; } = false;
     bool isSelectSlider;
     InputScript input;
+
+    LoadSceneManager LoadSceneManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,28 +39,42 @@ public class OptionManager : OptionValues
         seSlider.maxValue = soundMaxValue; seSlider.minValue = soundMinValue;
         jumpSensibilitySlider.maxValue = sensibilityMaxValue; jumpSensibilitySlider.minValue = sensibilityMinValue;
         cameraSensibilitySlider.maxValue = sensibilityMaxValue; cameraSensibilitySlider.minValue = sensibilityMinValue;
+
+        OpenOption();
+
+        LoadSceneManager = GetComponent<LoadSceneManager>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (isSelectSlider)//ボタンを押すタイミングとUpdateのタイミングが合わないのでここでスライダーを有効化する
+        if (OnUseSlider)
         {
-            nowSlider.enabled = true;
-            nowSlider.Select();
-            isSelectSlider = false;
-        }
-        else if (OnUseSlider)//スライダー選択状態
-        {
-            if (input.isAButton())
+            if (isSelectSlider)//ボタンを押すタイミングとUpdateのタイミングが合わないのでここでスライダーを有効化する
             {
-                ActiveOptionButtons(true);
-                nowSlider = null;
+                nowSlider.enabled = true;
+                nowSlider.Select();
+                isSelectSlider = false;
             }
-            else if (input.isBButton())//Bボタンを押したなら前の値に戻す
+            else
             {
-                nowSlider.value = previousValue;
-                ActiveOptionButtons(true);
-                nowSlider = null;
+                if (input.isAButton())
+                {
+                    ActiveOptionButtons(true);
+                    nowSlider = null;
+                }
+                else if (input.isBButton())//Bボタンを押したなら前の値に戻す
+                {
+                    nowSlider.value = previousValue;
+                    ActiveOptionButtons(true);
+                    nowSlider = null;
+                }
+            }
+        }
+        else//ボタン選択状態
+        {
+            if (input.isBButton())
+            {
+                LoadSceneManager.LoadSceneName("TitleScene");
             }
         }
     }

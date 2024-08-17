@@ -11,21 +11,23 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Button optionButton;
     [SerializeField] private Button creditButton;
 
-    [SerializeField] private GameObject TitleUIParent;
+    /*[SerializeField] private GameObject TitleUIParent;
     [SerializeField] private GameObject OptionUIParent;
-
-    OptionManager option;
     InputScript input;
     enum TITLESCENE {Title, Option, Credit }
     TITLESCENE titleScene = TITLESCENE.Title;
+    OptionManager option;*/
+
+
     // Start is called before the first frame update
     void Start()
     {
-        option = GetComponent<OptionManager>();
+        startButton.Select();
+        /*option = GetComponent<OptionManager>();
         input = GetComponent<InputScript>();
-        OpenTitleUI();
+        OpenTitleUI();*/
     }
-
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -50,5 +52,5 @@ public class TitleManager : MonoBehaviour
         TitleUIParent.SetActive(false);
         OptionUIParent.SetActive(true);
         option.OpenOption();
-    }
+    }*/
 }

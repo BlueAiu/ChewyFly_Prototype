@@ -74,11 +74,11 @@ public class OptionManager : OptionValues
         {
             if (input.isBButton())
             {
-                LoadSceneManager.LoadSceneName("TitleScene");
+                LoadSceneManager.LoadSceneName("TitleScene");//タイトルに戻る
             }
         }
     }
-    public void OpenOption()//最初にオプションを開く場合の処理
+    public void OpenOption()
     {
         nowSlider = null;
         previousButton = null;
@@ -110,7 +110,7 @@ public class OptionManager : OptionValues
                 previousButton.Select();
         }
     }
-    public void SelectSlider(Slider slider)//ボタンの左にあるスライダーを選択状態にする(Buttonが呼ぶ)
+    public void SelectSlider(Slider slider)//ボタンの右にあるスライダーを選択状態にする(Buttonが呼ぶ)
     {
         isSelectSlider = true;
         nowSlider = slider;

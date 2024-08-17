@@ -20,7 +20,7 @@ public partial class DonutRigidBody : MonoBehaviour
     [SerializeField] float rotationResistance = 2f;
 
     Vector3 impulse = Vector3.zero;
-    Vector3 bounce = Vector3.zero;
+    public Vector3 bounce { get; set; } = Vector3.zero;
     [Tooltip("バウンドの強さ")]
     [SerializeField] float boundPower = 20f;
 
@@ -56,7 +56,7 @@ public partial class DonutRigidBody : MonoBehaviour
             union.IsSticky = true;
         }
         
-        //ドーナツ同士の衝突時に受け取ったバウンド
+        //ドーナツや壁、泡に当たった時のバウンド
         if (bounce != Vector3.zero)
         {
             rb.AddForce(bounce, ForceMode.Impulse);
@@ -103,7 +103,7 @@ public partial class DonutRigidBody : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //ドーナツ同士のバウンド
-        if (!union.IsSticky)
+        if (!union.IsSticky && collision.gameObject.tag == "Donut")
         {
             //バウンドの方向を計算
             Vector3 boundDirection = transform.position - collision.transform.position;

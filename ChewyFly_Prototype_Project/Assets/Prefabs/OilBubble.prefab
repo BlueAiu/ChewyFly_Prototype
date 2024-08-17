@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9068432918965592239}
   - component: {fileID: 4537713211083956480}
   - component: {fileID: 1617973529793989219}
-  - component: {fileID: -8670978088430318995}
   - component: {fileID: 7498597167811786114}
   m_Layer: 0
   m_Name: OilBubble
@@ -108,33 +107,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &-8670978088430318995
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3532124914727953334}
-  serializedVersion: 4
-  m_Mass: 0.2
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7498597167811786114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallBubble: {fileID: 5558182755286318739}
+  bubbleStartTime: 2
   lifeTimeMin: 5
   lifeTimeMax: 10
   donutBoundPower: 3

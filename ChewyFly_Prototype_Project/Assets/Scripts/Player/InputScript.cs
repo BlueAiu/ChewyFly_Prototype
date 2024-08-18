@@ -12,6 +12,13 @@ public class InputScript : MonoBehaviour
             gamepadInput = Gamepad.current.aButton.wasPressedThisFrame;
         return gamepadInput || Keyboard.current.spaceKey.wasPressedThisFrame;
     }
+    public bool isBButton()//ジャンプしたか
+    {
+        bool gamepadInput = false;
+        if (Gamepad.current != null)
+            gamepadInput = Gamepad.current.bButton.wasPressedThisFrame;
+        return gamepadInput || Keyboard.current.zKey.wasPressedThisFrame;
+    }
     public bool isRightShoulder()//Rボタン
     {
         bool gamepadInput = false;

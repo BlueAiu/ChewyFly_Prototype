@@ -22,7 +22,7 @@ public class OptionValues : MonoBehaviour
         set
         {
             // ílÇêßå¿
-            bgmValue = Math.Max(soundMinValue, Math.Min(soundMaxValue, value));
+            bgmValue = Math.Clamp(value, soundMinValue, soundMaxValue);
         }
     }
     public int SEValue
@@ -30,7 +30,7 @@ public class OptionValues : MonoBehaviour
         get { return seValue; }
         set
         {
-            seValue = Math.Max(soundMinValue, Math.Min(soundMaxValue, value));
+            seValue = Math.Clamp(value, soundMinValue, soundMaxValue);
         }
     }
     public int JumpSensibility
@@ -38,7 +38,7 @@ public class OptionValues : MonoBehaviour
         get { return jumpSensibility; }
         set
         {
-            jumpSensibility = Math.Max(sensibilityMinValue, Math.Min(sensibilityMaxValue, value));
+            jumpSensibility = Mathf.Clamp(value, sensibilityMinValue, sensibilityMaxValue);
         }
     }
     public int CameraSensibility
@@ -46,7 +46,7 @@ public class OptionValues : MonoBehaviour
         get { return cameraSensibility; }
         set
         {
-            cameraSensibility = Math.Max(sensibilityMinValue, Math.Min(sensibilityMaxValue, value));
+            cameraSensibility = Math.Clamp(value, sensibilityMinValue, sensibilityMaxValue);
         }
     }
     

@@ -21,7 +21,7 @@ public class OptionManager : OptionValues
 
     [SerializeField] EventSystem eventSystem;//現在選択しているボタンの取得に必要
     private Button previousButton;
-    private Slider nowSlider;
+    private Slider currentSlider;
     private int previousValue;//設定を変更しない場合この値に戻す
 
     public bool OnUseSlider { get; private set; } = false;
@@ -51,8 +51,8 @@ public class OptionManager : OptionValues
         {
             if (isSelectSlider)//ボタンを押すタイミングとUpdateのタイミングが合わないのでここでスライダーを有効化する
             {
-                nowSlider.enabled = true;
-                nowSlider.Select();
+                currentSlider.enabled = true;
+                currentSlider.Select();
                 isSelectSlider = false;
             }
             else
@@ -60,13 +60,13 @@ public class OptionManager : OptionValues
                 if (input.isAButton())
                 {
                     ActiveOptionButtons(true);
-                    nowSlider = null;
+                    currentSlider = null;
                 }
                 else if (input.isBButton())//Bボタンを押したなら前の値に戻す
                 {
-                    nowSlider.value = previousValue;
+                    currentSlider.value = previousValue;
                     ActiveOptionButtons(true);
-                    nowSlider = null;
+                    currentSlider = null;
                 }
             }
         }
@@ -80,7 +80,7 @@ public class OptionManager : OptionValues
     }
     public void OpenOption()
     {
-        nowSlider = null;
+        currentSlider = null;
         previousButton = null;
         ActiveOptionButtons(true);
 
@@ -99,7 +99,7 @@ public class OptionManager : OptionValues
         seButton.enabled = active;
         jumpSensibilityButton.enabled = active;
         cameraSensibilityButton.enabled = active;
-        if (nowSlider != null && active) nowSlider.enabled = false;
+        if (currentSlider != null && active) currentSlider.enabled = false;
         OnUseSlider = !active;
 
         if (active)
@@ -113,7 +113,7 @@ public class OptionManager : OptionValues
     public void SelectSlider(Slider slider)//ボタンの右にあるスライダーを選択状態にする(Buttonが呼ぶ)
     {
         isSelectSlider = true;
-        nowSlider = slider;
+        currentSlider = slider;
         previousButton = eventSystem.currentSelectedGameObject.gameObject.GetComponent<Button>();
         previousValue = (int)slider.value;
 

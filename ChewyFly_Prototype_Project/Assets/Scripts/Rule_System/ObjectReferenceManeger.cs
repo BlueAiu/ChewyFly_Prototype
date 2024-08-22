@@ -13,9 +13,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
 
-    [Header("生成する範囲")]
-    [SerializeField] Vector3 donutSpawnMin = Vector3.zero;
-    [SerializeField] Vector3 donutSpawnMax = Vector3.zero;
+    [Header("ドーナツを生成する")]
+    //[SerializeField] Vector3 donutSpawnMin = Vector3.zero;
+    //[SerializeField] Vector3 donutSpawnMax = Vector3.zero;
+    [SerializeField] float donutSpawnRadius = 5f;
+    [SerializeField] float donutSpawnYMin = 1f;
+    [SerializeField] float donutSpawnYMax = 1.5f;
+
+    [Tooltip("プレイヤーの周りにドーナツを生成しない距離")]
+    [SerializeField] float notSpawnDistance = 1f;
 
     [Tooltip("ゲーム開始直後に生成する数")]
     [SerializeField] int startSpawnCount = 10;
@@ -33,8 +39,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("泡を生成する周期")]
     [SerializeField] float bubbleSpawnPeriod = 3f;
 
-    [SerializeField] Vector3 bubbleSpawnMin = Vector3.zero;
-    [SerializeField] Vector3 bubbleSpawnMax = Vector3.zero;
+    //[SerializeField] Vector3 bubbleSpawnMin = Vector3.zero;
+    //[SerializeField] Vector3 bubbleSpawnMax = Vector3.zero;
+    [SerializeField] float bubbleSpawnRadius = 5f;
+    [SerializeField] float bubbleSpawnYMin = 0f;
+    [SerializeField] float bubbleSpawnYMax = 0.5f;
 
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
@@ -77,10 +86,51 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             Random.Range(spawnMin.z,spawnMax.z));
     }
 
+    Vector3 RandomVector(float radius, float yMin, float yMax)
+    {
+        float r = Mathf.Sqrt(Random.value) * radius;
+        float theta = Random.Range(0f, 2 * Mathf.PI);
+
+        return new Vector3(r * Mathf.Cos(theta), Random.Range(yMin, yMax), r * Mathf.Sin(theta));
+    }
+
+    Vector3 MoveAwayDonut(Vector3 SpawnPos)
+    {
+        Vector3[] directions = new Vector3[4]
+        {
+            Vector3.forward,
+            Vector3.right,
+            Vector3.back,
+            Vector3.left
+        };
+
+        float minDistance = float.MaxValue;
+        Vector3 minDirection = Vector3.zero;
+
+        foreach(var d in directions)
+        {
+            var dir = d * notSpawnDistance;
+
+            if (Vector3.SqrMagnitude(SpawnPos + dir - player.transform.position) < notSpawnDistance * notSpawnDistance)
+                continue;
+
+            float distance = Vector3.SqrMagnitude(SpawnPos + dir);
+
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                minDirection = dir;
+            }
+        }
+
+        return SpawnPos + minDirection;
+    }
+
     //新たなドーナツを鍋に追加する
     public void CreateDonutUnion()
     {
-        var position = RandomVector(donutSpawnMin, donutSpawnMax);
+        var position = RandomVector(donutSpawnRadius, donutSpawnYMin, donutSpawnYMax);
+        position = MoveAwayDonut(position);
         GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
@@ -135,7 +185,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //泡を生成する
     void CreateBubble()
     {
-        var position = RandomVector(bubbleSpawnMin, bubbleSpawnMax);
+        var position = RandomVector(bubbleSpawnRadius, bubbleSpawnYMin, bubbleSpawnYMax);
         Instantiate(oilBubble, position, Quaternion.identity);
     }
 

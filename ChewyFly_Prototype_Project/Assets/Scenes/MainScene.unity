@@ -2440,15 +2440,18 @@ MonoBehaviour:
   donutsList:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  donutSpawnMin: {x: -5, y: 1.2, z: -5}
-  donutSpawnMax: {x: 5, y: 1.5, z: 5}
+  donutSpawnRadius: 6.5
+  donutSpawnYMin: 1
+  donutSpawnYMax: 1.5
+  notSpawnDistance: 2
   startSpawnCount: 15
   spawnTimePeriod: 10
   minimumDonutCount: 15
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
-  bubbleSpawnMin: {x: -5, y: 1, z: -5}
-  bubbleSpawnMax: {x: 5, y: 1, z: 5}
+  bubbleSpawnRadius: 6
+  bubbleSpawnYMin: 0
+  bubbleSpawnYMax: 0.5
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30

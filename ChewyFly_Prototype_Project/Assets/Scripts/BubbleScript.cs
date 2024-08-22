@@ -14,7 +14,7 @@ public class BubbleScript : MonoBehaviour
     [Tooltip("ドーナツを弾き飛ばす力")]
     [SerializeField] float donutBoundPower = 5f;
 
-    Collider collider;
+    new Collider collider;
 
     // Start is called before the first frame update
     void Start()

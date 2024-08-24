@@ -254,6 +254,7 @@ MonoBehaviour:
   terminalVelocity: 5
   playerRotateSpeed: 450
   aboveDonut: 0.5
+  oilJumpTime: 1.5
   rotateSpeed: 5
 --- !u!114 &270912496
 MonoBehaviour:
@@ -2452,6 +2453,7 @@ MonoBehaviour:
   bubbleSpawnRadius: 6
   bubbleSpawnYMin: 0
   bubbleSpawnYMax: 0.5
+  completeJumpTime: 2
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30

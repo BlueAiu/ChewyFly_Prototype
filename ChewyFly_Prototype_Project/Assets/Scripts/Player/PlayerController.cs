@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ドーナツの上に移動させるときのy座標のずれ")]
     [SerializeField] float aboveDonut = 1f;
 
+    [Tooltip("油に落ちた時のジャンプの長さ")]
+    [SerializeField] float oilJumpTime = 3f;
+
     Vector3 previousDirection = Vector3.zero;
 
     //[Header("ドーナツの上に乗っている場合の弾き操作")]
@@ -174,6 +177,17 @@ public class PlayerController : MonoBehaviour
         velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
     }
 
+    public void JumpTo(Vector3 target, float time)  //跳んでから着地までの時間を指定する
+    {
+        DetachDonut();
+
+        var direction = target - transform.position;
+        var horizontalVelocity = (direction - Vector3.up * direction.y) / time;
+        var verticalVelocity = direction.y / time + gravity * time / 2;
+
+        velocity = horizontalVelocity + verticalVelocity * Vector3.up;
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.tag == "Donuts" && character.isGrounded) //ドーナツに着地
@@ -191,7 +205,7 @@ public class PlayerController : MonoBehaviour
             var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
             //character.Move(targetPos - transform.position);
             //velocity = Vector3.zero;
-            JumpTo(targetPos);
+            JumpTo(targetPos, oilJumpTime);
         }
     }
 }

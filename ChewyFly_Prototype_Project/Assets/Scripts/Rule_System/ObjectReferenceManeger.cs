@@ -13,6 +13,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
 
+
     [Header("ドーナツを生成する")]
     //[SerializeField] Vector3 donutSpawnMin = Vector3.zero;
     //[SerializeField] Vector3 donutSpawnMax = Vector3.zero;
@@ -32,6 +33,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("最低限ゲーム上に存在するドーナツの数")]
     [SerializeField] int minimumDonutCount = 15;
 
+
     [Header("ドーナツを弾く泡生成")]
     [Tooltip("生成する泡オブジェクト")]
     [SerializeField] GameObject oilBubble;
@@ -47,6 +49,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
+
+    [Header("ドーナツが完成したとき")]
+    [Tooltip("ドーナツが完成したときのジャンプの長さ")]
+    [SerializeField] float completeJumpTime = 3f;
 
 
 
@@ -173,7 +179,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donutsList.Remove(donut);
 
         player.GetComponent<PlayerController>().
-            JumpTo(ClosestDonut().transform.position);
+            JumpTo(ClosestDonut().transform.position, completeJumpTime);
 
         madeDonuts++;
 

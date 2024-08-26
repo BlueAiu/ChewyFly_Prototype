@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buoyancy: 20
   surfaceY: 1
-  movementResistance: 2
-  rotationResistance: 3
+  movementResistance: 5
+  rotationResistance: 5
   boundPower: 2
   phese1Time: 0.5
   standDonutAngle: 45

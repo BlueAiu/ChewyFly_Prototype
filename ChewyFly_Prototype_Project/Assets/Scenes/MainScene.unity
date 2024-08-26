@@ -323,7 +323,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.3
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -333,16 +333,16 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.7
       value: 1
-      inSlope: 4.441525
-      outSlope: 4.441525
+      inSlope: 2.2992306
+      outSlope: 2.2992306
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.054941945
+      inWeight: 0.06047215
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxFlicPower: 40
+  maxFlicPower: 10
   flicUpPower: 1
   stickSpeed: 25
   flicCoolTime: 0.5

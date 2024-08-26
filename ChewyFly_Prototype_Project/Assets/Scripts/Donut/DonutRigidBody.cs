@@ -19,6 +19,8 @@ public partial class DonutRigidBody : MonoBehaviour
     [Tooltip("‰ñ“]‚Ì’ïR—ÍŒW”")]
     [SerializeField] float rotationResistance = 2f;
 
+    const float largerSpeed = 1f;
+
     Vector3 impulse = Vector3.zero;
     public Vector3 bounce { get; set; } = Vector3.zero;
     [Tooltip("ƒoƒEƒ“ƒh‚Ì‹­‚³")]
@@ -94,9 +96,19 @@ public partial class DonutRigidBody : MonoBehaviour
             rb.AddForce(Vector3.up * buoyancy * sinkVolume);
 
             //’ïR—Í
-            rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * movementResistance * sinkVolume));
 
-            rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * rotationResistance * sinkVolume));
+            if (rb.velocity.sqrMagnitude > largerSpeed * largerSpeed)
+            {
+
+                rb.AddForce(-rb.velocity * (movementResistance * sinkVolume));
+            }
+            else
+            {
+                rb.AddForce(-rb.velocity.normalized * (rb.velocity.sqrMagnitude * movementResistance * sinkVolume));
+            }
+
+            //rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * rotationResistance * sinkVolume));
+            rb.AddTorque(-rb.angularVelocity * (rotationResistance * sinkVolume));
         }
     }
 

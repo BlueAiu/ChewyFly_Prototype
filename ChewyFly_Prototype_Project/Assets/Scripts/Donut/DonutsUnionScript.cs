@@ -5,7 +5,7 @@ using UnityEngine;
 public partial class DonutsUnionScript : MonoBehaviour
 {
     Rigidbody rb;
-    AudioSource mergeSE;
+    //AudioSource mergeSE;
 
     [Tooltip("生成時に生成主から参照を渡される")]
     public ObjectReferenceManeger objManeger;
@@ -39,11 +39,13 @@ public partial class DonutsUnionScript : MonoBehaviour
     [Tooltip("くっつくSEを鳴らし始めるタイミング")]
     [SerializeField] float mergeSETiming = 0.1f;
 
-
+    [SerializeField] SoundManager soundManager;
+    [SerializeField] AudioClip mergeSE;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Start is called before the first frame update
@@ -57,7 +59,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         {
             hexaPositions.Add(Vector2.zero);
         }
-        mergeSE = GetComponent<AudioSource>();
+        //mergeSE = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -108,8 +110,10 @@ public partial class DonutsUnionScript : MonoBehaviour
         if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
         {
             MergeDonuts(collision);
-            mergeSE.time = mergeSETiming;    //音声ファイルの最初の無音部分を飛ばしている。
-            mergeSE.Play();
+
+            //mergeSE.time = mergeSETiming;    //音声ファイルの最初の無音部分を飛ばしている。
+            //mergeSE.Play();
+            soundManager.PlaySE(mergeSE, mergeSETiming);
 
             if (unionCount >= unionCountMax) //ドーナツが完成する
             {

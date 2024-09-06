@@ -6,8 +6,8 @@ using UnityEngine;
 public class OptionValues : MonoBehaviour
 {
     // Å¬’l‚ÆÅ‘å’l‚ğİ’è
-    protected const int soundMinValue = 0;
-    protected const int soundMaxValue = 100;
+    public const int soundMinValue = 0;
+    public const int soundMaxValue = 100;
     protected const int sensibilityMinValue = -5;
     protected const int sensibilityMaxValue = 5;
 
@@ -16,6 +16,12 @@ public class OptionValues : MonoBehaviour
     private static int jumpSensibility = 0;
     private static int cameraSensibility = 0;
 
+
+    [SerializeField] SoundManager soundManager;
+    private void Start()
+    {
+        if (soundManager == null) soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
     public int BGMValue
     {
         get { return bgmValue; }
@@ -23,6 +29,9 @@ public class OptionValues : MonoBehaviour
         {
             // ’l‚ğ§ŒÀ
             bgmValue = Math.Clamp(value, soundMinValue, soundMaxValue);
+            Debug.Log(bgmValue + ":‚Éİ’è‚³‚êt‚ ");
+            if (soundManager != null)
+                soundManager.SetBGMVolume(this);
         }
     }
     public int SEValue
@@ -31,6 +40,8 @@ public class OptionValues : MonoBehaviour
         set
         {
             seValue = Math.Clamp(value, soundMinValue, soundMaxValue);
+            if (soundManager != null)
+                soundManager.SetSEVolume(this);
         }
     }
     public int JumpSensibility

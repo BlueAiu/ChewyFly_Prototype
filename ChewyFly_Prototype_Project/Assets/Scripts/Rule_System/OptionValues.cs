@@ -8,13 +8,13 @@ public class OptionValues : MonoBehaviour
     // 最小値と最大値を設定
     public const int soundMinValue = 0;
     public const int soundMaxValue = 100;
-    protected const int sensibilityMinValue = -5;
-    protected const int sensibilityMaxValue = 5;
+    public const int sensitivityMinValue = -5;
+    public const int sensitivityMaxValue = 5;
 
     private static int bgmValue = 50;
     private static int seValue = 50;
-    private static int jumpSensibility = 0;
-    private static int cameraSensibility = 0;
+    private static int jumpSensitivity = 0;
+    private static int cameraSensitivity = 0;
 
 
     [SerializeField] SoundManager soundManager;
@@ -29,7 +29,6 @@ public class OptionValues : MonoBehaviour
         {
             // 値を制限
             bgmValue = Math.Clamp(value, soundMinValue, soundMaxValue);
-            Debug.Log(bgmValue + ":に設定されtあ");
             if (soundManager != null)
                 soundManager.SetBGMVolume(this);
         }
@@ -44,25 +43,25 @@ public class OptionValues : MonoBehaviour
                 soundManager.SetSEVolume(this);
         }
     }
-    public int JumpSensibility
+    public int JumpSensitivity
     {
-        get { return jumpSensibility; }
+        get { return jumpSensitivity; }
         set
         {
-            jumpSensibility = Mathf.Clamp(value, sensibilityMinValue, sensibilityMaxValue);
+            jumpSensitivity = Mathf.Clamp(value, sensitivityMinValue, sensitivityMaxValue);
         }
     }
-    public int CameraSensibility
+    public int CameraSensitivity
     {
-        get { return cameraSensibility; }
+        get { return cameraSensitivity; }
         set
         {
-            cameraSensibility = Math.Clamp(value, sensibilityMinValue, sensibilityMaxValue);
+            cameraSensitivity = Math.Clamp(value, sensitivityMinValue, sensitivityMaxValue);
         }
     }
     
     public void StaticValueCheck()
     {
-        Debug.Log("bgmは" + BGMValue + "、seは" + SEValue + "、jump感度は" + JumpSensibility + "、camera感度は" + CameraSensibility);
+        Debug.Log("bgmは" + BGMValue + "、seは" + SEValue + "、jump感度は" + JumpSensitivity + "、camera感度は" + CameraSensitivity);
     }
 }

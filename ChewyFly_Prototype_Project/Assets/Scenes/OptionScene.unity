@@ -1635,12 +1635,12 @@ MonoBehaviour:
   soundManager: {fileID: 993165836}
   bgmButton: {fileID: 1774429449}
   seButton: {fileID: 776964652}
-  jumpSensibilityButton: {fileID: 1803657251}
-  cameraSensibilityButton: {fileID: 1294117140}
+  jumpSensitivityButton: {fileID: 1803657251}
+  cameraSensitivityButton: {fileID: 1294117140}
   bgmSlider: {fileID: 1560500503}
   seSlider: {fileID: 111703149}
-  jumpSensibilitySlider: {fileID: 1145915763}
-  cameraSensibilitySlider: {fileID: 1154191138}
+  jumpSensitivitySlider: {fileID: 1145915763}
+  cameraSensitivitySlider: {fileID: 1154191138}
   eventSystem: {fileID: 33231678}
 --- !u!114 &1729943195
 MonoBehaviour:

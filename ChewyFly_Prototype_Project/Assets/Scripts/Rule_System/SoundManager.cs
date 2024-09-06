@@ -45,12 +45,12 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(OptionValues optionValues)
     {
         if (optionValues == null) return;
-        bgmAudioSource.volume = (float)optionValues.BGMValue / (OptionValues.soundMaxValue - OptionValues.soundMinValue);
+        bgmAudioSource.volume = (float)(optionValues.BGMValue - OptionValues.soundMinValue) / (OptionValues.soundMaxValue - OptionValues.soundMinValue);
     }
 
     public void SetSEVolume(OptionValues optionValues)
     {
         if (optionValues == null) return;
-        seAudioSource.volume = (float)optionValues.SEValue / (OptionValues.soundMaxValue - OptionValues.soundMinValue);
+        seAudioSource.volume = (float)(optionValues.SEValue - OptionValues.soundMinValue) / (OptionValues.soundMaxValue - OptionValues.soundMinValue);
     }
 }

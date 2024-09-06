@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
         SetSEVolume(option);
     }
 
-    public void PlayBGM(AudioClip clip, float skipTime = 0f)
+    public void PlayBGM(AudioClip clip, float skipTime = 0f)//skipTime‚Ì•ª”ò‚Î‚·Aclip‚¾‚¯w’è‚Ìê‡‚Í”ò‚Î‚³‚È‚¢
     {
         bgmAudioSource.clip = clip;
 

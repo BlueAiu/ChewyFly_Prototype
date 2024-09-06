@@ -33,6 +33,10 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
 
     const int countdownNum = 3;
 
+    [Header("ゲームの音")]
+    [SerializeField] SoundManager soundManager;
+    [SerializeField] AudioClip gameBGM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,8 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
         timer = timeLimit;
         timerCircleImage.fillAmount = 1f;
 
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager.PlayBGM(gameBGM);
         //timerText.enabled = true;
         //timerText.text = (Mathf.Floor(timer * 10) / 10).ToString();
     }

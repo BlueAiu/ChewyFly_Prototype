@@ -40,7 +40,7 @@ public class PlayerCameraRotation : MonoBehaviour
         if (playerCamera == null)
             playerCamera = GameObject.Find("PlayerCameraParent");
 
-        OptionValues option = FindObjectOfType<OptionValues>();//‰¹—Ê‚ğ‰Šú‰»
+        OptionValues option = FindObjectOfType<OptionValues>();//ƒJƒƒ‰‚Ì‰ñ“]‘¬“x‚ğ‰Šú‰»
         SetCameraSensityvity(option);
     }
 
@@ -112,8 +112,6 @@ public class PlayerCameraRotation : MonoBehaviour
     {
         if (optionValues == null) return;
 
-        float ratio = (float)(optionValues.CameraSensitivity - OptionValues.sensitivityMinValue) / 
-            (OptionValues.sensitivityMaxValue - OptionValues.sensitivityMinValue);
-        sensitivity = minSensitivity + (maxSensitivity - minSensitivity) * ratio;
+        sensitivity = minSensitivity + (maxSensitivity - minSensitivity) * optionValues.GetCameraSensitivityRatio();
     }
 }

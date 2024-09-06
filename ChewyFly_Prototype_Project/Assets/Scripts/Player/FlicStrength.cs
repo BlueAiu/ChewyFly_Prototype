@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -46,6 +47,10 @@ public class FlicStrength : MonoBehaviour
 
     public bool isJumpMode { get; private set; } = false;
 
+    [Header("’e‚«Š´“x‚Ì”{—¦")]
+    [SerializeField] float flicSensitivity = 1f;
+    [SerializeField] float minflicSensitivity = 0.25f;
+    [SerializeField] float maxflicSensitivity = 1.75f;
     private void Awake()//Start‚æ‚è‚³‚ç‚É‘O‚ÉŠi”[‚µ‚Ä‚¨‚­
     {
         flicTime = 0f;
@@ -70,7 +75,8 @@ public class FlicStrength : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        OptionValues option = FindObjectOfType<OptionValues>();//Š´“x‚ð‰Šú‰»
+        SetJumpSensityvity(option);
     }
 
     private void Update()
@@ -131,7 +137,7 @@ public class FlicStrength : MonoBehaviour
         if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
         {
             arrowSprite.SetActive(true);
-            flicTime += Time.fixedDeltaTime;
+            AddFlicTime(Time.fixedDeltaTime);
             StretchArrow(direction);
         }
         else
@@ -165,7 +171,7 @@ public class FlicStrength : MonoBehaviour
         if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
         {
             jumpArrowSprite.SetActive(true);
-            flicTime += Time.fixedDeltaTime;
+            AddFlicTime(Time.fixedDeltaTime);
             StretchArrow(direction);
         }
         else
@@ -205,5 +211,15 @@ public class FlicStrength : MonoBehaviour
 
         if (rightInputSpeed < stickSpeed) return false;
         else return true;
+    }
+    void AddFlicTime(float t)//‘«‚·ŽžŠÔ‚ðã‰º‚³‚¹‚ÄŠ´“x‚ð’²®‚·‚é
+    {
+        flicTime += t * flicSensitivity;
+    }
+    void SetJumpSensityvity(OptionValues optionValues)
+    {
+        if (optionValues == null) return;
+
+        flicSensitivity = minflicSensitivity + (maxflicSensitivity - minflicSensitivity) * optionValues.GetJumpSensitivityRatio();
     }
 }

@@ -292,11 +292,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 1746990158}
-  sensityvity: 180
-  resetSensityvity: 800
+  sensitivity: 180
+  maxSensitivity: 330
+  minSensitivity: 30
+  resetSensitivity: 800
   nonRotationalAreaRadius: 4
   reapplicationDistance: 2
-  autoRotateSensityvity: 180
+  autoRotateSensitivity: 120
 --- !u!114 &270912498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +360,9 @@ MonoBehaviour:
   stickSpeed: 25
   flicCoolTime: 0.5
   jumpPower: 12
+  flicSensitivity: 1
+  minflicSensitivity: 0.25
+  maxflicSensitivity: 1.75
 --- !u!81 &270912500
 AudioListener:
   m_ObjectHideFlags: 0

@@ -64,4 +64,13 @@ public class OptionValues : MonoBehaviour
     {
         Debug.Log("bgmは" + BGMValue + "、seは" + SEValue + "、jump感度は" + JumpSensitivity + "、camera感度は" + CameraSensitivity);
     }
+
+    public float GetCameraSensitivityRatio()//最小値を0、最大値を1としたときの値の割合
+    {
+        return (float)(CameraSensitivity - sensitivityMinValue) / (sensitivityMaxValue - sensitivityMinValue);
+    }
+    public float GetJumpSensitivityRatio()//最小値を0、最大値を1としたときの値の割合
+    {
+        return (float)(JumpSensitivity - sensitivityMinValue) / (sensitivityMaxValue - sensitivityMinValue);
+    }
 }

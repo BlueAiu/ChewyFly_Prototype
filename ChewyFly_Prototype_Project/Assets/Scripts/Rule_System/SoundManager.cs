@@ -37,9 +37,8 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        seAudioSource.clip = clip;
         seAudioSource.time = skipTime;
-        seAudioSource.Play();
+        seAudioSource.PlayOneShot(clip);
     }
 
     public void SetBGMVolume(OptionValues optionValues)

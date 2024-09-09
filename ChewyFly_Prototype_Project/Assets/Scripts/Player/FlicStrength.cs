@@ -31,6 +31,8 @@ public class FlicStrength : MonoBehaviour
 
     [Header("’e‚«“ü—Í‚ðŒŸ’m‚·‚éƒXƒeƒBƒbƒN‚Ì‘¬‚³")]
     [SerializeField] float stickSpeed = 40f;
+    [SerializeField] float maxStickSpeed = 45f;
+    [SerializeField] float minStickSpeed = 0f;
 
     [Header("ŽŸ‚É’e‚«“ü—Í‚ª‚Å‚«‚é‚Ü‚Å‚ÌŽžŠÔ")]
     [SerializeField] float flicCoolTime = 0.5f;
@@ -46,11 +48,6 @@ public class FlicStrength : MonoBehaviour
     float arrowZSize;
 
     public bool isJumpMode { get; private set; } = false;
-
-    [Header("’e‚«Š´“x‚Ì”{—¦")]
-    [SerializeField] float flicSensitivity = 1f;
-    [SerializeField] float minflicSensitivity = 0.25f;
-    [SerializeField] float maxflicSensitivity = 1.75f;
     private void Awake()//Start‚æ‚è‚³‚ç‚É‘O‚ÉŠi”[‚µ‚Ä‚¨‚­
     {
         flicTime = 0f;
@@ -137,7 +134,7 @@ public class FlicStrength : MonoBehaviour
         if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
         {
             arrowSprite.SetActive(true);
-            AddFlicTime(Time.fixedDeltaTime);
+            flicTime += Time.fixedDeltaTime;
             StretchArrow(direction);
         }
         else
@@ -171,7 +168,7 @@ public class FlicStrength : MonoBehaviour
         if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
         {
             jumpArrowSprite.SetActive(true);
-            AddFlicTime(Time.fixedDeltaTime);
+            flicTime += Time.fixedDeltaTime;
             StretchArrow(direction);
         }
         else
@@ -212,14 +209,10 @@ public class FlicStrength : MonoBehaviour
         if (rightInputSpeed < stickSpeed) return false;
         else return true;
     }
-    void AddFlicTime(float t)//‘«‚·ŽžŠÔ‚ðã‰º‚³‚¹‚ÄŠ´“x‚ð’²®‚·‚é
-    {
-        flicTime += t * flicSensitivity;
-    }
     void SetJumpSensityvity(OptionValues optionValues)
     {
         if (optionValues == null) return;
 
-        flicSensitivity = minflicSensitivity + (maxflicSensitivity - minflicSensitivity) * optionValues.GetJumpSensitivityRatio();
+        stickSpeed = minStickSpeed + (maxStickSpeed - minStickSpeed) * optionValues.GetJumpSensitivityRatio();
     }
 }

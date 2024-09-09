@@ -11,10 +11,15 @@ public class PlayerCameraRotation : MonoBehaviour
     [SerializeField] protected GameObject playerCamera;
 
     [Tooltip("カメラの回転の速さ")]
-    [SerializeField] float sensityvity = 180f;
+    [SerializeField] float sensitivity = 180f;
+    [Tooltip("カメラの最大回転速度")]
+    [SerializeField] float maxSensitivity = 330f;
+    [Tooltip("カメラの最小回転速度")]
+    [SerializeField] float minSensitivity = 30f;
+
 
     [Tooltip("視点リセット時のカメラの回転の速さ")]
-    [SerializeField] float resetSensityvity = 800f;
+    [SerializeField] float resetSensitivity = 800f;
     bool isResetCamera = false;
 
 
@@ -24,7 +29,7 @@ public class PlayerCameraRotation : MonoBehaviour
     [Tooltip("カメラ回転操作をした後この距離を離れるまで自動回転しない")]
     [SerializeField] float reapplicationDistance = 1f;
     [Tooltip("自動回転の回転速")]
-    [SerializeField] float autoRotateSensityvity = 120f;
+    [SerializeField] float autoRotateSensitivity = 120f;
 
     bool canRotatoAuto = false;
     Vector3 lastInputPosition = Vector3.zero;
@@ -34,6 +39,9 @@ public class PlayerCameraRotation : MonoBehaviour
         input = GetComponent<InputScript>();
         if (playerCamera == null)
             playerCamera = GameObject.Find("PlayerCameraParent");
+
+        OptionValues option = FindObjectOfType<OptionValues>();//カメラの回転速度を初期化
+        SetCameraSensityvity(option);
     }
 
     void LateUpdate()//Updateの後にカメラの位置を制御する
@@ -61,12 +69,12 @@ public class PlayerCameraRotation : MonoBehaviour
 
         if (rot != 0)
         {
-            playerCamera.transform.Rotate(0, rot * sensityvity * Time.deltaTime, 0);
+            playerCamera.transform.Rotate(0, rot * sensitivity * Time.deltaTime, 0);
             isResetCamera = false;
         }
         else if(isResetCamera)
         {
-            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, transform.rotation, resetSensityvity * Time.deltaTime);
+            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, transform.rotation, resetSensitivity * Time.deltaTime);
             if (Quaternion.Angle(transform.rotation, playerCamera.transform.rotation) < 0.1f)
             {
                 isResetCamera = false;
@@ -86,7 +94,7 @@ public class PlayerCameraRotation : MonoBehaviour
             Vector3 centerDir = (Vector3.zero + Vector3.up * transform.position.y) - transform.position;
             Quaternion lookCenter = Quaternion.LookRotation(centerDir, Vector3.up);
 
-            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, lookCenter, autoRotateSensityvity * Time.deltaTime);
+            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, lookCenter, autoRotateSensitivity * Time.deltaTime);
         }
 
         if(input.isRightStick() != Vector3.zero || input.isRightStickButton())
@@ -98,5 +106,12 @@ public class PlayerCameraRotation : MonoBehaviour
         {
             canRotatoAuto= true;
         }
+    }
+
+    void SetCameraSensityvity(OptionValues optionValues)
+    {
+        if (optionValues == null) return;
+
+        sensitivity = minSensitivity + (maxSensitivity - minSensitivity) * optionValues.GetCameraSensitivityRatio();
     }
 }

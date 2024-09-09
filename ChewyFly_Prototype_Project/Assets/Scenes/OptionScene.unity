@@ -324,6 +324,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &475414402
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2084193753832713747, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130439616566163928, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: optionValues
+      value: 
+      objectReference: {fileID: 1729943194}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
 --- !u!1 &645992804
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +810,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &993165836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7130439616566163928, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+  m_PrefabInstance: {fileID: 475414402}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94be68301ad5b9640ba5d194eeb3e55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1145915761
@@ -1560,14 +1632,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90f5ad97d7dde8448960a9f7884cc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 993165836}
   bgmButton: {fileID: 1774429449}
   seButton: {fileID: 776964652}
-  jumpSensibilityButton: {fileID: 1803657251}
-  cameraSensibilityButton: {fileID: 1294117140}
+  jumpSensitivityButton: {fileID: 1803657251}
+  cameraSensitivityButton: {fileID: 1294117140}
   bgmSlider: {fileID: 1560500503}
   seSlider: {fileID: 111703149}
-  jumpSensibilitySlider: {fileID: 1145915763}
-  cameraSensibilitySlider: {fileID: 1154191138}
+  jumpSensitivitySlider: {fileID: 1145915763}
+  cameraSensitivitySlider: {fileID: 1154191138}
   eventSystem: {fileID: 33231678}
 --- !u!114 &1729943195
 MonoBehaviour:
@@ -2012,3 +2085,4 @@ SceneRoots:
   - {fileID: 1396168677}
   - {fileID: 33231679}
   - {fileID: 1729943193}
+  - {fileID: 475414402}

@@ -10,14 +10,14 @@ public class OptionManager : OptionValues
     [Header("ボタンUI")]
     [SerializeField] Button bgmButton;
     [SerializeField] Button seButton;
-    [SerializeField] Button jumpSensibilityButton;
-    [SerializeField] Button cameraSensibilityButton;
+    [SerializeField] Button jumpSensitivityButton;
+    [SerializeField] Button cameraSensitivityButton;
 
     [Header("スライダーUI")]
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider seSlider;
-    [SerializeField] Slider jumpSensibilitySlider;
-    [SerializeField] Slider cameraSensibilitySlider;
+    [SerializeField] Slider jumpSensitivitySlider;
+    [SerializeField] Slider cameraSensitivitySlider;
 
     [SerializeField] EventSystem eventSystem;//現在選択しているボタンの取得に必要
     private Button previousButton;
@@ -37,8 +37,8 @@ public class OptionManager : OptionValues
         //最大値、最小値に初期化
         bgmSlider.maxValue = soundMaxValue; bgmSlider.minValue = soundMinValue;
         seSlider.maxValue = soundMaxValue; seSlider.minValue = soundMinValue;
-        jumpSensibilitySlider.maxValue = sensibilityMaxValue; jumpSensibilitySlider.minValue = sensibilityMinValue;
-        cameraSensibilitySlider.maxValue = sensibilityMaxValue; cameraSensibilitySlider.minValue = sensibilityMinValue;
+        jumpSensitivitySlider.maxValue = sensitivityMaxValue; jumpSensitivitySlider.minValue = sensitivityMinValue;
+        cameraSensitivitySlider.maxValue = sensitivityMaxValue; cameraSensitivitySlider.minValue = sensitivityMinValue;
 
         OpenOption();
 
@@ -86,19 +86,19 @@ public class OptionManager : OptionValues
 
         bgmSlider.SetValueWithoutNotify(BGMValue);//イベントを発生させずにスライダーの値を変更
         seSlider.SetValueWithoutNotify(SEValue);
-        jumpSensibilitySlider.SetValueWithoutNotify(JumpSensibility);
-        cameraSensibilitySlider.SetValueWithoutNotify(CameraSensibility);
+        jumpSensitivitySlider.SetValueWithoutNotify(JumpSensitivity);
+        cameraSensitivitySlider.SetValueWithoutNotify(CameraSensitivity);
 
         //ボタンだけを選択できる状態にするためスライダーを止める
         bgmSlider.enabled = false; seSlider.enabled = false;
-        jumpSensibilitySlider.enabled = false; cameraSensibilitySlider.enabled = false;
+        jumpSensitivitySlider.enabled = false; cameraSensitivitySlider.enabled = false;
     }
     void ActiveOptionButtons(bool active)//左にあるボタンたちを有効、非有効化する
     {
         bgmButton.enabled = active;
         seButton.enabled = active;
-        jumpSensibilityButton.enabled = active;
-        cameraSensibilityButton.enabled = active;
+        jumpSensitivityButton.enabled = active;
+        cameraSensitivityButton.enabled = active;
         if (currentSlider != null && active) currentSlider.enabled = false;
         OnUseSlider = !active;
 
@@ -131,10 +131,10 @@ public class OptionManager : OptionValues
     }
     public void SetJumpSensibility(Slider slider)
     {
-        JumpSensibility = (int)slider.value;
+        JumpSensitivity = (int)slider.value;
     }
     public void SetCameraSensibility(Slider slider)
     {
-        CameraSensibility = (int)slider.value;
+        CameraSensitivity = (int)slider.value;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -30,6 +31,8 @@ public class FlicStrength : MonoBehaviour
 
     [Header("弾き入力を検知するスティックの速さ")]
     [SerializeField] float stickSpeed = 40f;
+    [SerializeField] float maxStickSpeed = 45f;
+    [SerializeField] float minStickSpeed = 0f;
 
     [Header("次に弾き入力ができるまでの時間")]
     [SerializeField] float flicCoolTime = 0.5f;
@@ -45,7 +48,6 @@ public class FlicStrength : MonoBehaviour
     float arrowZSize;
 
     public bool isJumpMode { get; private set; } = false;
-
     private void Awake()//Startよりさらに前に格納しておく
     {
         flicTime = 0f;
@@ -70,7 +72,8 @@ public class FlicStrength : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        OptionValues option = FindObjectOfType<OptionValues>();//感度を初期化
+        SetJumpSensityvity(option);
     }
 
     private void Update()
@@ -205,5 +208,11 @@ public class FlicStrength : MonoBehaviour
 
         if (rightInputSpeed < stickSpeed) return false;
         else return true;
+    }
+    void SetJumpSensityvity(OptionValues optionValues)
+    {
+        if (optionValues == null) return;
+
+        stickSpeed = minStickSpeed + (maxStickSpeed - minStickSpeed) * optionValues.GetJumpSensitivityRatio();
     }
 }

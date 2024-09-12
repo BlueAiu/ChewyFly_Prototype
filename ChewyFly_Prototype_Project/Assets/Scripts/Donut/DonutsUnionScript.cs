@@ -36,9 +36,6 @@ public partial class DonutsUnionScript : MonoBehaviour
     [Tooltip("ドーナツの質量の増加倍率")]
     [SerializeField] float donutMassRate = 1f;
 
-    [Tooltip("くっつくSEを鳴らし始めるタイミング")]
-    [SerializeField] float mergeSETiming = 0.1f;
-
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip mergeSE;
 
@@ -111,9 +108,8 @@ public partial class DonutsUnionScript : MonoBehaviour
         {
             MergeDonuts(collision);
 
-            //mergeSE.time = mergeSETiming;    //音声ファイルの最初の無音部分を飛ばしている。
             //mergeSE.Play();
-            soundManager.PlaySE(mergeSE, mergeSETiming);
+            soundManager.PlaySE(mergeSE);
 
             if (unionCount >= unionCountMax) //ドーナツが完成する
             {

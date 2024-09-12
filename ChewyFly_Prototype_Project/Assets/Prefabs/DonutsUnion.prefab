@@ -53,9 +53,8 @@ MonoBehaviour:
   stickySpeed: 1
   unionCountMax: 6
   donutMassRate: 1
-  mergeSETiming: 0.2
   soundManager: {fileID: 0}
-  mergeSE: {fileID: 8300000, guid: 73ec22bc24d651849bcc3bbd78b9892c, type: 3}
+  mergeSE: {fileID: 8300000, guid: e63cf7817a095af4d8588b8e5f6e2c78, type: 3}
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946
 Rigidbody:

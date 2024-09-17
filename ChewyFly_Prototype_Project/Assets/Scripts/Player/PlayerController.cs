@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ドーナツの上に移動させるときのy座標のずれ")]
     [SerializeField] float aboveDonut = 1f;
 
+    [Tooltip("油に落ちた時のエフェクト")]
+    [SerializeField] GameObject damageEffect;
+
     [Tooltip("油に落ちた時のジャンプの長さ")]
     [SerializeField] float oilJumpTime = 3f;
 
@@ -205,6 +208,8 @@ public class PlayerController : MonoBehaviour
             var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
             //character.Move(targetPos - transform.position);
             //velocity = Vector3.zero;
+            Instantiate(damageEffect, transform.position, Quaternion.identity);
+
             JumpTo(targetPos, oilJumpTime);
         }
     }

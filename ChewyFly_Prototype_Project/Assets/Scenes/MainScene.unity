@@ -265,6 +265,7 @@ MonoBehaviour:
   terminalVelocity: 5
   playerRotateSpeed: 450
   aboveDonut: 0.5
+  damageEffect: {fileID: 8829863412455601524, guid: a5f971dd711b76e47a1100110a05fbe1, type: 3}
   oilJumpTime: 1.5
   rotateSpeed: 5
 --- !u!114 &270912496
@@ -358,11 +359,10 @@ MonoBehaviour:
   maxFlicPower: 10
   flicUpPower: 1
   stickSpeed: 25
+  maxStickSpeed: 45
+  minStickSpeed: 0
   flicCoolTime: 0.5
   jumpPower: 12
-  flicSensitivity: 1
-  minflicSensitivity: 0.25
-  maxflicSensitivity: 1.75
 --- !u!81 &270912500
 AudioListener:
   m_ObjectHideFlags: 0

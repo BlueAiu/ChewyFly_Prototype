@@ -21,7 +21,13 @@ public partial class DonutsUnionScript : MonoBehaviour
     //[SerializeField] float donutRadius = 1f;
 
     //くっつけられる状態であるか
-    public bool IsSticky { get; set; } = false;
+    bool _isSticky = false;
+    public bool IsSticky 
+    {
+        get {  return _isSticky; }
+        set { _isSticky = value; SetStickyEffect(value); }
+    }
+
     [Tooltip("ドーナツがくっつく速さ")]
     [SerializeField] public float stickySpeed = 5f;
 
@@ -136,6 +142,14 @@ public partial class DonutsUnionScript : MonoBehaviour
             {
                 objManeger.RemoveDonut(gameObject);
             }
+        }
+    }
+
+    void SetStickyEffect(bool active)
+    {
+        foreach(var sphere in donutSpheres)
+        {
+            sphere.transform.GetChild(0).gameObject.SetActive(active);
         }
     }
 }

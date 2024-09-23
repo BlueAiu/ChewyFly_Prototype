@@ -39,6 +39,8 @@ public class PlayerCameraRotation : MonoBehaviour
     [SerializeField] Transform potCenterPoint;
     [Tooltip("カメラが向く方向の場所")]
     [SerializeField] Transform cameraLookPoint;
+    [Tooltip("鍋の中心とプレイヤーの間のどのくらいの比率の位置にカメラを向けるか")]
+    [SerializeField] float cameraLookPointRatio = 0.5f;
     private void Awake()//Startよりさらに前に格納しておく
     {
         input = GetComponent<InputScript>();
@@ -50,7 +52,7 @@ public class PlayerCameraRotation : MonoBehaviour
     }
     private void Update()
     {
-        cameraLookPoint.position = potCenterPoint.position + (transform.position - potCenterPoint.position) / 2f;
+        cameraLookPoint.position = potCenterPoint.position + (transform.position - potCenterPoint.position) * cameraLookPointRatio;
     }
     void LateUpdate()//Updateの後にカメラの位置を制御する
     {

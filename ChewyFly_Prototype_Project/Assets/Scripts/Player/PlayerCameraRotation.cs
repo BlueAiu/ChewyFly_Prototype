@@ -35,6 +35,10 @@ public class PlayerCameraRotation : MonoBehaviour
     bool canRotatoAuto = false;
     Vector3 lastInputPosition = Vector3.zero;
 
+    [Tooltip("鍋の中心位置(カメラの位置を決めるため)")]
+    [SerializeField] Transform potCenterPoint;
+    [Tooltip("カメラが向く方向の場所")]
+    [SerializeField] Transform cameraLookPoint;
     private void Awake()//Startよりさらに前に格納しておく
     {
         input = GetComponent<InputScript>();
@@ -44,7 +48,10 @@ public class PlayerCameraRotation : MonoBehaviour
         OptionValues option = FindObjectOfType<OptionValues>();//カメラの回転速度を初期化
         SetCameraSensityvity(option);
     }
-
+    private void Update()
+    {
+        cameraLookPoint.position = potCenterPoint.position + (transform.position - potCenterPoint.position) / 2f;
+    }
     void LateUpdate()//Updateの後にカメラの位置を制御する
     {
         float rot = 0;

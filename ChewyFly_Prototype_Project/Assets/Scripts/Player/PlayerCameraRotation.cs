@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,8 @@ public class PlayerCameraRotation : MonoBehaviour
 {
     protected InputScript input;
 
-    [Tooltip("プレイヤーを映すカメラ")]
-    [SerializeField] protected GameObject playerCamera;
+    [Tooltip("プレイヤーを映すカメラの軸")]
+    [SerializeField] protected GameObject playerCameraAxis;
 
     [Tooltip("カメラの回転の速さ")]
     [SerializeField] float sensitivity = 180f;
@@ -34,16 +35,25 @@ public class PlayerCameraRotation : MonoBehaviour
     bool canRotatoAuto = false;
     Vector3 lastInputPosition = Vector3.zero;
 
+    [Tooltip("鍋の中心位置(カメラの位置を決めるため)")]
+    [SerializeField] Transform potCenterPoint;
+    [Tooltip("カメラが向く方向の場所")]
+    [SerializeField] Transform cameraLookPoint;
+    [Tooltip("鍋の中心とプレイヤーの間のどのくらいの比率の位置にカメラを向けるか")]
+    [SerializeField] float cameraLookPointRatio = 0.5f;
     private void Awake()//Startよりさらに前に格納しておく
     {
         input = GetComponent<InputScript>();
-        if (playerCamera == null)
-            playerCamera = GameObject.Find("PlayerCameraParent");
+        if (playerCameraAxis == null)
+            playerCameraAxis = GameObject.Find("CameraAxis");
 
         OptionValues option = FindObjectOfType<OptionValues>();//カメラの回転速度を初期化
         SetCameraSensityvity(option);
     }
-
+    private void Update()
+    {
+        cameraLookPoint.position = potCenterPoint.position + (transform.position - potCenterPoint.position) * cameraLookPointRatio;
+    }
     void LateUpdate()//Updateの後にカメラの位置を制御する
     {
         float rot = 0;
@@ -69,13 +79,13 @@ public class PlayerCameraRotation : MonoBehaviour
 
         if (rot != 0)
         {
-            playerCamera.transform.Rotate(0, rot * sensitivity * Time.deltaTime, 0);
+            playerCameraAxis.transform.Rotate(0, rot * sensitivity * Time.deltaTime, 0);
             isResetCamera = false;
         }
         else if(isResetCamera)
         {
-            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, transform.rotation, resetSensitivity * Time.deltaTime);
-            if (Quaternion.Angle(transform.rotation, playerCamera.transform.rotation) < 0.1f)
+            playerCameraAxis.transform.rotation = Quaternion.RotateTowards(playerCameraAxis.transform.rotation, transform.rotation, resetSensitivity * Time.deltaTime);
+            if (Quaternion.Angle(transform.rotation, playerCameraAxis.transform.rotation) < 0.1f)
             {
                 isResetCamera = false;
             }
@@ -83,9 +93,8 @@ public class PlayerCameraRotation : MonoBehaviour
 
         AutoCameraRotation();
 
-        playerCamera.transform.position = transform.position;//カメラをプレイヤーに移動させる
+        playerCameraAxis.transform.position = transform.position;//カメラをプレイヤーに移動させる
     }
-
     void AutoCameraRotation()
     {
         if(canRotatoAuto && 
@@ -94,7 +103,7 @@ public class PlayerCameraRotation : MonoBehaviour
             Vector3 centerDir = (Vector3.zero + Vector3.up * transform.position.y) - transform.position;
             Quaternion lookCenter = Quaternion.LookRotation(centerDir, Vector3.up);
 
-            playerCamera.transform.rotation = Quaternion.RotateTowards(playerCamera.transform.rotation, lookCenter, autoRotateSensitivity * Time.deltaTime);
+            playerCameraAxis.transform.rotation = Quaternion.RotateTowards(playerCameraAxis.transform.rotation, lookCenter, autoRotateSensitivity * Time.deltaTime);
         }
 
         if(input.isRightStick() != Vector3.zero || input.isRightStickButton())

@@ -182,7 +182,7 @@ public partial class DonutsUnionScript : MonoBehaviour
                 bounceDonutColor.CopySphereColorValue(donutColor);
 
                 Component[] donutComponents = donutMeshObj.GetComponents<Component>();
-                foreach (Component component in donutComponents)//メッシュ以外を削除して見た目だけにする
+                foreach (Component component in donutComponents)//削除して見た目だけにする
                 {
                     if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer) && !(component is DonutSphereColor))
                     {
@@ -194,7 +194,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             }
         }
     }
-    private void CopyUnionPosAndScale()
+    private void CopyUnionPosAndScale()//コピーしたバウンド用のドーナツの位置を元々のドーナツの位置に更新
     {
         bounceDonutsParent.transform.position = transform.position;
         bounceDonutsParent.transform.rotation = transform.rotation;

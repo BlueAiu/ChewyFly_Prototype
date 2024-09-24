@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public partial class DonutsUnionScript : MonoBehaviour
@@ -45,6 +47,14 @@ public partial class DonutsUnionScript : MonoBehaviour
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip mergeSE;
 
+    GameObject donutBounceScaleAxis = null;//ドーナツを拡大縮小するときの親
+    bool isBouncing = false;//現在バウンドのアニメーション中か
+    [SerializeField] float maxBounceTime = 0.5f;
+    [SerializeField] float maxBounceScaleSize = 1f;
+    float bounceTimer = 0f;
+    [Tooltip("ドーナツのバウンドの動きの推移")]
+    [SerializeField] AnimationCurve bounceScaleCurve;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -72,6 +82,31 @@ public partial class DonutsUnionScript : MonoBehaviour
         if (rb.velocity.sqrMagnitude < stickySpeed * stickySpeed)
         {
             IsSticky = false;
+        }
+        if (isBouncing)
+        {
+            if(donutBounceScaleAxis != null)
+            {
+                bounceTimer += Time.deltaTime;
+                if(bounceTimer < maxBounceTime)
+                {
+                    float bounceScaleValue = bounceScaleCurve.Evaluate(bounceTimer / maxBounceTime) * maxBounceScaleSize;
+                    donutBounceScaleAxis.transform.localScale = new Vector3(
+                        bounceScaleValue, bounceScaleValue, 1f / bounceScaleValue);
+                }
+                else//バウンドのアニメーションは終わった
+                {
+                    foreach (Transform child in transform)
+                    {
+                        if (child.tag == "Donuts")
+                        {
+                            child.GetComponent<MeshRenderer>().enabled = true;
+                        }
+                    }
+                    isBouncing = false;
+                    Destroy(donutBounceScaleAxis);
+                }
+            }
         }
     }
 
@@ -109,9 +144,10 @@ public partial class DonutsUnionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
+        if (collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax && !isBouncing)
         {
+            if (collision.transform.GetComponent<DonutsUnionScript>().isBouncing) return;
+
             MergeDonuts(collision);
 
             //mergeSE.Play();
@@ -123,9 +159,47 @@ public partial class DonutsUnionScript : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 objManeger.CompleteDonut(this.gameObject);
             }
+
+            InstantiateBounceDonuts(collision.transform);
         }
     }
+    private void InstantiateBounceDonuts(Transform lookAtTransform)//バウンドするための見た目だけのドーナツを用意する
+    {
+        Vector3 playerStandDonutPosition = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        foreach (Transform child in transform)//プレイヤーの下のドーナツを調べる
+        {
+            if (Vector3.Distance(transform.position, playerStandDonutPosition) >
+                Vector3.Distance(transform.position, child.position))
+            {
+                playerStandDonutPosition = child.position;
+            }
+        }
+        donutBounceScaleAxis = new GameObject("donutBounceScaleAxis");
+        donutBounceScaleAxis.transform.position = playerStandDonutPosition;
+        donutBounceScaleAxis.transform.LookAt(lookAtTransform);
+        donutBounceScaleAxis.transform.parent = transform;
+        bounceTimer = 0f;
+        isBouncing = true;
 
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Donuts")
+            {
+                GameObject donutMeshObj = Instantiate(child.gameObject);
+                donutMeshObj.transform.position = child.position;
+                Component[] donutComponents = donutMeshObj.GetComponents<Component>();
+                foreach (Component component in donutComponents)
+                {
+                    if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer))
+                    {
+                        Destroy(component);
+                    }
+                }
+                child.GetComponent<MeshRenderer>().enabled = false;
+                donutMeshObj.transform.parent = donutBounceScaleAxis.transform;
+            }
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if(other.name == "Oil") //油に浸かっている時

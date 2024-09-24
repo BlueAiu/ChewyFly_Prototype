@@ -47,14 +47,14 @@ public partial class DonutsUnionScript : MonoBehaviour
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip mergeSE;
 
-    [Tooltip("ドーナツのバウンドの動きの推移")]
+    [Tooltip("ドーナツのバウンドの動きの変化(横軸は0から1の間で)")]
     [SerializeField] AnimationCurve bounceScaleCurve;
-    GameObject donutBounceScaleParent = null;//ドーナツを拡大縮小するときの全体の親(unionのトランスフォームをコピーし続ける)
-    GameObject donutBounceScaleAxis = null;//ドーナツを拡大縮小するときの軸
+    GameObject bounceDonutsParent = null;//ドーナツを拡大縮小するときの全体の親(unionのトランスフォームをコピーし続ける)
+    GameObject bounceDonutsAxis = null;//ドーナツを拡大縮小するときの軸
     [SerializeField] float maxBounceTime = 0.5f;
     [SerializeField] float maxBounceScaleSize = 1f;
     float bounceTimer = 0f;
-    bool isBouncing = false;//現在バウンドのアニメーション中か
+    public bool isBouncing { get; private set; } = false;//現在バウンドのアニメーション中か
 
     private void Awake()
     {
@@ -91,10 +91,10 @@ public partial class DonutsUnionScript : MonoBehaviour
             if (bounceTimer < maxBounceTime)
             {
                 float bounceScaleValue = bounceScaleCurve.Evaluate(bounceTimer / maxBounceTime) * maxBounceScaleSize;
-                donutBounceScaleAxis.transform.localScale = new Vector3(
+                bounceDonutsAxis.transform.localScale = new Vector3(
                     bounceScaleValue, bounceScaleValue, 1f / bounceScaleValue);
             }
-            else//バウンドのアニメーションは終わった
+            else//バウンドのアニメーション終わり
             {
                 StopDonutsBounce();
             }
@@ -158,24 +158,26 @@ public partial class DonutsUnionScript : MonoBehaviour
     }
     private void InstantiateBounceDonuts(Transform lookAtTransform)//バウンドするための見た目だけのドーナツを用意する
     {
-        donutBounceScaleParent = new GameObject("donutBounceScaleParent");//バウンドするドーナツの全体の親を用意
+        if (isBouncing) StopDonutsBounce();
+
+        bounceDonutsParent = new GameObject("BounceDonutsParent");//バウンドするドーナツの全体の親を用意
         CopyUnionPosAndScale();
 
-        donutBounceScaleAxis = new GameObject("donutBounceScaleAxis");//バウンドするドーナツの中心を用意
-        donutBounceScaleAxis.transform.parent = donutBounceScaleParent.transform;
-        donutBounceScaleAxis.transform.localPosition = Vector3.zero;
-        donutBounceScaleAxis.transform.LookAt(lookAtTransform);
+        bounceDonutsAxis = new GameObject("BounceDonutsAxis");//バウンドするドーナツの拡大縮小の中心を用意
+        bounceDonutsAxis.transform.parent = bounceDonutsParent.transform;
+        bounceDonutsAxis.transform.localPosition = Vector3.zero;
+        bounceDonutsAxis.transform.LookAt(lookAtTransform);
         bounceTimer = 0f;
         isBouncing = true;
 
-        foreach (Transform child in transform)
+        foreach (Transform child in transform)//コライダーなどの中身がない、meshのみのドーナツを用意
         {
             if (child.tag == "Donuts")
             {
                 GameObject donutMeshObj = Instantiate(child.gameObject);//既存のドーナツを複製
                 donutMeshObj.transform.position = child.position;
                 Component[] donutComponents = donutMeshObj.GetComponents<Component>();
-                foreach (Component component in donutComponents)//メッシュ以外を削除して見た目だけのドーナツを用意する
+                foreach (Component component in donutComponents)//メッシュ以外を削除して見た目だけにする
                 {
                     if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer))
                     {
@@ -183,18 +185,18 @@ public partial class DonutsUnionScript : MonoBehaviour
                     }
                 }
                 child.GetComponent<MeshRenderer>().enabled = false;//もとのドーナツはいったん非表示
-                donutMeshObj.transform.parent = donutBounceScaleAxis.transform;
+                donutMeshObj.transform.parent = bounceDonutsAxis.transform;
             }
         }
     }
     private void CopyUnionPosAndScale()
     {
-        donutBounceScaleParent.transform.position = transform.position;
-        donutBounceScaleParent.transform.rotation = transform.rotation;
+        bounceDonutsParent.transform.position = transform.position;
+        bounceDonutsParent.transform.rotation = transform.rotation;
     }
-    public void StopDonutsBounce()
+    public void StopDonutsBounce()//ドーナツのバウンドのアニメーションを停止する
     {
-        foreach (Transform child in transform)
+        foreach (Transform child in transform)//ドーナツをすべて再表示
         {
             if (child.tag == "Donuts")
             {
@@ -203,7 +205,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         }
         isBouncing = false;
         bounceTimer = 0f;
-        Destroy(donutBounceScaleParent);
+        Destroy(bounceDonutsParent);
     }
     private void OnTriggerStay(Collider other)
     {

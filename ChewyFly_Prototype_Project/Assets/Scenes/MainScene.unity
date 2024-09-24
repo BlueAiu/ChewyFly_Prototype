@@ -3702,15 +3702,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].time
-      value: -0.0027770996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[1].time
-      value: 1
+      value: 0.13462844
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].value
@@ -3718,31 +3718,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[1].value
-      value: 1
+      value: 1.198859
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].inSlope
-      value: 0.7710414
+      value: 0.7896154
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[1].inSlope
-      value: 0.77245796
+      value: 0.14730321
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].outSlope
-      value: 0.7710414
+      value: 0.7896154
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[1].inWeight
-      value: 0.023256566
+      value: 0.6755998
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[1].outSlope
-      value: 0.77245796
+      value: 0.14730321
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].outWeight
-      value: 0.032147452
+      value: 0.05842938
       objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: bounceScaleCurve.m_Curve.Array.data[0].tangentMode

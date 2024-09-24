@@ -12,7 +12,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject playerCamera { get; private set; }
 
     [Tooltip("乗っているドーナツ")]
-    [SerializeField] public GameObject ridingDonut { get; private set; }
+    GameObject _ridingDonut = null;
+    [SerializeField] public GameObject ridingDonut
+    {
+        get
+        {
+            return _ridingDonut;
+        }
+        private set
+        {
+            _ridingDonut = value;
+            if(value != null)//毎回GetComponentしないためにここで入れておく
+                ridingDonutUnion = _ridingDonut.GetComponent<DonutsUnionScript>();
+            else
+                ridingDonutUnion = null;
+        }
+    }
+    public DonutsUnionScript ridingDonutUnion { get; private set; } = null;
 
     [Tooltip("ゲームルールオブジェクト")]
     [SerializeField] ObjectReferenceManeger objManeger;

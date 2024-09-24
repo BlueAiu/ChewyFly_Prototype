@@ -333,6 +333,7 @@ MonoBehaviour:
   autoRotateSensitivity: 120
   potCenterPoint: {fileID: 1517723900}
   cameraLookPoint: {fileID: 161169804}
+  cameraLookPointRatio: 0.5
 --- !u!114 &270912498
 MonoBehaviour:
   m_ObjectHideFlags: 0

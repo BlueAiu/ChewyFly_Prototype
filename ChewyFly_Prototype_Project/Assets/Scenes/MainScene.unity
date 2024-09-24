@@ -3680,50 +3680,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6421514284340536435, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: surfaceY
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -6421514284340536435, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: resistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: objManeger
       value: 
       objectReference: {fileID: 1419900561}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[0]
+      propertyPath: soundManager
       value: 
-      objectReference: {fileID: 2004534475}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: donutSpheres.Array.data[5]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4772831859787862167, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f55992f07ed63ed4ca527d4dc0f55e07, type: 2}
+      objectReference: {fileID: 164948201}
     - target: {fileID: 5622882611163696344, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3773,11 +3737,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
---- !u!1 &2004534475 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1169383588995368319, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  m_PrefabInstance: {fileID: 1971711229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2011582514
 GameObject:
   m_ObjectHideFlags: 0

@@ -176,10 +176,15 @@ public partial class DonutsUnionScript : MonoBehaviour
             {
                 GameObject donutMeshObj = Instantiate(child.gameObject);//既存のドーナツを複製
                 donutMeshObj.transform.position = child.position;
+
+                DonutSphereColor donutColor = child.GetComponent<DonutSphereColor>();//DonutSphereColorの中身を同じにする
+                DonutSphereColor bounceDonutColor = donutMeshObj.GetComponent<DonutSphereColor>();
+                bounceDonutColor.CopySphereColorValue(donutColor);
+
                 Component[] donutComponents = donutMeshObj.GetComponents<Component>();
                 foreach (Component component in donutComponents)//メッシュ以外を削除して見た目だけにする
                 {
-                    if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer))
+                    if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer) && !(component is DonutSphereColor))
                     {
                         Destroy(component);
                     }

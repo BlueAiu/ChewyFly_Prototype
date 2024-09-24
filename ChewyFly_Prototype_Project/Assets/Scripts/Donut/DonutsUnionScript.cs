@@ -170,28 +170,25 @@ public partial class DonutsUnionScript : MonoBehaviour
         bounceTimer = 0f;
         isBouncing = true;
 
-        foreach (Transform child in transform)//コライダーなどの中身がない、meshのみのドーナツを用意
+        foreach (var sphere in donutSpheres)
         {
-            if (child.tag == "Donuts")
+            GameObject donutMeshObj = Instantiate(sphere);//既存のドーナツを複製
+            donutMeshObj.transform.position = sphere.transform.position;
+
+            DonutSphereColor donutColor = sphere.GetComponent<DonutSphereColor>();//DonutSphereColorの中身を同じにする
+            DonutSphereColor bounceDonutColor = donutMeshObj.GetComponent<DonutSphereColor>();
+            bounceDonutColor.CopySphereColorValue(donutColor);
+
+            Component[] donutComponents = donutMeshObj.GetComponents<Component>();
+            foreach (Component component in donutComponents)//削除して見た目だけにする
             {
-                GameObject donutMeshObj = Instantiate(child.gameObject);//既存のドーナツを複製
-                donutMeshObj.transform.position = child.position;
-
-                DonutSphereColor donutColor = child.GetComponent<DonutSphereColor>();//DonutSphereColorの中身を同じにする
-                DonutSphereColor bounceDonutColor = donutMeshObj.GetComponent<DonutSphereColor>();
-                bounceDonutColor.CopySphereColorValue(donutColor);
-
-                Component[] donutComponents = donutMeshObj.GetComponents<Component>();
-                foreach (Component component in donutComponents)//削除して見た目だけにする
+                if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer) && !(component is DonutSphereColor))
                 {
-                    if (!(component is Transform) && !(component is MeshFilter) && !(component is MeshRenderer) && !(component is DonutSphereColor))
-                    {
-                        Destroy(component);
-                    }
+                    Destroy(component);
                 }
-                child.GetComponent<MeshRenderer>().enabled = false;//もとのドーナツはいったん非表示
-                donutMeshObj.transform.parent = bounceDonutsAxis.transform;
             }
+            sphere.GetComponent<MeshRenderer>().enabled = false;//もとのドーナツはいったん非表示
+            donutMeshObj.transform.parent = bounceDonutsAxis.transform;
         }
     }
     private void CopyUnionPosAndScale()//コピーしたバウンド用のドーナツの位置を元々のドーナツの位置に更新
@@ -201,12 +198,9 @@ public partial class DonutsUnionScript : MonoBehaviour
     }
     public void StopDonutsBounce()//ドーナツのバウンドのアニメーションを停止する
     {
-        foreach (Transform child in transform)//ドーナツをすべて再表示
+        foreach (var sphere in donutSpheres)
         {
-            if (child.tag == "Donuts")
-            {
-                child.GetComponent<MeshRenderer>().enabled = true;
-            }
+            sphere.GetComponent<MeshRenderer>().enabled = true;
         }
         isBouncing = false;
         bounceTimer = 0f;

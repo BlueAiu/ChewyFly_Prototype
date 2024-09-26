@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         private set
         {
             _ridingDonut = value;
-            if(value != null)//–ˆ‰ñGetComponent‚µ‚È‚¢‚½‚ß‚É‚±‚±‚Å“ü‚ê‚Ä‚¨‚­
+            if(value != null)//ƒoƒEƒ“ƒh‚ÌÄ¶’†‚©’²‚×‚é‚Æ‚«–ˆ‰ñGetComponent‚µ‚È‚¢‚æ‚¤‚É‚±‚±‚Å“ü‚ê‚Ä‚¨‚­
                 ridingDonutUnion = _ridingDonut.GetComponent<DonutsUnionScript>();
             else
                 ridingDonutUnion = null;

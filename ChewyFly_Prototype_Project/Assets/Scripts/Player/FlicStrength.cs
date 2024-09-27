@@ -114,6 +114,8 @@ public class FlicStrength : MonoBehaviour
 
     void FlicDonut()
     {
+        if (playerController.ridingDonutUnion != null && playerController.ridingDonutUnion.isBouncing) return;//バウンド中なら受け付けない
+
         var direction = input.isLeftStick();
         direction = playerController.playerCamera.transform.TransformDirection(direction);
 

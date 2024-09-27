@@ -47,4 +47,11 @@ public class DonutSphereColor : MonoBehaviour
             }
         }
     }
+
+    public void CopySphereColorValue(DonutSphereColor _sphereColor)//このコンポーネントに情報をコピーする
+    {
+        changeTimer = _sphereColor.changeTimer;
+        BakedNum = _sphereColor.BakedNum;
+        GetComponent<Renderer>().material = materials[BakedNum];
+    }
 }

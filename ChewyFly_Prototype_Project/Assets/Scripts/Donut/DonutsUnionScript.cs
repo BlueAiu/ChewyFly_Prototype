@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public partial class DonutsUnionScript : MonoBehaviour
@@ -73,6 +75,8 @@ public partial class DonutsUnionScript : MonoBehaviour
         {
             IsSticky = false;
         }
+
+        UpdateBounceAnim();//バウンドのアニメーションを更新
     }
 
     //ドーナツをリストに追加(没)
@@ -109,9 +113,12 @@ public partial class DonutsUnionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        if(collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax) 
+        if (collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax && !isBouncing)
         {
+            DonutsUnionScript otherDonutsUnion = collision.transform.GetComponent<DonutsUnionScript>();
+            //相手のドーナツがもしバウンド再生中なら止める
+            if (otherDonutsUnion.isBouncing) { otherDonutsUnion.StopDonutsBounce(); }
+
             MergeDonuts(collision);
 
             //mergeSE.Play();
@@ -123,9 +130,10 @@ public partial class DonutsUnionScript : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 objManeger.CompleteDonut(this.gameObject);
             }
+
+            InstantiateBounceDonuts(collision.transform);
         }
     }
-
     private void OnTriggerStay(Collider other)
     {
         if(other.name == "Oil") //油に浸かっている時

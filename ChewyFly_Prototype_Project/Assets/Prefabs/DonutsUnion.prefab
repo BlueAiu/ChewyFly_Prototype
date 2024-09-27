@@ -55,6 +55,51 @@ MonoBehaviour:
   donutMassRate: 1
   soundManager: {fileID: 0}
   mergeSE: {fileID: 8300000, guid: e63cf7817a095af4d8588b8e5f6e2c78, type: 3}
+  donutBounceScaleAxisPrefab: {fileID: 5145059111842232923, guid: 8a5125a05fec1654fbded3e1dc290f53, type: 3}
+  maxBounceTime: 0.5
+  maxBounceScaleSize: 1
+  bounceScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.7896154
+      outSlope: 0.7896154
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.05842938
+    - serializedVersion: 3
+      time: 0.13462844
+      value: 1.198859
+      inSlope: 0.14730321
+      outSlope: 0.14730321
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6755998
+      outWeight: 0.35511282
+    - serializedVersion: 3
+      time: 0.7340657
+      value: 0.8864852
+      inSlope: -0.30736476
+      outSlope: -0.30736476
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.43434864
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.8240054
+      outSlope: 0.8240054
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.049188554
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946
 Rigidbody:

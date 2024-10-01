@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 
 public class InputScript : MonoBehaviour
 {//全体を通してゲームパッドとキーボード両方とも入力を検知します
+    public bool isReceiveInput;//すべてのキーの入力を受け付けるか
     public bool isAButton()//ジャンプしたか
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.aButton.wasPressedThisFrame;
@@ -14,6 +16,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isBButton()//ジャンプしたか
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.bButton.wasPressedThisFrame;
@@ -21,6 +24,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isRightShoulder()//Rボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.rightShoulder.isPressed;
@@ -28,6 +32,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isLeftShoulder()//Lボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.leftShoulder.isPressed;
@@ -36,6 +41,7 @@ public class InputScript : MonoBehaviour
 
     public Vector3 isLeftStick()//x軸、z軸に値が入ったベクトル3を返します
     {
+        if (!isReceiveInput) return Vector3.zero;
         //ゲームパッドの入力
         var gamepad = Gamepad.current;
         Vector3 gamepadDirection = Vector3.zero;
@@ -62,6 +68,7 @@ public class InputScript : MonoBehaviour
     }
     public Vector3 isRightStick()//x軸、z軸に値が入ったベクトル3を返します
     {
+        if (!isReceiveInput) return Vector3.zero;
         //ゲームパッドの入力
         var gamepad = Gamepad.current;
         Vector3 gamepadDirection = Vector3.zero;
@@ -89,6 +96,7 @@ public class InputScript : MonoBehaviour
 
     public Vector3 isLeftDpad()//x軸、z軸に値が入ったベクトル3を返します
     {
+        if (!isReceiveInput) return Vector3.zero;
         //ゲームパッドの入力
         var gamepad = Gamepad.current;
         Vector3 gamepadDirection = Vector3.zero;
@@ -121,6 +129,7 @@ public class InputScript : MonoBehaviour
     }*/
     public bool isRightStickButton()//xBoxコントローラーの右スティック押し込み
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.rightStickButton.IsPressed();
@@ -128,6 +137,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isLeftStickButton()//xBoxコントローラーの左スティック押し込み
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.leftStickButton.IsPressed();
@@ -135,6 +145,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isBackButton()//xBoxコントローラーのBACKボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.selectButton.wasPressedThisFrame;
@@ -142,6 +153,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isWestButton()//右ての左にあるボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.xButton.wasPressedThisFrame;
@@ -149,6 +161,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isNorthButton()//右ての上にあるボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.yButton.wasPressedThisFrame;
@@ -156,6 +169,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isEastButton()//右ての右にあるボタン
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.bButton.wasPressedThisFrame;
@@ -163,6 +177,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isRightTrigger()//右のトリガー
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.rightTrigger.isPressed;
@@ -170,6 +185,7 @@ public class InputScript : MonoBehaviour
     }
     public bool isLeftTrigger()//左のトリガー
     {
+        if (!isReceiveInput) return false;
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.leftTrigger.isPressed;

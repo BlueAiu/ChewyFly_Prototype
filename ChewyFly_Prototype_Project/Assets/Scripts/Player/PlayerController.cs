@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
         if (donut.GetComponent<DonutsUnionScript>().IsComplete) return;
         ridingDonut = donut;
         transform.parent = donut.transform;
+        donut.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     //左スティックの方向にプレイヤーの正面を向ける
@@ -221,7 +222,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.name == "Oil")   //油に着水
         {
             //DetachDonut();
-            var targetPos = objManeger.ClosestDonut().transform.position + new Vector3(0, aboveDonut, 0);
+            var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
             //character.Move(targetPos - transform.position);
             //velocity = Vector3.zero;
             Instantiate(damageEffect, transform.position, Quaternion.identity);

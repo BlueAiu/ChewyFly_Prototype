@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 270912489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.85, z: -2.93}
+  m_LocalPosition: {x: 0, y: 1.826, z: -2.93}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2537,6 +2537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: arrowObject
       objectReference: {fileID: 0}
+    - target: {fileID: 4053686381868720555, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2577,7 +2581,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4053686381868720555, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2719,7 +2724,7 @@ MonoBehaviour:
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6
-  bubbleSpawnYMin: 0
+  bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
   completeJumpTime: 2
   donutScore_base: 160
@@ -3619,7 +3624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: arrow_Jump
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2540160754492284168, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+    - {fileID: 4562891346741541091, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+    - {fileID: 452289965591951927, guid: d11e1209a25be664398d8064e44015d0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3680,6 +3688,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6562012546730319946, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+      propertyPath: m_Constraints
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -6562012546730319946, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3596200664881578024, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
       propertyPath: objManeger
       value: 
@@ -4837,7 +4853,7 @@ Transform:
   m_GameObject: {fileID: 6262831278516079404}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.035136223, z: -0.047392845}
+  m_LocalPosition: {x: 0, y: -0.01432604, z: -0.047392845}
   m_LocalScale: {x: 7.25, y: 7.25, z: 7.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5136,7 +5152,7 @@ Transform:
   m_GameObject: {fileID: 3335218323874621779}
   serializedVersion: 2
   m_LocalRotation: {x: -0.47007316, y: 0.5282341, z: -0.47007316, w: 0.5282341}
-  m_LocalPosition: {x: 0, y: -0.15196753, z: 0.02390194}
+  m_LocalPosition: {x: 0, y: -0.04013343, z: 0.02390194}
   m_LocalScale: {x: 7.2500005, y: 7.25, z: 7.25}
   m_ConstrainProportionsScale: 0
   m_Children:

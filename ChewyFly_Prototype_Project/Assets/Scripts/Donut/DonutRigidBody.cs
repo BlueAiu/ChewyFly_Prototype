@@ -115,7 +115,7 @@ public partial class DonutRigidBody : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //ドーナツ同士のバウンド
-        if (!union.IsSticky && collision.gameObject.tag == "Donut")
+        if (!union.IsSticky && collision.gameObject.tag == "Donuts")
         {
             //バウンドの方向を計算
             Vector3 boundDirection = transform.position - collision.transform.position;

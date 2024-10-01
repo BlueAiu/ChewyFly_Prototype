@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         if (donut.GetComponent<DonutsUnionScript>().IsComplete) return;
         ridingDonut = donut;
         transform.parent = donut.transform;
-        donut.GetComponent<Rigidbody>().isKinematic = false;
+        donut.GetComponent<Rigidbody>().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ);
     }
 
     //左スティックの方向にプレイヤーの正面を向ける

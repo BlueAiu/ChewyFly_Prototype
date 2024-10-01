@@ -170,8 +170,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             }
         }
 
-        if(isFleeze)
-            closestDonut.GetComponent<Rigidbody>().isKinematic = true;
+        if (isFleeze)
+            closestDonut.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
         return closestDonut;
     }

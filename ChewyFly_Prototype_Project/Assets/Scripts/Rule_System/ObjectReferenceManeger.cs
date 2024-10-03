@@ -153,8 +153,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         Destroy(donut);
     }
 
-    //プレイヤーと最も距離の近いドーナツを探す
-    public GameObject ClosestDonut()
+    //プレイヤーと最も距離の近いドーナツを探す, 
+    public GameObject ClosestDonut(bool isFleeze = false)
     {
         GameObject closestDonut = null;
         float closestSqrDistance = float.MaxValue;
@@ -170,6 +170,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             }
         }
 
+        if (isFleeze)
+            closestDonut.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+
         return closestDonut;
     }
 
@@ -179,7 +182,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donutsList.Remove(donut);
 
         player.GetComponent<PlayerController>().
-            JumpTo(ClosestDonut().transform.position, completeJumpTime);
+            JumpTo(ClosestDonut(isFleeze: true).transform.position, completeJumpTime);
 
         madeDonuts++;
 

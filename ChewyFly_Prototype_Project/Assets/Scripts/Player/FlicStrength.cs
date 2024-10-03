@@ -74,6 +74,7 @@ public class FlicStrength : MonoBehaviour
     {
         OptionValues option = FindObjectOfType<OptionValues>();//ä¥ìxÇèâä˙âª
         SetJumpSensityvity(option);
+        StopArrowSprites();
     }
 
     private void Update()
@@ -84,8 +85,7 @@ public class FlicStrength : MonoBehaviour
             {
                 isJumpMode = !isJumpMode;
                 flicTime = 0;
-                arrowSprite.SetActive(false);
-                jumpArrowSprite.SetActive(false);
+                StopArrowSprites();
             }
         }
     }
@@ -106,8 +106,7 @@ public class FlicStrength : MonoBehaviour
         }
         else
         {
-            arrowSprite.SetActive(false);
-            jumpArrowSprite.SetActive(false);
+            StopArrowSprites();
             flicTime = 0f;
         }
     }
@@ -216,5 +215,10 @@ public class FlicStrength : MonoBehaviour
         if (optionValues == null) return;
 
         stickSpeed = minStickSpeed + (maxStickSpeed - minStickSpeed) * optionValues.GetJumpSensitivityRatio();
+    }
+    void StopArrowSprites()
+    {
+        arrowSprite.SetActive(false);
+        jumpArrowSprite.SetActive(false);
     }
 }

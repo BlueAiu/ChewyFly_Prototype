@@ -311,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30033de56fae0146bfe61fd3bdc18c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReceiveInput: 0
 --- !u!114 &270912497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2758,11 +2757,11 @@ MonoBehaviour:
   player: {fileID: 270912489}
   countdownText: {fileID: 453074924}
   timerCircleImage: {fileID: 1308142869}
-  timeUpText: {fileID: 1980223034}
+  timeUpObj: {fileID: 1980223032}
   timeLimit: 300
   timePerCountdown: 0.6
   countdownFadeTime: 1
-  timeUpTime: 3
+  timeUpTime: 2
   soundManager: {fileID: 164948201}
   gameBGM: {fileID: 8300000, guid: b65076d963134534a85399a90e268f92, type: 3}
 --- !u!114 &1419900564
@@ -4213,7 +4212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30033de56fae0146bfe61fd3bdc18c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReceiveInput: 0
 --- !u!114 &2048943897
 MonoBehaviour:
   m_ObjectHideFlags: 0

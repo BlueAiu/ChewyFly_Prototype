@@ -17,8 +17,8 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [SerializeField] Image timerCircleImage;
     //[Tooltip("制限時間のテキスト")]
     //[SerializeField] TextMeshProUGUI timerText;
-    [Tooltip("タイムアップのテキスト")]
-    [SerializeField] TextMeshProUGUI timeUpText;
+    [Tooltip("タイムアップのUI")]
+    [SerializeField] GameObject timeUpObj;
 
     [Header("ゲームの制限時間")]
     [Tooltip("ゲームの制限時間(秒)")]
@@ -48,12 +48,12 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     {
         if (player == null)
             player = GameObject.FindWithTag("Player");
-        player.GetComponent<InputScript>().isReceiveInput = false;
+        EnablePlayerController(false);
 
         countdownText.enabled = true;
         countdownText.text = countdownNum.ToString();
         countdownTimer = timePerCountdown * countdownNum;
-        timeUpText.enabled = false;
+        timeUpObj.SetActive(false);
 
         timer = timeLimit;
         timerCircleImage.fillAmount = 1f;
@@ -72,7 +72,7 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
             countdownTimer -= Time.deltaTime;
             if (countdownTimer <= 0)
             {
-                player.GetComponent<InputScript>().isReceiveInput = true;
+                EnablePlayerController(true);
                 countdownText.text = "GameStart!";
             }
             else
@@ -120,7 +120,12 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     void FinishGame()
     {
         timeUpTimer = 0f;
-        player.GetComponent<InputScript>().isReceiveInput = false;
-        timeUpText.enabled = true;
+        EnablePlayerController(false);
+        timeUpObj.SetActive(true);
+    }
+    void EnablePlayerController(bool isActive)
+    {
+        player.GetComponent<PlayerController>().enabled = isActive;
+        player.GetComponent<FlicStrength>().enabled = isActive;
     }
 }

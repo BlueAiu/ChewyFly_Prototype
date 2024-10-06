@@ -212,7 +212,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         {
             completeEffect = Instantiate(completeDonutEffect, effectPos, Quaternion.identity);
         }
-        completeEffect.transform.parent = _donutParent.transform;
+        completeEffect.transform.parent = _donutParent.transform;//エフェクトがドーナツについていくようにする
     }
 
     //没

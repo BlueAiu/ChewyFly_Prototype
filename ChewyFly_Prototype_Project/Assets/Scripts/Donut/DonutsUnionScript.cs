@@ -160,7 +160,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             sphere.transform.GetChild(0).gameObject.SetActive(active);
         }
     }
-    public Vector3 GetDonutsCenterPoint()
+    public Vector3 GetDonutsCenterPoint()//ドーナツの中心座標を返す
     {
         Vector3 center = Vector3.zero;
         foreach(var sphere in donutSpheres)

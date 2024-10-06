@@ -2728,6 +2728,8 @@ MonoBehaviour:
   bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
   completeJumpTime: 2
+  completeDonutEffect: {fileID: 3908254275910350614, guid: b479e35018085374ebddf5ccf14fcf0a, type: 3}
+  idealDonutEffect: {fileID: 3908254275910350614, guid: bb690d7c7ff15f8429bea7ae79d6f318, type: 3}
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30

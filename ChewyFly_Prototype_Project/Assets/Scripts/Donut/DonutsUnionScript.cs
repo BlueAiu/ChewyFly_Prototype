@@ -160,4 +160,13 @@ public partial class DonutsUnionScript : MonoBehaviour
             sphere.transform.GetChild(0).gameObject.SetActive(active);
         }
     }
+    public Vector3 GetDonutsCenterPoint()
+    {
+        Vector3 center = Vector3.zero;
+        foreach(var sphere in donutSpheres)
+        {
+            center += sphere.transform.position;
+        }
+        return center /= donutSpheres.Count;
+    }
 }

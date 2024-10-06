@@ -66,16 +66,19 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         return maxFitDonuts;
     }
-    void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点
+    void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
     {
+        bool isIdeal = false;//ドーナツが理想の形か
         int donutScore = donutScore_base;//まず基礎点
 
         if (IsIdealDonut(donut)) //理想的な形なら加算
         {
             donutScore += donutScore_ideal;
+            isIdeal = true;
         }
 
-        int unionCount = donut.GetComponent<DonutsUnionScript>().unionCount;
+        DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
+        int unionCount = unionScript.unionCount;
         if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
         {
             donutScore += (unionCount - idealDonutNum) * donutScore_over;
@@ -83,6 +86,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         totalScore += donutScore;
         SetDonutScoreText();
+
+        CompleteDonutEffect(isIdeal, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {

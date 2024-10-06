@@ -53,6 +53,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Header("ドーナツが完成したとき")]
     [Tooltip("ドーナツが完成したときのジャンプの長さ")]
     [SerializeField] float completeJumpTime = 3f;
+    [Tooltip("完成した時のエフェクト")]
+    [SerializeField] GameObject completeDonutEffect;
+    [Tooltip("理想の形の時のエフェクト")]
+    [SerializeField] GameObject idealDonutEffect;
 
 
 
@@ -196,6 +200,19 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         var position = RandomVector(bubbleSpawnRadius, bubbleSpawnYMin, bubbleSpawnYMax);
         Instantiate(oilBubble, position, Quaternion.identity);
+    }
+    void CompleteDonutEffect(bool _isIdeal, GameObject _donutParent, Vector3 effectPos)//完成時のエフェクト生成
+    {
+        GameObject completeEffect;
+        if (_isIdeal)
+        {
+            completeEffect = Instantiate(idealDonutEffect, effectPos, Quaternion.identity);
+        }
+        else
+        {
+            completeEffect = Instantiate(completeDonutEffect, effectPos, Quaternion.identity);
+        }
+        completeEffect.transform.parent = _donutParent.transform;//エフェクトがドーナツについていくようにする
     }
 
     //没

@@ -20,12 +20,20 @@ public partial class DonutRigidBody : MonoBehaviour
     [Tooltip("完成したドーナツを置いておく場所")]
     [SerializeField] Vector3 storageArea;
 
+    [Header("焦げた時の動き")]
+    [Tooltip("ドーナツが沈む質量の倍率")]
+    [SerializeField] float sinkMassRate = 2f;
+    [Tooltip("沈んで消えるまでの時間")]
+    [SerializeField] float sinkTime = 1.5f;
+
     Transform cameraAxis;
     Collider[] colliders;
     bool isFinishMoving = false;
 
     int actionPhese = 0;
     float actionTimer = 0f;
+
+    bool isBurnt = false;
 
     public void SetMoveMode()
     {
@@ -83,5 +91,14 @@ public partial class DonutRigidBody : MonoBehaviour
 
                 break;
         }
+    }
+
+    public void SetSinkMode()
+    {
+        if (isBurnt) return;
+        isBurnt = true;
+
+        rb.mass *= sinkMassRate;
+        Destroy(gameObject, sinkTime);
     }
 }

@@ -149,12 +149,12 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //ドーナツを鍋から除外する
     public void RemoveDonut(GameObject donut)
     {
-        if(player.transform.parent == donut.transform)
+        if (player.transform.parent == donut.transform)
         {
             player.GetComponent<PlayerController>().DetachDonut();
         }
         donutsList.Remove(donut);
-        Destroy(donut);
+        donut.GetComponent<DonutRigidBody>().SetSinkMode();
     }
 
     //プレイヤーと最も距離の近いドーナツを探す, 

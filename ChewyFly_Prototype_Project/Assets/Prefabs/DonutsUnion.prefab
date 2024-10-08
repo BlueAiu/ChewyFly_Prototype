@@ -55,9 +55,6 @@ MonoBehaviour:
   donutMassRate: 1
   soundManager: {fileID: 0}
   mergeSE: {fileID: 8300000, guid: e63cf7817a095af4d8588b8e5f6e2c78, type: 3}
-  donutBounceScaleAxisPrefab: {fileID: 5145059111842232923, guid: 8a5125a05fec1654fbded3e1dc290f53, type: 3}
-  maxBounceTime: 0.5
-  maxBounceScaleSize: 1
   bounceScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -100,6 +97,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maxBounceTime: 0.5
+  maxBounceScaleSize: 1
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946
 Rigidbody:
@@ -151,6 +150,8 @@ MonoBehaviour:
   phese2Time: 1
   phese2Acceleration: 0.2
   storageArea: {x: 13, y: 2, z: 0}
+  sinkMassRate: 3
+  sinkTime: 1.5
 --- !u!1001 &5611300720236083268
 PrefabInstance:
   m_ObjectHideFlags: 0

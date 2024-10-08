@@ -58,7 +58,18 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("理想の形の時のエフェクト")]
     [SerializeField] GameObject idealDonutEffect;
 
+    public static List<GameObject> completeDonuts = new();
 
+
+
+    private void Awake()
+    {
+        foreach(var i in completeDonuts)
+        {
+            Destroy(i);
+        }
+        completeDonuts.Clear();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -191,6 +202,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         madeDonuts++;
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
+
+        completeDonuts.Add(donut);
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }

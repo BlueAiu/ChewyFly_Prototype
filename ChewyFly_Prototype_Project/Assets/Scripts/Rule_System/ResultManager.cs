@@ -22,6 +22,12 @@ public class ResultManager : MonoBehaviour
             ObjectReferenceManeger.madeDonuts.ToString() + " donuts.";
         scoreText.text = "Score:  " +
             ObjectReferenceManeger.totalScore.ToString();
+
+        foreach(var i in ObjectReferenceManeger.completeDonuts)
+        {
+            i.transform.position = Vector3.zero;
+            i.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     // Update is called once per frame

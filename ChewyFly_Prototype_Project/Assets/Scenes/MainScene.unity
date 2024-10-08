@@ -2764,7 +2764,7 @@ MonoBehaviour:
   countdownText: {fileID: 453074924}
   timerCircleImage: {fileID: 1308142869}
   timeUpObj: {fileID: 1980223032}
-  timeLimit: 300
+  timeLimit: 60
   timePerCountdown: 0.6
   countdownFadeTime: 1
   timeUpTime: 2

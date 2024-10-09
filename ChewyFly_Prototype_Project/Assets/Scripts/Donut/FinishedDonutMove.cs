@@ -87,6 +87,8 @@ public partial class DonutRigidBody : MonoBehaviour
                     c.enabled = true;
                 }
 
+                DontDestroyOnLoad(gameObject);
+
                 transform.position = storageArea;
 
                 break;

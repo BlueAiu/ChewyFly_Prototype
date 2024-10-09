@@ -58,7 +58,14 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("理想の形の時のエフェクト")]
     [SerializeField] GameObject idealDonutEffect;
 
+    public static List<GameObject> completeDonuts = new();
 
+
+
+    private void Awake()
+    {
+       ClearCompleteDonuts();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -192,6 +199,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
+        completeDonuts.Add(donut);
+
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }
 
@@ -213,6 +222,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             completeEffect = Instantiate(completeDonutEffect, effectPos, Quaternion.identity);
         }
         completeEffect.transform.parent = _donutParent.transform;//エフェクトがドーナツについていくようにする
+    }
+
+    public static void ClearCompleteDonuts()
+    {
+        foreach (var i in completeDonuts)
+        {
+            Destroy(i);
+        }
+        completeDonuts.Clear();
     }
 
     //没

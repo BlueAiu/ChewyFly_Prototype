@@ -13,6 +13,8 @@ public class ResultManager : MonoBehaviour
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text scoreText;
 
+    List<GameObject> donuts = ObjectReferenceManeger.completeDonuts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class ResultManager : MonoBehaviour
         scoreText.text = "Score:  " +
             ObjectReferenceManeger.totalScore.ToString();
 
-        foreach(var i in ObjectReferenceManeger.completeDonuts)
+        foreach(var i in donuts)
         {
             i.transform.position = Vector3.zero;
             i.GetComponent<Rigidbody>().isKinematic = true;
@@ -34,5 +36,10 @@ public class ResultManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void OnDestroy()
+    {
+        ObjectReferenceManeger.ClearCompleteDonuts();
     }
 }

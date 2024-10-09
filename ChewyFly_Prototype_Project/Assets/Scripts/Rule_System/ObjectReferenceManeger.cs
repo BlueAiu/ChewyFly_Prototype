@@ -64,11 +64,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     private void Awake()
     {
-        foreach(var i in completeDonuts)
-        {
-            Destroy(i);
-        }
-        completeDonuts.Clear();
+       ClearCompleteDonuts();
     }
 
     // Start is called before the first frame update
@@ -226,6 +222,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             completeEffect = Instantiate(completeDonutEffect, effectPos, Quaternion.identity);
         }
         completeEffect.transform.parent = _donutParent.transform;//エフェクトがドーナツについていくようにする
+    }
+
+    public static void ClearCompleteDonuts()
+    {
+        foreach (var i in completeDonuts)
+        {
+            Destroy(i);
+        }
+        completeDonuts.Clear();
     }
 
     //没

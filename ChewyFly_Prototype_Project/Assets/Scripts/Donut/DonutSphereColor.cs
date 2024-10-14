@@ -22,6 +22,12 @@ public class DonutSphereColor : MonoBehaviour
     [Tooltip("変色時間がずれる範囲")]
     [SerializeField] float changeTimeOffsetRange = 1f;
 
+    [Tooltip("焦げる前のエフェクト")]
+    [SerializeField] GameObject burntEffect;
+
+    [Tooltip("焦げるエフェクトが始まる時間")]
+    [SerializeField] float burntWarningTime = 3f;
+
     public int BakedNum { get; private set; } = 0;
 
     // Start is called before the first frame update
@@ -42,7 +48,12 @@ public class DonutSphereColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(BakedNum == (int)DonutBakedState.Second 
+            && changeTimer + burntWarningTime > changeTimes[(int)DonutBakedState.Second]
+            && !burntEffect.activeSelf)
+        {
+            burntEffect.SetActive(true);
+        }
     }
 
     public void BakeDonut()
@@ -56,6 +67,12 @@ public class DonutSphereColor : MonoBehaviour
                 BakedNum++;
                 GetComponent<Renderer>().material = materials[BakedNum];
                 changeTimer = 0f;
+
+                if(BakedNum == (int)DonutBakedState.Burnt
+                    && burntEffect.activeSelf)
+                {
+                    burntEffect.SetActive(false);
+                }
             }
         }
     }

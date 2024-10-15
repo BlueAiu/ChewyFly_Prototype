@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
     
     //[Tooltip("ジャンプ力")]
     //[SerializeField] float jumpPower = 5f;
-    [Tooltip("終端速度 (jumpPower以上にすること)")]
-    [SerializeField] float terminalVelocity = 3f;
+    //[Tooltip("終端速度 (jumpPower以上にすること)")]
+    //[SerializeField] float terminalVelocity = 3f;
 
     [Tooltip("プレイヤーが移動方向に向く速さ")]
     [SerializeField] float playerRotateSpeed = 450f;
@@ -104,10 +104,7 @@ public class PlayerController : MonoBehaviour
 
             //Vector3 velocity = direction * speed + Vector3.up * velocityY;
 
-            if(velocity.y > -terminalVelocity)
-            {
-                velocity += Vector3.down * (gravity * Time.deltaTime);
-            }
+            velocity += Vector3.down * (gravity * Time.deltaTime);
 
             character.Move(velocity * Time.deltaTime);
         }

@@ -89,7 +89,8 @@ public partial class DonutRigidBody : MonoBehaviour
 
                 DontDestroyOnLoad(gameObject);
 
-                transform.position = storageArea;
+                //transform.position = storageArea;
+                transform.position = union.objManeger.GetDonutDropPosition(transform.position, union.GetDonutsCenterPoint());
 
                 break;
         }

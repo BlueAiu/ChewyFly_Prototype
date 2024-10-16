@@ -34,7 +34,7 @@ public class ResultManager : MonoBehaviour
         foreach(var i in donuts)
         {
             i.transform.position = i.transform.position + (donutSetCenterPosition.transform.position - donutUnionsCenterPos);
-            i.GetComponent<Rigidbody>().isKinematic = true;
+            //i.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 

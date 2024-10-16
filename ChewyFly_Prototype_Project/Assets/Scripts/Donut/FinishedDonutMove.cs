@@ -35,6 +35,8 @@ public partial class DonutRigidBody : MonoBehaviour
 
     bool isBurnt = false;
 
+    const float dropHeavyWeight = 50f;
+
     public void SetMoveMode()
     {
         rb.isKinematic = true;
@@ -88,6 +90,7 @@ public partial class DonutRigidBody : MonoBehaviour
                 }
 
                 DontDestroyOnLoad(gameObject);
+                rb.mass = dropHeavyWeight;//ドーナツを落とした時跳ねすぎないようにする
 
                 //transform.position = storageArea;
                 transform.position = union.objManeger.GetDonutDropPosition(transform.position, union.GetDonutsCenterPoint());

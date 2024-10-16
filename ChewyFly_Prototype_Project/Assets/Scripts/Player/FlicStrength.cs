@@ -13,7 +13,8 @@ public class FlicStrength : MonoBehaviour
     [SerializeField] GameObject arrowSprite;
     [SerializeField] GameObject jumpArrowSprite;
     [SerializeField] Transform arrowParent;
-    [Header("矢印が最大何倍まで伸びるか(1以上)")]
+
+    [Tooltip("矢印が最大何倍まで伸びるか(1以上)")]
     [SerializeField] float maxArrowLength;
 
     [SerializeField] float minFlicBorder;
@@ -23,22 +24,25 @@ public class FlicStrength : MonoBehaviour
     [SerializeField] AnimationCurve flicPowerCurve;
     float lastPowerCurveTime;
 
-    [Header("最大までためた時の加える力")]
+    [Tooltip("最大までためた時の加える力")]
     [SerializeField] float maxFlicPower;
 
-    [Header("はじいたときの上方向への力")]
+    [Tooltip("はじいたときの上方向への力")]
     [SerializeField] float flicUpPower;
 
-    [Header("弾き入力を検知するスティックの速さ")]
+    [Tooltip("弾き入力を検知するスティックの速さ")]
     [SerializeField] float stickSpeed = 40f;
     [SerializeField] float maxStickSpeed = 45f;
     [SerializeField] float minStickSpeed = 0f;
 
-    [Header("次に弾き入力ができるまでの時間")]
+    [Tooltip("次に弾き入力ができるまでの時間")]
     [SerializeField] float flicCoolTime = 0.5f;
 
-    [Header("弾きジャンプのジャンプ力")]
+    [Tooltip("弾きジャンプのジャンプ力")]
     [SerializeField] float jumpPower = 5f;
+
+    [Tooltip("ジャンプ着地地点")]
+    [SerializeField] Transform jumpPoint;
 
     Vector3 arrowLocalScale;
     float flicTime;
@@ -48,6 +52,8 @@ public class FlicStrength : MonoBehaviour
     float arrowZSize;
 
     public bool isJumpMode { get; private set; } = false;
+
+
     private void Awake()//Startよりさらに前に格納しておく
     {
         flicTime = 0f;
@@ -160,7 +166,10 @@ public class FlicStrength : MonoBehaviour
             float flicPower = jumpArrowSprite.transform.localScale.z;
             var controller = GetComponent<PlayerController>();
 
-            controller.JumpTo(transform.position + -flicPreviousDirection.normalized * (flicPower * jumpPower));
+            var jumpDrection = -flicPreviousDirection.normalized;
+            jumpPoint.position = transform.position + jumpDrection * (flicPower * jumpPower);
+            jumpPoint.LookAt(jumpPoint.position + jumpDrection + Vector3.down);
+            controller.JumpTo(jumpPoint.position);
 
             flicTime = 0f;
             lastFlicTime = 0f;

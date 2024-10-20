@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーが移動方向に向く速さ")]
     [SerializeField] float playerRotateSpeed = 450f;
 
-    [Tooltip("ドーナツの上に移動させるときのy座標のずれ")]
+    [Tooltip("ドーナツに乗ったときのy座標のずれ")]
     [SerializeField] float aboveDonut = 1f;
 
     [Tooltip("油に落ちた時のエフェクト")]
@@ -73,6 +73,12 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("ドーナツを回転させる速さ")]
     [SerializeField] float rotateSpeed = 5f;
+
+    Vector3 donutRidePos = Vector3.zero;
+    [Tooltip("ドーナツに乗る位置調整の精度")]
+    [SerializeField] float donutRideAccuracy = 0.01f;
+    [Tooltip("ドーナツに乗る位置調整の速さ")]
+    [SerializeField] float donutRideSpeed = 2f;
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -108,6 +114,12 @@ public class PlayerController : MonoBehaviour
 
             character.Move(velocity * Time.deltaTime);
         }
+        else
+        {
+            if ((transform.localPosition - donutRidePos).sqrMagnitude > donutRideAccuracy)
+                character.Move((donutRidePos - transform.localPosition).normalized * (donutRideSpeed * Time.deltaTime));
+        }
+
         //else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ
         //{
         //    DetachDonut();
@@ -211,6 +223,8 @@ public class PlayerController : MonoBehaviour
         {
             AttachDonut(hit.transform.parent.gameObject);
             //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
+
+            donutRidePos = hit.transform.localPosition + Vector3.up * aboveDonut;
         }
     }
 

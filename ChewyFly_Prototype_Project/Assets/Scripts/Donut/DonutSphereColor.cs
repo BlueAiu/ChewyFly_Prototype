@@ -34,7 +34,7 @@ public class DonutSphereColor : MonoBehaviour
     void Start()
     {
         GetComponent<Renderer>().material = materials[BakedNum];
-        for(int i = 0; i < changeTimes.Length; i++)
+        for (int i = 0; i < changeTimes.Length; i++)
         {
             float timeOffset = Random.Range(-changeTimeOffsetRange, changeTimeOffsetRange);
             changeTimes[i] += timeOffset;
@@ -48,11 +48,10 @@ public class DonutSphereColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BakedNum == (int)DonutBakedState.Second 
-            && changeTimer + burntWarningTime > changeTimes[(int)DonutBakedState.Second]
-            && !burntEffect.activeSelf)
+        if (BakedNum == (int)DonutBakedState.Second
+            && changeTimer + burntWarningTime > changeTimes[(int)DonutBakedState.Second])
         {
-            burntEffect.SetActive(true);
+            SetBurntEffect(true);
         }
     }
 
@@ -68,10 +67,9 @@ public class DonutSphereColor : MonoBehaviour
                 GetComponent<Renderer>().material = materials[BakedNum];
                 changeTimer = 0f;
 
-                if(BakedNum == (int)DonutBakedState.Burnt
-                    && burntEffect.activeSelf)
+                if (BakedNum == (int)DonutBakedState.Burnt)
                 {
-                    burntEffect.SetActive(false);
+                    SetBurntEffect(false);
                 }
             }
         }
@@ -83,10 +81,17 @@ public class DonutSphereColor : MonoBehaviour
         BakedNum = _sphereColor.BakedNum;
         GetComponent<Renderer>().material = materials[BakedNum];
     }
-
-    public void SetBurntEffect(bool isActive)//burntEffectをオンオフする
+    void SetBurntEffect(bool isActive)//burntEffectをオンオフする
     {
         if (burntEffect.activeSelf == isActive) return;//すでにその状態なら返す
         burntEffect.SetActive(isActive);
+    }
+    public void StopBurntEffect()//エフェクトが出ないようタイマーを減らしてエフェクトを止める
+    {
+        const float reduceTime = 10f;
+        if (BakedNum == (int)DonutBakedState.Second && changeTimer + burntWarningTime > changeTimes[(int)DonutBakedState.Second])
+            changeTimer = changeTimes[(int)DonutBakedState.Second] - burntWarningTime - reduceTime;
+
+        SetBurntEffect(false);
     }
 }

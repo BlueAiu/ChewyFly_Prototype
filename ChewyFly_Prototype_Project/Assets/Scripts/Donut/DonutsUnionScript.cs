@@ -136,7 +136,7 @@ public partial class DonutsUnionScript : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.name == "Oil") //–û‚ÉZ‚©‚Á‚Ä‚¢‚é
+        if(other.name == "Oil" && !IsComplete) //–û‚ÉZ‚©‚Á‚Ä‚¢‚é‚©‚Â‚Ü‚¾Š®¬‚µ‚Ä‚¢‚È‚¢
         {
             int bakedValue = 0;
             foreach(var sphere in donutSpheres) //Ä‚«F‚ğ•Ï‚¦‚é
@@ -174,7 +174,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         foreach (var sphere in donutSpheres)
         {
             DonutSphereColor donutColor = sphere.GetComponent<DonutSphereColor>();
-            donutColor.SetBurntEffect(false);
+            donutColor.StopBurntEffect();
         }
     }
 }

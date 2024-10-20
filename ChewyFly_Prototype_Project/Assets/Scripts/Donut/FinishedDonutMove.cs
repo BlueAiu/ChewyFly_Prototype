@@ -86,9 +86,9 @@ public partial class DonutRigidBody : MonoBehaviour
                 foreach(var c in colliders)
                 {
                     c.enabled = true;
-                    Debug.Log(c.material);
-                    c.material = null;
-                    Debug.Log(c.material);
+                    PhysicMaterial physicMaterial = c.material;//íeê´Ç0Ç…Ç∑ÇÈ
+                    if(physicMaterial != null)
+                        physicMaterial.bounciness = 0f;
                 }
 
                 DontDestroyOnLoad(gameObject);

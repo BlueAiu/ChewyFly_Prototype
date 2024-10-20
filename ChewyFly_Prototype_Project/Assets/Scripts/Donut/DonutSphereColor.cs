@@ -83,4 +83,10 @@ public class DonutSphereColor : MonoBehaviour
         BakedNum = _sphereColor.BakedNum;
         GetComponent<Renderer>().material = materials[BakedNum];
     }
+
+    public void SetBurntEffect(bool isActive)//burntEffect‚ğƒIƒ“ƒIƒt‚·‚é
+    {
+        if (burntEffect.activeSelf == isActive) return;//‚·‚Å‚É‚»‚Ìó‘Ô‚È‚ç•Ô‚·
+        burntEffect.SetActive(isActive);
+    }
 }

@@ -16,6 +16,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Header("ドーナツを縦に並べる数")]
     [SerializeField] int verticalSetUpNum = 5;
+    [Header("ドーナツを横に並べる数")]
+    [SerializeField] int horizontalSetUpNum = 5;
 
     int verticalNum = 0;
     int horizontalNum = 0;
@@ -26,11 +28,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             dropPosition.position.y,
             dropPosition.position.z - (intervalVerticalDistance * verticalNum));
 
-        verticalNum++;
-        if (verticalNum >= verticalSetUpNum)//超えたなら新しい横位置に設置する
+        horizontalNum++;
+        if (horizontalNum >= horizontalSetUpNum)//超えたなら新しい横位置に設置する
         {
-            verticalNum = 0;
-            horizontalNum++;
+            horizontalNum = 0;
+            verticalNum++;
+            if(verticalNum >= verticalSetUpNum)
+            {
+                verticalNum = 0;
+            }
         }
         return dropPos + (parentPos - centerPos);
     }

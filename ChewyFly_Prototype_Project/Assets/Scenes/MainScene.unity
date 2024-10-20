@@ -2741,10 +2741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d1b7c1224785642b1af9aa7078491b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropPosition: {fileID: 61392291}
-  intervalVerticalDistance: 3
-  intervalHorizontalDistance: 3.5
-  verticalSetUpNum: 5
   player: {fileID: 270912489}
   donutsList:
   - {fileID: 39569745}
@@ -2764,6 +2760,11 @@ MonoBehaviour:
   completeJumpTime: 2
   completeDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
   idealDonutEffect: {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
+  dropPosition: {fileID: 61392291}
+  intervalVerticalDistance: 3
+  intervalHorizontalDistance: 3.5
+  verticalSetUpNum: 5
+  horizontalSetUpNum: 5
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30
@@ -2799,7 +2800,7 @@ MonoBehaviour:
   countdownText: {fileID: 453074924}
   timerCircleImage: {fileID: 1308142869}
   timeUpObj: {fileID: 1980223032}
-  timeLimit: 300
+  timeLimit: 60
   timePerCountdown: 0.6
   countdownFadeTime: 1
   timeUpTime: 2

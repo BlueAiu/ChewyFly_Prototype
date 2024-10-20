@@ -35,8 +35,6 @@ public partial class DonutRigidBody : MonoBehaviour
 
     bool isBurnt = false;
 
-    const float dropHeavyWeight = 50f;
-
     public void SetMoveMode()
     {
         rb.isKinematic = true;
@@ -48,6 +46,7 @@ public partial class DonutRigidBody : MonoBehaviour
             c.enabled = false;
         }
 
+        union.StopAllBurntEffect();
         transform.parent = cameraAxis;
     }
 
@@ -87,10 +86,12 @@ public partial class DonutRigidBody : MonoBehaviour
                 foreach(var c in colliders)
                 {
                     c.enabled = true;
+                    Debug.Log(c.material);
+                    c.material = null;
+                    Debug.Log(c.material);
                 }
 
                 DontDestroyOnLoad(gameObject);
-                rb.mass = dropHeavyWeight;//ドーナツを落とした時跳ねすぎないようにする
 
                 //transform.position = storageArea;
                 transform.position = union.objManeger.GetDonutDropPosition(transform.position, union.GetDonutsCenterPoint());

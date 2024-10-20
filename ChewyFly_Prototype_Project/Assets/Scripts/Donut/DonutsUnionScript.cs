@@ -169,4 +169,12 @@ public partial class DonutsUnionScript : MonoBehaviour
         }
         return center /= donutSpheres.Count;
     }
+    public void StopAllBurntEffect()//‚·‚×‚Ä‚ÌBurntEffect‚ð’âŽ~‚·‚é
+    {
+        foreach (var sphere in donutSpheres)
+        {
+            DonutSphereColor donutColor = sphere.GetComponent<DonutSphereColor>();
+            donutColor.SetBurntEffect(false);
+        }
+    }
 }

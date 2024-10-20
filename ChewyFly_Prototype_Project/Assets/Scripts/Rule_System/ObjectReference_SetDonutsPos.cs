@@ -6,27 +6,31 @@ using UnityEngine;
 
 public partial class ObjectReferenceManeger : MonoBehaviour
 {
-    [Tooltip("最初のドーナツを落とす位置")]
-    [SerializeField] Transform dropPosition;
+    [Header("ドーナツ完成後の変数")]
+    [Tooltip("トレイのオブジェクト")]
+    [SerializeField] Transform tray;
 
-    [Header("ドーナツを縦に離す距離")]
+    [Tooltip("ドーナツを縦に離す距離")]
     [SerializeField] float intervalVerticalDistance = 1f;
-    [Header("ドーナツを横に離す距離")]
+    [Tooltip("ドーナツを横に離す距離")]
     [SerializeField] float intervalHorizontalDistance = 1f;
 
-    [Header("ドーナツを縦に並べる数")]
+    [Tooltip("ドーナツを縦に並べる数")]
     [SerializeField] int verticalSetUpNum = 5;
-    [Header("ドーナツを横に並べる数")]
+    [Tooltip("ドーナツを横に並べる数")]
     [SerializeField] int horizontalSetUpNum = 5;
 
     int verticalNum = 0;
     int horizontalNum = 0;
+    const float dropHeight = 3f;
     public Vector3 GetDonutDropPosition(Vector3 parentPos, Vector3 centerPos)//新しくドーナツを落とす位置を返す
     {
         Vector3 dropPos = new Vector3(
-            dropPosition.position.x + intervalHorizontalDistance * horizontalNum,
-            dropPosition.position.y,
-            dropPosition.position.z - (intervalVerticalDistance * verticalNum));
+            tray.position.x - (intervalHorizontalDistance * horizontalSetUpNum / 2f) 
+            + intervalHorizontalDistance * horizontalNum,
+            tray.position.y + dropHeight,
+            tray.position.z + (intervalVerticalDistance   * verticalSetUpNum   / 2f)
+            - (intervalVerticalDistance * verticalNum));
 
         horizontalNum++;
         if (horizontalNum >= horizontalSetUpNum)//超えたなら新しい横位置に設置する

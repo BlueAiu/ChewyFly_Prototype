@@ -46,6 +46,7 @@ public partial class DonutRigidBody : MonoBehaviour
             c.enabled = false;
         }
 
+        union.StopAllBurntEffect();
         transform.parent = cameraAxis;
     }
 
@@ -85,11 +86,15 @@ public partial class DonutRigidBody : MonoBehaviour
                 foreach(var c in colliders)
                 {
                     c.enabled = true;
+                    PhysicMaterial physicMaterial = c.material;//íeê´Ç0Ç…Ç∑ÇÈ
+                    if(physicMaterial != null)
+                        physicMaterial.bounciness = 0f;
                 }
 
                 DontDestroyOnLoad(gameObject);
 
-                transform.position = storageArea;
+                //transform.position = storageArea;
+                transform.position = union.objManeger.GetDonutDropPosition(transform.position, union.GetDonutsCenterPoint());
 
                 break;
         }

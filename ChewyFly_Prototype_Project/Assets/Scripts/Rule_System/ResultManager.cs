@@ -13,6 +13,8 @@ public class ResultManager : MonoBehaviour
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text scoreText;
 
+    [SerializeField] Transform donutSetCenterPosition;
+
     List<GameObject> donuts = ObjectReferenceManeger.completeDonuts;
 
     // Start is called before the first frame update
@@ -25,10 +27,14 @@ public class ResultManager : MonoBehaviour
         scoreText.text = "Score:  " +
             ObjectReferenceManeger.totalScore.ToString();
 
+        Vector3 donutUnionsCenterPos = Vector3.zero;
+        foreach (var d in donuts)  { donutUnionsCenterPos += d.transform.position;   }
+        donutUnionsCenterPos /= donuts.Count;
+
         foreach(var i in donuts)
         {
-            i.transform.position = Vector3.zero;
-            i.GetComponent<Rigidbody>().isKinematic = true;
+            i.transform.position = i.transform.position + (donutSetCenterPosition.transform.position - donutUnionsCenterPos);
+            //i.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 

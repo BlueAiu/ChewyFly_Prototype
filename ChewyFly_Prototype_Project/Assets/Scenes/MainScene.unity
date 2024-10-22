@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4204bf9d106c80a4e83600fd0cb1fa5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSprite: {fileID: 87630649}
+  flicArrowSprite: {fileID: 87630649}
   jumpArrowSprite: {fileID: 1504955368}
   arrowParent: {fileID: 136636854}
   maxArrowLength: 1.5

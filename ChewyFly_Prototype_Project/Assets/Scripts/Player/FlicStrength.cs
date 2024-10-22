@@ -10,7 +10,7 @@ public class FlicStrength : MonoBehaviour
     PlayerController playerController;
     InputScript input;
 
-    [SerializeField] GameObject arrowSprite;
+    [SerializeField] GameObject flicArrowSprite;
     [SerializeField] GameObject jumpArrowSprite;
     [SerializeField] Transform arrowParent;
 
@@ -61,16 +61,16 @@ public class FlicStrength : MonoBehaviour
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
         input = GetComponent<InputScript>();
-        arrowLocalScale = arrowSprite.transform.localScale;
+        arrowLocalScale = flicArrowSprite.transform.localScale;
 
-        Renderer arrowRenderer = arrowSprite.GetComponent<Renderer>();
+        Renderer arrowRenderer = flicArrowSprite.GetComponent<Renderer>();
         if (arrowRenderer != null)
         {
             // バウンディングボックスのサイズを取得
             Vector3 size =  arrowRenderer.bounds.size;
             arrowZSize = size.z;// z軸方向の大きさを取得
         }
-        arrowStretchOrigin = arrowSprite.transform.localPosition.z - arrowZSize / 2;
+        arrowStretchOrigin = flicArrowSprite.transform.localPosition.z - arrowZSize / 2;
         Keyframe lastKey = flicPowerCurve.keys[flicPowerCurve.length - 1];
         lastPowerCurveTime = lastKey.time;
     }
@@ -99,16 +99,34 @@ public class FlicStrength : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (playerController.ridingDonut != null)    //ドーナツに乗っている場合
+        if (playerController.ridingDonut != null && !playerController.ridingDonutUnion.isBouncing)    //ドーナツに乗っていてドーナツがバウンド中でない場合
         {
+            var direction = input.isLeftStick();
+            direction = playerController.playerCamera.transform.TransformDirection(direction);
+
+            lastFlicTime += Time.fixedDeltaTime;
+
             if (isJumpMode)
             {
-                FlicJump();
+                FlicJump(direction);
             }
             else
             {
-                FlicDonut();
+                FlicDonut(direction);
             }
+
+            if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
+            {
+                flicTime += Time.fixedDeltaTime;
+                StretchArrow(direction);
+            }
+            else
+            {
+                StopArrowSprites();
+                flicTime = 0f;
+            }
+
+            flicPreviousDirection = direction;
         }
         else
         {
@@ -117,14 +135,9 @@ public class FlicStrength : MonoBehaviour
         }
     }
 
-    void FlicDonut()
+    void FlicDonut(Vector3 direction)
     {
         if (playerController.ridingDonutUnion != null && playerController.ridingDonutUnion.isBouncing) return;//バウンド中なら受け付けない
-
-        var direction = input.isLeftStick();
-        direction = playerController.playerCamera.transform.TransformDirection(direction);
-
-        lastFlicTime += Time.fixedDeltaTime;
 
         if (IsFlic(direction))  //弾かれる処理
         {
@@ -137,29 +150,10 @@ public class FlicStrength : MonoBehaviour
             flicTime = 0f;
             lastFlicTime = 0f;
         }
-
-        if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
-        {
-            arrowSprite.SetActive(true);
-            flicTime += Time.fixedDeltaTime;
-            StretchArrow(direction);
-        }
-        else
-        {
-            arrowSprite.SetActive(false);
-            flicTime = 0f;
-        }
-
-        flicPreviousDirection = direction;
     }
 
-    void FlicJump()
+    void FlicJump(Vector3 direction)
     {
-        var direction = input.isLeftStick();
-        direction = playerController.playerCamera.transform.TransformDirection(direction);
-
-        lastFlicTime += Time.fixedDeltaTime;
-
         if (IsFlic(direction))  //弾かれる処理
         {
             
@@ -174,24 +168,22 @@ public class FlicStrength : MonoBehaviour
             flicTime = 0f;
             lastFlicTime = 0f;
         }
-
-        if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
-        {
-            jumpArrowSprite.SetActive(true);
-            flicTime += Time.fixedDeltaTime;
-            StretchArrow(direction);
-        }
-        else
-        {
-            jumpArrowSprite.SetActive(false);
-            flicTime = 0f;
-        }
-
-        flicPreviousDirection = direction;
     }
+
+
 
     void StretchArrow(Vector3 arrowDir)//矢印を回転、引き延ばす
     {
+        if (isJumpMode)
+        {
+            jumpArrowSprite.SetActive(true);
+        }
+        else
+        {
+            flicArrowSprite.SetActive(true);
+        }
+
+
         Quaternion rotation = Quaternion.LookRotation(-arrowDir);
         arrowParent.rotation = rotation;
         if (flicTime < lastPowerCurveTime)
@@ -200,10 +192,10 @@ public class FlicStrength : MonoBehaviour
             // スケールを変更
             Vector3 newScale = arrowLocalScale;
             newScale.z *= scaleFactor;
-            arrowSprite.transform.localScale = newScale;
+            flicArrowSprite.transform.localScale = newScale;
             jumpArrowSprite.transform.localScale = newScale;
 
-            arrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
+            flicArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
             jumpArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
         }
     }
@@ -227,7 +219,7 @@ public class FlicStrength : MonoBehaviour
     }
     void StopArrowSprites()
     {
-        arrowSprite.SetActive(false);
+        flicArrowSprite.SetActive(false);
         jumpArrowSprite.SetActive(false);
     }
 }

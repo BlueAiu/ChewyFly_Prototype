@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     CharacterController character;
+    Animator animator;
     InputScript input;
 
     [Tooltip("プレイヤーを映すカメラ")]
@@ -83,6 +84,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         input = GetComponent<InputScript>();
         if (playerCamera == null)
             playerCamera = GameObject.Find("CameraAxis");
@@ -125,6 +127,9 @@ public class PlayerController : MonoBehaviour
         //    DetachDonut();
         //    velocityY = jumpPower;
         //}
+
+        animator.SetFloat("VerticalVelocity", velocity.y);
+        animator.SetBool("IsRideDonut", ridingDonut != null);
     }
 
     private void FixedUpdate()

@@ -117,7 +117,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             if ((transform.localPosition - donutRidePos).sqrMagnitude > donutRideAccuracy)
-                character.Move((donutRidePos - transform.localPosition).normalized * (donutRideSpeed * Time.deltaTime));
+            {
+                var tuningDirection = (ridingDonut.transform.TransformPoint(donutRidePos) - transform.position).normalized;
+                character.Move(tuningDirection * (donutRideSpeed * Time.deltaTime));
+            }
         }
 
         //else if(input.isAButton())  //乗ってるドーナツを切り離してジャンプ

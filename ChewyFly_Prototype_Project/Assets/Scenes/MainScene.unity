@@ -365,7 +365,7 @@ MonoBehaviour:
   flicArrowSprite: {fileID: 87630649}
   jumpArrowSprite: {fileID: 1504955368}
   arrowParent: {fileID: 136636854}
-  maxArrowLength: 1.5
+  maxArrowLength: 2
   minFlicBorder: 0.1
   flicPowerCurve:
     serializedVersion: 2
@@ -391,7 +391,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxFlicPower: 10
+  maxFlicDonutPower: 10
   flicUpPower: 1
   stickSpeed: 25
   maxStickSpeed: 45
@@ -399,6 +399,7 @@ MonoBehaviour:
   flicCoolTime: 0.5
   jumpPower: 12
   jumpPoint: {fileID: 8734375345487203448}
+  flicPowerPeriod: 1.2
 --- !u!81 &270912500
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2545,6 +2546,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2554,7 +2567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.14
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2582,6 +2595,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784807005105936995, guid: d05a04a5488abee44bee8455acbeea86, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -3650,6 +3667,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 136636854}
     m_Modifications:
     - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3659,7 +3688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.14
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3687,6 +3716,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748093650577939377, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562891346741541091, guid: d11e1209a25be664398d8064e44015d0, type: 3}

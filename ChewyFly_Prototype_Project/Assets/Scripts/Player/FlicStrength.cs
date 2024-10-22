@@ -25,7 +25,7 @@ public class FlicStrength : MonoBehaviour
     float lastPowerCurveTime;
 
     [Tooltip("最大までためた時の加える力")]
-    [SerializeField] float maxFlicPower;
+    [SerializeField] float maxFlicDonutPower;
 
     [Tooltip("はじいたときの上方向への力")]
     [SerializeField] float flicUpPower;
@@ -47,6 +47,25 @@ public class FlicStrength : MonoBehaviour
     Vector3 arrowLocalScale;
     float flicTime;
     float lastFlicTime;
+    float flicPower;
+    [Tooltip("引く力の変化の周期")]
+    [SerializeField] float flicPowerPeriod = 2f;
+
+    float FlicTime
+    {
+        get
+        {
+            return flicTime; ;
+        }
+        set
+        {
+            flicTime = value;
+            flicPower = (1 - (float)Math.Cos(flicTime * Mathf.PI / flicPowerPeriod)) * lastPowerCurveTime;
+            ;
+        }
+    }
+
+
     Vector3 flicPreviousDirection;
     float arrowStretchOrigin;
     float arrowZSize;
@@ -56,7 +75,7 @@ public class FlicStrength : MonoBehaviour
 
     private void Awake()//Startよりさらに前に格納しておく
     {
-        flicTime = 0f;
+        FlicTime = 0f;
         lastFlicTime = 0f;
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
@@ -90,7 +109,7 @@ public class FlicStrength : MonoBehaviour
             if (input.isAButton())
             {
                 isJumpMode = !isJumpMode;
-                flicTime = 0;
+                FlicTime = 0;
                 StopArrowSprites();
             }
         }
@@ -117,13 +136,13 @@ public class FlicStrength : MonoBehaviour
 
             if (direction.sqrMagnitude > minFlicBorder * minFlicBorder && lastFlicTime > flicCoolTime)
             {
-                flicTime += Time.fixedDeltaTime;
+                FlicTime += Time.fixedDeltaTime;
                 StretchArrow(direction);
             }
             else
             {
                 StopArrowSprites();
-                flicTime = 0f;
+                FlicTime = 0f;
             }
 
             flicPreviousDirection = direction;
@@ -131,7 +150,7 @@ public class FlicStrength : MonoBehaviour
         else
         {
             StopArrowSprites();
-            flicTime = 0f;
+            FlicTime = 0f;
         }
     }
 
@@ -141,13 +160,16 @@ public class FlicStrength : MonoBehaviour
 
         if (IsFlic(direction))  //弾かれる処理
         {
-            flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
-            float flicPower = flicPowerCurve.Evaluate(flicTime);
+            //flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
+            float flicDonutPower = flicPowerCurve.Evaluate(flicPower);
 
+            var impulseValue = flicPreviousDirection.normalized * -flicDonutPower * maxFlicDonutPower
+                + Vector3.up * flicUpPower;
+            
             var dounutRigid = playerController.ridingDonut.GetComponent<DonutRigidBody>();
-            dounutRigid.TakeImpulse(flicPreviousDirection.normalized * -flicPower * maxFlicPower
-                + Vector3.up * flicUpPower);
-            flicTime = 0f;
+            dounutRigid.TakeImpulse(impulseValue);
+
+            FlicTime = 0f;
             lastFlicTime = 0f;
         }
     }
@@ -156,16 +178,14 @@ public class FlicStrength : MonoBehaviour
     {
         if (IsFlic(direction))  //弾かれる処理
         {
-            
-            float flicPower = jumpArrowSprite.transform.localScale.z;
-            var controller = GetComponent<PlayerController>();
+            float flicJumpPower = jumpArrowSprite.transform.localScale.z;
 
             var jumpDrection = -flicPreviousDirection.normalized;
-            jumpPoint.position = transform.position + jumpDrection * (flicPower * jumpPower);
+            jumpPoint.position = transform.position + jumpDrection * (flicJumpPower * jumpPower);
             jumpPoint.LookAt(jumpPoint.position + jumpDrection + Vector3.down);
-            controller.JumpTo(jumpPoint.position);
+            playerController.JumpTo(jumpPoint.position);
 
-            flicTime = 0f;
+            FlicTime = 0f;
             lastFlicTime = 0f;
         }
     }
@@ -186,23 +206,21 @@ public class FlicStrength : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(-arrowDir);
         arrowParent.rotation = rotation;
-        if (flicTime < lastPowerCurveTime)
-        {
-            float scaleFactor = 1 + (flicTime / lastPowerCurveTime) * (maxArrowLength - 1);
-            // スケールを変更
-            Vector3 newScale = arrowLocalScale;
-            newScale.z *= scaleFactor;
-            flicArrowSprite.transform.localScale = newScale;
-            jumpArrowSprite.transform.localScale = newScale;
 
-            flicArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
-            jumpArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
-        }
+        float scaleFactor = 1 + (flicPower / lastPowerCurveTime) * (maxArrowLength - 1);
+        // スケールを変更
+        Vector3 newScale = arrowLocalScale;
+        newScale.z *= scaleFactor;
+        flicArrowSprite.transform.localScale = newScale;
+        jumpArrowSprite.transform.localScale = newScale;
+
+        flicArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
+        jumpArrowSprite.transform.localPosition = new Vector3(0, 0, arrowStretchOrigin + arrowZSize / 2 * scaleFactor);
     }
 
     private bool IsFlic(Vector3 dir)
     {
-        if(flicTime <= 0f) return false;
+        if(FlicTime <= 0f) return false;
         if (flicPreviousDirection.sqrMagnitude <= minFlicBorder * minFlicBorder) return false;
 
         float deltaMagnitude = (dir - flicPreviousDirection).magnitude;

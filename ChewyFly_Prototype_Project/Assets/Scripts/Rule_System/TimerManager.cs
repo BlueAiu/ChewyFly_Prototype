@@ -40,7 +40,6 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [SerializeField] float endCountDownPerTime = 1f;
     [Tooltip("強調するタイマー")]
     [SerializeField] GameObject highLightTimerObject;
-    Vector3 defaultTimerScale;
     [Tooltip("タイマーを拡大縮小するときのタイマーの周期")]
     [SerializeField] float highLightTimeCycle = 0.5f;
     [Tooltip("タイマーを強調するときのScaleのカーブ")]
@@ -48,6 +47,7 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [Tooltip("タイマーを強調するときの最大のScale")]
     [SerializeField] float highLightScale = 1.2f;
     int previousEndCountDownNum = endCountdownNum + 1;
+    Vector3 defaultTimerScale;
 
     [Header("終了時のカウントダウンの演出の変数")]
     [Tooltip("終了時のカウントダウンのテキスト")]
@@ -158,16 +158,18 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
                 highLightScaleCurve.Evaluate(((endCountdownNum * endCountDownPerTime - timer) % highLightTimeCycle) / highLightTimeCycle));
 
             int currentCountDownNum = (int)((timer - timer % endCountDownPerTime) / endCountDownPerTime) + 1;
-            endCountDownText.enabled = true;
-            endCountDownText.text = currentCountDownNum.ToString();
 
             float currentCountDownRatio = (timer - (currentCountDownNum - 1) * endCountDownPerTime) / endCountDownPerTime;
             endCountDownText.alpha = currentCountDownRatio;
             endCountDownText.transform.localScale =
                 Vector3.Lerp(endCountDownDefaultScale, endCountDownDefaultScale * endCountDownMaxScale, 1f - currentCountDownRatio);
 
-            if (previousEndCountDownNum != currentCountDownNum)
+            if (previousEndCountDownNum != currentCountDownNum)//カウントダウンタイマーが変化した時
+            {
+                endCountDownText.enabled = true;
+                endCountDownText.text = currentCountDownNum.ToString();
                 soundManager.PlaySE(endCountDownSE);
+            }
             previousEndCountDownNum = currentCountDownNum;
         }
     }

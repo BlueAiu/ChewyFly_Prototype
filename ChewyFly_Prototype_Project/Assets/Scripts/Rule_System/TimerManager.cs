@@ -37,22 +37,21 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [SerializeField] Color endTimerColor;
     Color startTimerColor;
 
+    [SerializeField] float endCountDownPerTime = 1f;
     [Tooltip("強調するタイマー")]
     [SerializeField] GameObject highLightTimerObject;
     Vector3 defaultTimerScale;
-    [Tooltip("タイマーが強調されだす残り時間")]
-    [SerializeField] float highLightTime = 10f;
     [Tooltip("タイマーを拡大縮小するときのタイマーの周期")]
     [SerializeField] float highLightTimeCycle = 0.5f;
     [Tooltip("タイマーを強調するときのScaleのカーブ")]
     [SerializeField] AnimationCurve highLightScaleCurve;
     [Tooltip("タイマーを強調するときの最大のScale")]
     [SerializeField] float highLightScale = 1.2f;
+    int previousEndCountDownNum = endCountdownNum + 1;
 
     [Header("終了時のカウントダウンの演出の変数")]
     [Tooltip("終了時のカウントダウンのテキスト")]
     [SerializeField] TextMeshProUGUI endCountDownText;
-    [SerializeField] float endCountDownPerTime = 1f;
     [SerializeField] float endCountDownMaxScale = 2f;
     Vector3 endCountDownDefaultScale;
 
@@ -65,7 +64,7 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     float timeUpTimer = 0f;
 
     const int startCountdownNum = 3;
-    const int endCountdownNum = 3;
+    const int endCountdownNum = 10;
 
     [Tooltip("ゲーム終了時タイムアップと表示する時間")]
     [SerializeField] float timeUpTime = 3f;
@@ -73,6 +72,7 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     [Header("ゲームの音")]
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip gameBGM;
+    [SerializeField] AudioClip endCountDownSE;
     [SerializeField] AudioClip finishWhistleSE;//終了時に鳴るホイッスル
 
     // Start is called before the first frame update
@@ -150,14 +150,13 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
             float timerColorRatio = 1f - (timer / (timeLimit * timerColorChangeRatio));
             timerCircleImage.color = Color.Lerp(startTimerColor, endTimerColor, timerColorRatio);
         }
-        if (timer <= highLightTime)//タイマーのScaleを拡大縮小
-        {
-            highLightTimerObject.transform.localScale =
-                Vector3.Lerp(defaultTimerScale, defaultTimerScale * highLightScale,
-                highLightScaleCurve.Evaluate(((highLightTime - timer) % highLightTimeCycle) / highLightTimeCycle));
-        }
         if (timer <= endCountdownNum * endCountDownPerTime)//終了時のカウントダウン
         {
+
+            highLightTimerObject.transform.localScale =
+                Vector3.Lerp(defaultTimerScale, defaultTimerScale * highLightScale,
+                highLightScaleCurve.Evaluate(((endCountdownNum * endCountDownPerTime - timer) % highLightTimeCycle) / highLightTimeCycle));
+
             int currentCountDownNum = (int)((timer - timer % endCountDownPerTime) / endCountDownPerTime) + 1;
             endCountDownText.enabled = true;
             endCountDownText.text = currentCountDownNum.ToString();
@@ -166,6 +165,10 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
             endCountDownText.alpha = currentCountDownRatio;
             endCountDownText.transform.localScale =
                 Vector3.Lerp(endCountDownDefaultScale, endCountDownDefaultScale * endCountDownMaxScale, 1f - currentCountDownRatio);
+
+            if (previousEndCountDownNum != currentCountDownNum)
+                soundManager.PlaySE(endCountDownSE);
+            previousEndCountDownNum = currentCountDownNum;
         }
     }
     void GamePlayTimer()

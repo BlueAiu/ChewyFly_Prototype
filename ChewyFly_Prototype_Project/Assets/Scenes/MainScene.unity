@@ -2799,8 +2799,8 @@ MonoBehaviour:
   countdownFadeTime: 1
   timerColorChangeRatio: 0.25
   endTimerColor: {r: 0.95686275, g: 0.43137255, b: 0.43137255, a: 1}
+  endCountDownPerTime: 1
   highLightTimerObject: {fileID: 514098364}
-  highLightTime: 10
   highLightTimeCycle: 0.5
   highLightScaleCurve:
     serializedVersion: 2
@@ -2837,12 +2837,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   highLightScale: 1.2
   endCountDownText: {fileID: 1701460727}
-  endCountDownPerTime: 1
   endCountDownMaxScale: 2
   finishBGMSpeedPitch: 1.075
   timeUpTime: 2
   soundManager: {fileID: 164948201}
   gameBGM: {fileID: 8300000, guid: 5167bc47bb1aeef419ed4ad49f05e8c4, type: 3}
+  endCountDownSE: {fileID: 8300000, guid: 9540124d8508bc44eb8373b43cf424b0, type: 3}
   finishWhistleSE: {fileID: 8300000, guid: 42bb4ac19f2afbc408967038bdda2348, type: 3}
 --- !u!114 &1419900564
 MonoBehaviour:

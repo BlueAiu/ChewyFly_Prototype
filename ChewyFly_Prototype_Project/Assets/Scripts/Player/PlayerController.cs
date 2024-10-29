@@ -43,11 +43,14 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("重力加速度")]
     [SerializeField] float gravity = 10f;
-    
+
     //[Tooltip("ジャンプ力")]
     //[SerializeField] float jumpPower = 5f;
     //[Tooltip("終端速度 (jumpPower以上にすること)")]
     //[SerializeField] float terminalVelocity = 3f;
+
+    [Tooltip("ジャンプの発射角度(0~90)")]
+    [SerializeField] float jumpSlopeAngle = 45f;
 
     [Tooltip("プレイヤーが移動方向に向く速さ")]
     [SerializeField] float playerRotateSpeed = 450f;
@@ -200,13 +203,23 @@ public class PlayerController : MonoBehaviour
         return rotate;
     }
 
-    public void JumpTo(Vector3 target)  //跳んでから着地までの時間と飛距離が比例している
+    //指定した発射角度でジャンプする
+    //跳んでから着地までの時間は飛距離に比例している
+    public void JumpTo(Vector3 target)  
     {
+        jumpSlopeAngle = Mathf.Clamp(jumpSlopeAngle, 0, Mathf.PI / 2 * Mathf.Rad2Deg);
         DetachDonut();
 
         Vector3 direction = target - transform.position;
+        var verticalDir = direction.y * Vector3.up;
+        var horizontalDir = direction - verticalDir;
+        var horizontalDistance = horizontalDir.magnitude;
+        var jumpTime = Mathf.Sqrt(horizontalDistance * 2 / gravity * Mathf.Tan(jumpSlopeAngle * Mathf.Deg2Rad));
+        var jumpVolume = horizontalDistance / (jumpTime * Mathf.Cos(jumpSlopeAngle * Mathf.Deg2Rad));
         
-        velocity = (direction.normalized + Vector3.up) * Mathf.Sqrt(direction.magnitude * gravity / 2);
+        velocity = horizontalDir / jumpTime     // = horizontalDir.normalized * jampVolume * Mathf.Cos(jumpSlopeAngle* Mathf.Deg2Rad);
+            + Vector3.up * jumpVolume * Mathf.Sin(jumpSlopeAngle * Mathf.Deg2Rad)
+            + verticalDir / jumpTime;
     }
 
     public void JumpTo(Vector3 target, float time)  //跳んでから着地までの時間を指定する

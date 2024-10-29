@@ -292,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objManeger: {fileID: 1419900561}
   gravity: 10
+  jumpSlopeAngle: 60
   playerRotateSpeed: 450
   aboveDonut: 0.5
   damageEffect: {fileID: 8829863412455601524, guid: a5f971dd711b76e47a1100110a05fbe1, type: 3}

@@ -23,3 +23,4 @@
 
 ### 効果音
 * [OtoLogic](https://otologic.jp/)
+* [効果音ラボ](https://soundeffect-lab.info/)

@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
 
         bgmAudioSource.clip = clip;
         bgmAudioSource.time = skipTime;
+        bgmAudioSource.pitch = 1.0f;
         bgmAudioSource.Play();
     }
 
@@ -51,5 +52,9 @@ public class SoundManager : MonoBehaviour
     {
         if (optionValues == null) return;
         seAudioSource.volume = (float)(optionValues.SEValue - OptionValues.soundMinValue) / (OptionValues.soundMaxValue - OptionValues.soundMinValue);
+    }
+    public void SetBGMPitch(float pitch)
+    {
+        bgmAudioSource.pitch = pitch;
     }
 }

@@ -142,7 +142,7 @@ MonoBehaviour:
   buoyancy: 20
   surfaceY: 1
   movementResistance: 5
-  rotationResistance: 5
+  rotationResistance: 2
   boundPower: 2
   phese1Time: 0.5
   standDonutAngle: 45

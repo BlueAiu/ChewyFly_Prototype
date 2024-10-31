@@ -108,7 +108,7 @@ public partial class DonutRigidBody : MonoBehaviour
             }
 
             //rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * rotationResistance * sinkVolume));
-            rb.AddTorque(-rb.angularVelocity * (rotationResistance * sinkVolume));
+            rb.AddTorque(-rb.angularVelocity * (rotationResistance * sinkVolume), ForceMode.Acceleration);
         }
     }
 

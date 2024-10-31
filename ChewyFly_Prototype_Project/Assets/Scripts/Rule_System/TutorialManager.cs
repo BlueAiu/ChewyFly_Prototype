@@ -23,6 +23,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Sceneのオブジェクト参照の項目")]
     [SerializeField] DescObject[] descObjects = new DescObject[sceneDescImageNum];
+    [SerializeField] Transform[] defaultTransform = new Transform[sceneDescImageNum];//最初の位置(固定)
     [SerializeField] TextMeshProUGUI descText;
     [SerializeField] Image triangle_Left;
     [SerializeField] Image triangle_Right;
@@ -33,9 +34,6 @@ public class TutorialManager : MonoBehaviour
 
     [Header("説明文とその画像")]
     [SerializeField] DescriptionData[] descData;
-
-    readonly Vector3[] defaultPosition = new Vector3[sceneDescImageNum];//最初の位置(固定)
-    readonly Vector3[] defaultLocalScale = new Vector3[sceneDescImageNum];
     const int sceneDescImageNum = 5;
     int descNum;//説明文の数
 
@@ -74,9 +72,8 @@ public class TutorialManager : MonoBehaviour
         SetTriangleColor();
         for (int i = 0; i < sceneDescImageNum; i++)
         {
-            defaultPosition[i] = descObjects[i].rectTransform.position;
-            defaultLocalScale[i] = descObjects[i].rectTransform.localScale;
-
+            defaultTransform[i].position = descObjects[i].rectTransform.position;
+            defaultTransform[i].localScale = descObjects[i].rectTransform.localScale;
             descObjects[i].index = i - (sceneDescImageNum / 2);
             SetSpriteImage(descObjects[i]);//最初の画像をセット
         }
@@ -167,15 +164,14 @@ public class TutorialManager : MonoBehaviour
                     || CurrentIndex + (sceneDescImageNum / 2) < objIndex) continue;//ずっと見えないものは動かさない
 
             int newIndex = obj.index - CurrentIndex + (sceneDescImageNum / 2);//これから向かうindex
-            int previousIndex = moveState == MoveState.Right ?
-                previousIndex = newIndex - 1 : previousIndex = newIndex + 1;//移動する前のindex
+            int previousIndex = moveState == MoveState.Right ? newIndex - 1 : newIndex + 1;//移動する前のindex
 
             obj.rectTransform.position = Vector3.Lerp(
-                defaultPosition[previousIndex],
-                defaultPosition[newIndex], moveTimer / moveTime);
+                defaultTransform[previousIndex].position,
+                defaultTransform[newIndex]     .position, moveTimer / moveTime);
             obj.rectTransform.localScale = Vector3.Lerp(
-                defaultLocalScale[previousIndex],
-                defaultLocalScale[newIndex], moveTimer / moveTime);
+                defaultTransform[previousIndex].localScale,
+                defaultTransform[newIndex]     .localScale, moveTimer / moveTime);
         }
 
         if (!isHalfLapse && moveTime >= moveTimer / 2f)//半分経過したら色、テキストを変化
@@ -201,8 +197,8 @@ public class TutorialManager : MonoBehaviour
             }
 
             int index = obj.index - CurrentIndex + (sceneDescImageNum / 2);
-            obj.rectTransform.position = defaultPosition[index];
-            obj.rectTransform.localScale = defaultLocalScale[index];
+            obj.rectTransform.position = defaultTransform[index].position;
+            obj.rectTransform.localScale = defaultTransform[index].localScale;
         }
         moveState = MoveState.Stop;
     }

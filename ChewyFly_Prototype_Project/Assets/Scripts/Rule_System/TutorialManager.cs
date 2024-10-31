@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TutorialManager : MonoBehaviour
 {
     [System.Serializable]
-    private class DescObject//Scene状にある説明文
+    private class DescObject//Scene上にある説明文
     {
         public RectTransform rectTransform;
         public Image image;
@@ -17,9 +17,9 @@ public class TutorialManager : MonoBehaviour
     class DescriptionData//説明の具体的な内容
     {
         public Sprite sprite;
-        [TextArea]
-        public string desc;
+        [TextArea] public string desc;
     }
+    enum MoveState { Stop, Right, Left };//説明ウィンドウが動く状態
 
     [Header("Sceneのオブジェクト参照の項目")]
     [SerializeField] DescObject[] descObjects = new DescObject[sceneDescImageNum];
@@ -37,13 +37,12 @@ public class TutorialManager : MonoBehaviour
     readonly Vector3[] defaultPosition = new Vector3[sceneDescImageNum];//最初の位置(固定)
     readonly Vector3[] defaultLocalScale = new Vector3[sceneDescImageNum];
     const int sceneDescImageNum = 5;
-    int descNum = 0;//説明文の数
+    int descNum;//説明文の数
 
     [Tooltip("画像が動いて止まる時間")]
     [SerializeField] float moveTime = 1f;
     float moveTimer = 0f;
     bool isHalfLapse = false;//moveTimerが半分経過したか？
-    enum MoveState { Stop, Right, Left };//説明ウィンドウが動く状態
     MoveState moveState;
     int _currentIndex = 0;//現在表示中の画像の番号(中心)
     int CurrentIndex
@@ -57,12 +56,14 @@ public class TutorialManager : MonoBehaviour
     }
 
     InputScript input;
+    LoadSceneManager sceneManager;
     // Start is called before the first frame update
     void Start()
     {
         descNum = descData.Length;
 
         input = GetComponent<InputScript>();
+        sceneManager = GetComponent<LoadSceneManager>();
 
         InitializeImages();
     }
@@ -83,13 +84,20 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (input.isAButton())
+        {
+            CloseTutorial();
+        }
+
         if (moveState == MoveState.Stop)
         {
-            if (input.isRightShoulder())//右に動いた
+            if (input.isRightShoulder() || input.isRightTrigger()
+                || input.isLeftDpad().x > 0)//右を入力した
             {
                 StartMove(true);
             }
-            else if (input.isLeftShoulder())//右に動いた
+            else if (input.isLeftShoulder() || input.isLeftTrigger()
+                || input.isLeftDpad().x < 0)//左を入力した
             {
                 StartMove(false);
             }
@@ -159,11 +167,8 @@ public class TutorialManager : MonoBehaviour
                     || CurrentIndex + (sceneDescImageNum / 2) < objIndex) continue;//ずっと見えないものは動かさない
 
             int newIndex = obj.index - CurrentIndex + (sceneDescImageNum / 2);//これから向かうindex
-            int previousIndex;//移動する前のindex
-            if (moveState == MoveState.Right)
-                previousIndex = newIndex - 1;
-            else
-                previousIndex = newIndex + 1;
+            int previousIndex = moveState == MoveState.Right ?
+                previousIndex = newIndex - 1 : previousIndex = newIndex + 1;//移動する前のindex
 
             obj.rectTransform.position = Vector3.Lerp(
                 defaultPosition[previousIndex],
@@ -200,5 +205,9 @@ public class TutorialManager : MonoBehaviour
             obj.rectTransform.localScale = defaultLocalScale[index];
         }
         moveState = MoveState.Stop;
+    }
+    public void CloseTutorial()  //画面を閉じる処理
+    {
+        sceneManager.LoadSceneName("TitleScene");
     }
 }

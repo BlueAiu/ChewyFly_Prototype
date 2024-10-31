@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 47657991}
   - component: {fileID: 47657990}
   - component: {fileID: 47657992}
+  - component: {fileID: 47657993}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -173,7 +174,7 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 08e7f8e974d96fb478e9b9c2d453b9b0, type: 3}
     desc: This is Sample text.
   - sprite: {fileID: 21300000, guid: b92be7b03e98800418aa34409c004834, type: 3}
-    desc: This is Sample text2.This is Sample text2.This is Sample text2..
+    desc: This is Sample text2.This is Sample text2.This is Sample text2.
   - sprite: {fileID: 21300000, guid: 08e7f8e974d96fb478e9b9c2d453b9b0, type: 3}
     desc: This is Sample text3.
   - sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
@@ -212,6 +213,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d30033de56fae0146bfe61fd3bdc18c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &47657993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47657989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8b8b3e892c88c4ea4197ca53b82266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &61352547

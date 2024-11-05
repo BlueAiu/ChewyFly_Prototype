@@ -260,6 +260,8 @@ public class PlayerController : MonoBehaviour
             Instantiate(damageEffect, transform.position, Quaternion.identity);
 
             JumpTo(targetPos, oilJumpTime);
+
+            animator.SetTrigger("JumpFailtuer");
         }
     }
 }

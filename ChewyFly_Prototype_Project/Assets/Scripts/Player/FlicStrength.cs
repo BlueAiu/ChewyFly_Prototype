@@ -184,8 +184,8 @@ public class FlicStrength : MonoBehaviour
 
             var jumpDrection = -flicPreviousDirection.normalized;
             jumpPoint.position = transform.position + jumpDrection * (flicJumpPower * jumpPower);
-            jumpPoint.LookAt(jumpPoint.position + jumpDrection + Vector3.down);
             playerController.JumpTo(jumpPoint.position);
+            jumpPoint.LookAt(jumpPoint.position + playerController.velocity - Vector3.up * playerController.velocity.y * 2);
 
             FlicTime = 0f;
             lastFlicTime = 0f;

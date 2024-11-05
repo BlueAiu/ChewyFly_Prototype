@@ -177,4 +177,14 @@ public partial class DonutsUnionScript : MonoBehaviour
             donutColor.StopBurntEffect();
         }
     }
+    public int[] GetBurntDonutsNum()//それぞれの焦げ色のドーナツの数
+    {
+        int[] burntDonutsNum = new int[(int)DonutBakedState.Burnt + 1];
+        foreach (var sphere in donutSpheres)
+        {
+            int index = sphere.GetComponent<DonutSphereColor>().BakedNum;
+            burntDonutsNum[index]++;
+        }
+        return burntDonutsNum;
+    }
 }

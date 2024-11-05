@@ -15,6 +15,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("6個を超えた場合の加算点")]
     [SerializeField] int donutScore_over = 30;
 
+    [Tooltip("それぞれの焦げに対応する加算点(後になるほど焦げる)")]
+    [SerializeField] int[] burntScores = new int[(int)DonutBakedState.Burnt + 1];
+
     [Header("スコア表示用のテキスト")]
     [SerializeField] TMP_Text donutScoreText;
 
@@ -82,6 +85,12 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
         {
             donutScore += (unionCount - idealDonutNum) * donutScore_over;
+        }
+
+        int[] burntDonutsNum = unionScript.GetBurntDonutsNum();//焦げの状態に応じて加点
+        for(int i = 0; i < burntDonutsNum.Length; i++)
+        {
+            donutScore += burntDonutsNum[i] * burntScores[i];
         }
 
         totalScore += donutScore;

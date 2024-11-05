@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum DonutBakedState
+public enum DonutBakedState
 {
     Unburnt,
     First,

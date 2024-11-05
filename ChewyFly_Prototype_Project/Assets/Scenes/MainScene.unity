@@ -2763,6 +2763,7 @@ MonoBehaviour:
   donutScore_base: 160
   donutScore_ideal: 200
   donutScore_over: 30
+  burntScores: 030000001400000005000000fbffffff
   donutScoreText: {fileID: 1186736610}
 --- !u!4 &1419900562
 Transform:

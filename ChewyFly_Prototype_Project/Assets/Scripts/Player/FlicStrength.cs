@@ -162,9 +162,10 @@ public class FlicStrength : MonoBehaviour
 
         if (IsFlic(direction))  //íeÇ©ÇÍÇÈèàóù
         {
+            transform.rotation = Quaternion.LookRotation(-flicPreviousDirection);
+
             //flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
             float flicDonutPower = flicPowerCurve.Evaluate(flicPower);
-
             var impulseValue = flicPreviousDirection.normalized * -flicDonutPower * maxFlicDonutPower
                 + Vector3.up * flicUpPower;
             
@@ -182,8 +183,10 @@ public class FlicStrength : MonoBehaviour
         {
             float flicJumpPower = jumpArrowSprite.transform.localScale.z;
 
-            var jumpDrection = -flicPreviousDirection.normalized;
-            jumpPoint.position = transform.position + jumpDrection * (flicJumpPower * jumpPower);
+            var jumpDirection = -flicPreviousDirection.normalized;
+            transform.rotation = Quaternion.LookRotation(jumpDirection);
+
+            jumpPoint.position = transform.position + jumpDirection * (flicJumpPower * jumpPower);
             playerController.JumpTo(jumpPoint.position);
             jumpPoint.LookAt(jumpPoint.position + playerController.velocity - Vector3.up * playerController.velocity.y * 2);
 

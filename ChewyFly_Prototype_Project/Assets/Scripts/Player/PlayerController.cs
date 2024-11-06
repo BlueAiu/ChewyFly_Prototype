@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         var direction = input.isLeftStick();
         direction = playerCamera.transform.TransformDirection(direction);
 
-        UpdateRotation(direction);
+        UpdateRotation(-direction); //左スティックの反対方向を向く
 
         if(ridingDonut == null)
         {
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
         donut.GetComponent<Rigidbody>().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ);
     }
 
-    //左スティックの方向にプレイヤーの正面を向ける
+    //渡された方向にプレイヤーの正面を向ける
     //FacingForward
     private void UpdateRotation(Vector3 dir)
     {
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.name == "Oil")   //油に着水
         {

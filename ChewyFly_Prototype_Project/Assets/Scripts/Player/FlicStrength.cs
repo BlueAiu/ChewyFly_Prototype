@@ -8,6 +8,7 @@ using UnityEngine;
 public class FlicStrength : MonoBehaviour
 {
     PlayerController playerController;
+    Animator animator;
     InputScript input;
 
     [SerializeField] GameObject flicArrowSprite;
@@ -79,6 +80,7 @@ public class FlicStrength : MonoBehaviour
         lastFlicTime = 0f;
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
+        animator = GetComponent<Animator>();
         input = GetComponent<InputScript>();
         arrowLocalScale = flicArrowSprite.transform.localScale;
 
@@ -160,9 +162,10 @@ public class FlicStrength : MonoBehaviour
 
         if (IsFlic(direction))  //íeÇ©ÇÍÇÈèàóù
         {
+            transform.rotation = Quaternion.LookRotation(-flicPreviousDirection);
+
             //flicTime = Mathf.Clamp(flicTime, 0f, lastPowerCurveTime);
             float flicDonutPower = flicPowerCurve.Evaluate(flicPower);
-
             var impulseValue = flicPreviousDirection.normalized * -flicDonutPower * maxFlicDonutPower
                 + Vector3.up * flicUpPower;
             
@@ -180,13 +183,17 @@ public class FlicStrength : MonoBehaviour
         {
             float flicJumpPower = jumpArrowSprite.transform.localScale.z;
 
-            var jumpDrection = -flicPreviousDirection.normalized;
-            jumpPoint.position = transform.position + jumpDrection * (flicJumpPower * jumpPower);
+            var jumpDirection = -flicPreviousDirection.normalized;
+            transform.rotation = Quaternion.LookRotation(jumpDirection);
+
+            jumpPoint.position = transform.position + jumpDirection * (flicJumpPower * jumpPower);
             playerController.JumpTo(jumpPoint.position);
             jumpPoint.LookAt(jumpPoint.position + playerController.velocity - Vector3.up * playerController.velocity.y * 2);
 
             FlicTime = 0f;
             lastFlicTime = 0f;
+
+            animator.SetTrigger("JumpTrigger");
         }
     }
 

@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlicModeUI : MonoBehaviour
 {
-    TMP_Text TMPtext;
+    //TMP_Text TMPtext;
+    UnityEngine.UI.Image image_;
     [SerializeField] FlicStrength player;
+
+    [SerializeField] Sprite donutModeSprite;
+    [SerializeField] Sprite jumpModeSprite;
 
     private void Awake()
     {
-        TMPtext = GetComponent<TMP_Text>();
+        //TMPtext = GetComponent<TMP_Text>();
+        image_ = GetComponent<UnityEngine.UI.Image>();
     }
 
     // Start is called before the first frame update
@@ -24,11 +30,13 @@ public class FlicModeUI : MonoBehaviour
     {
         if (player.isJumpMode)
         {
-            TMPtext.text = "Jump";
+            //TMPtext.text = "Jump";
+            image_.sprite = jumpModeSprite;
         }
         else
         {
-            TMPtext.text = "Donut";
+            //TMPtext.text = "Donut";
+            image_.sprite= donutModeSprite;
         }
     }
 }

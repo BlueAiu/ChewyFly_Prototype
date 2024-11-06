@@ -388,6 +388,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Restart
       objectReference: {fileID: 0}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1688451309591314394, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_Name
       value: RestartButton
@@ -430,11 +442,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -466,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -55
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -517,6 +529,18 @@ PrefabInstance:
       propertyPath: m_text
       value: BackToTitle
       objectReference: {fileID: 0}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+    - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1688451309591314394, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_Name
       value: TitleButton
@@ -559,11 +583,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -595,7 +619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 145
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8103980556828470737, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -873,15 +897,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score: 000000'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+  m_sharedMaterial: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284583164
+  m_fontColor: {r: 0.98742133, g: 0.5478665, b: 0.38192704, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -965,7 +989,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -141.09999}
-  m_SizeDelta: {x: 300, y: 50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2063163383
 GameObject:
@@ -1002,7 +1026,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -96}
-  m_SizeDelta: {x: 350, y: 50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063163385
 MonoBehaviour:
@@ -1026,15 +1050,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: You made 0 donuts.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
+  m_sharedMaterial: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284583164
+  m_fontColor: {r: 0.98742133, g: 0.5478665, b: 0.38192704, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

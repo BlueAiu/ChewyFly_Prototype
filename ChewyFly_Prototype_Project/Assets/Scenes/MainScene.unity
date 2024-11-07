@@ -2813,8 +2813,8 @@ MonoBehaviour:
   timeUpTime: 2
   soundManager: {fileID: 164948201}
   gameBGM: {fileID: 8300000, guid: 5167bc47bb1aeef419ed4ad49f05e8c4, type: 3}
-  endCountDownSE: {fileID: 8300000, guid: 9540124d8508bc44eb8373b43cf424b0, type: 3}
-  finishWhistleSE: {fileID: 8300000, guid: 42bb4ac19f2afbc408967038bdda2348, type: 3}
+  endCountDownSE: {fileID: 8300000, guid: e0f5786ce68ba7f47afe57c93e00aa13, type: 3}
+  finishWhistleSE: {fileID: 8300000, guid: 5e40cd2ada802d747b8c484ee42d6d6a, type: 3}
 --- !u!114 &1419900564
 MonoBehaviour:
   m_ObjectHideFlags: 0

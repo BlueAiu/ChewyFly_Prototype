@@ -17,6 +17,12 @@ public class ResultManager : MonoBehaviour
 
     List<GameObject> donuts = ObjectReferenceManeger.completeDonuts;
 
+    [Tooltip("鳴らすBGMを分けるノルマスコア")]
+    [SerializeField] int scoreQuota = 800;
+    [SerializeField] SoundManager soundManager;
+    [SerializeField] AudioClip clearBGM;
+    [SerializeField] AudioClip failureBGM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,15 @@ public class ResultManager : MonoBehaviour
         {
             i.transform.position = i.transform.position + (donutSetCenterPosition.transform.position - donutUnionsCenterPos);
             //i.GetComponent<Rigidbody>().isKinematic = true;
+        }
+
+        if(ObjectReferenceManeger.totalScore < scoreQuota)
+        {
+            soundManager.PlayBGM(failureBGM);
+        }
+        else
+        {
+            soundManager.PlayBGM(clearBGM);
         }
     }
 

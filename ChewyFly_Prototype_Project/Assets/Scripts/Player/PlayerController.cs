@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
         if (donut.GetComponent<DonutsUnionScript>().IsComplete) return;
         ridingDonut = donut;
         transform.parent = donut.transform;
-        donut.GetComponent<Rigidbody>().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ);
+        donut.GetComponent<DonutRigidBody>().IsFreeze = false;
     }
 
     //“n‚³‚ê‚½•ûŒü‚ÉƒvƒŒƒCƒ„[‚Ì³–Ê‚ğŒü‚¯‚é

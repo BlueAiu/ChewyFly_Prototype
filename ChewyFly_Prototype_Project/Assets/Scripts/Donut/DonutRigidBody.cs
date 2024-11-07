@@ -28,6 +28,20 @@ public partial class DonutRigidBody : MonoBehaviour
 
     float torque = 0;
 
+    bool isFreeze = false;
+    public bool IsFreeze
+    {
+        get { return isFreeze; }
+        set 
+        {
+            isFreeze = value; 
+            if(isFreeze)
+                rb.constraints |= RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            else
+                rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ);
+        }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

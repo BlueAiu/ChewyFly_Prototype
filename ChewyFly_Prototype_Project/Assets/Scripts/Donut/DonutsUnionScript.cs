@@ -138,6 +138,8 @@ public partial class DonutsUnionScript : MonoBehaviour
     {
         if(other.name == "Oil" && !IsComplete) //–û‚ÉZ‚©‚Á‚Ä‚¢‚é‚©‚Â‚Ü‚¾Š®¬‚µ‚Ä‚¢‚È‚¢
         {
+            if (GetComponent<DonutRigidBody>().IsFreeze) return;    //ŒÅ’è‚³‚ê‚Ä‚¢‚é‚È‚çÄ‚«F‚Íi‚ß‚È‚¢
+
             int bakedValue = 0;
             foreach(var sphere in donutSpheres) //Ä‚«F‚ğ•Ï‚¦‚é
             {

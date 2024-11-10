@@ -675,12 +675,16 @@ PrefabInstance:
       value: ExitButton
       objectReference: {fileID: 0}
     - target: {fileID: 1884489394227166214, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884489394227166214, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 373732151}
     - target: {fileID: 1884489394227166214, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadSceneName
+      value: ExitGame
       objectReference: {fileID: 0}
     - target: {fileID: 1884489394227166214, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

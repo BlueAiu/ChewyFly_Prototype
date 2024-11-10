@@ -182,7 +182,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
 
         if (isFleeze)
-            closestDonut.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            closestDonut.GetComponent<DonutRigidBody>().IsFreeze = true;
 
         return closestDonut;
     }

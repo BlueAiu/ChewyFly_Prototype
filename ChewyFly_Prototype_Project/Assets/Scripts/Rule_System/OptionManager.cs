@@ -26,6 +26,7 @@ public class OptionManager : OptionValues
 
     public bool OnUseSlider { get; private set; } = false;
     bool isSelectSlider;
+    bool wasSelectSliderThisFrame = false;
     InputScript input;
 
     LoadSceneManager LoadSceneManager;
@@ -57,7 +58,11 @@ public class OptionManager : OptionValues
             }
             else
             {
-                if (input.isAButton())
+                if (wasSelectSliderThisFrame)   //スライド選択の入力と値決定の入力を同時に読み取らないようにする
+                {
+                    wasSelectSliderThisFrame = false;
+                }
+                else　if (input.isAButton())
                 {
                     ActiveOptionButtons(true);
                     currentSlider = null;
@@ -116,6 +121,7 @@ public class OptionManager : OptionValues
         currentSlider = slider;
         previousButton = eventSystem.currentSelectedGameObject.gameObject.GetComponent<Button>();
         previousValue = (int)slider.value;
+        wasSelectSliderThisFrame = true;
 
         ActiveOptionButtons(false);
     }

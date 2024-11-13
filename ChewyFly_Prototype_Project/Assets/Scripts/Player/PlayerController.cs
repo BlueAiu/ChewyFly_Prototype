@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     InputScript input;
 
+    bool isFreeze = false;
+
     [Tooltip("プレイヤーを映すカメラ")]
     [SerializeField] public GameObject playerCamera { get; private set; }
 
@@ -59,12 +61,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ドーナツに乗ったときのy座標のずれ")]
     [SerializeField] float aboveDonut = 1f;
 
-    [Tooltip("油に落ちた時のエフェクト")]
-    [SerializeField] GameObject damageEffect;
-
-    [Tooltip("油に落ちた時のジャンプの長さ")]
-    [SerializeField] float oilJumpTime = 3f;
-
     Vector3 previousDirection = Vector3.zero;
 
     //[Header("ドーナツの上に乗っている場合の弾き操作")]
@@ -84,6 +80,24 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ドーナツに乗る位置調整の速さ")]
     [SerializeField] float donutRideSpeed = 2f;
 
+    [Header("油に落ちた時")]
+
+    [Tooltip("油に落ちた時のエフェクト")]
+    [SerializeField] GameObject damageEffect;
+
+    [Tooltip("油に落ちた時留まる時間の長さ")]
+    [SerializeField] float oilSinkTime = 1f;
+
+    [Tooltip("油に落ちた時のジャンプの長さ")]
+    [SerializeField] float oilJumpTime = 3f;
+
+    [Header("ドーナツが完成したとき")]
+    [Tooltip("ドーナツが完成したとき留まる時間の長さ")]
+    [SerializeField] float completeReactionTime = 1f;
+
+    [Tooltip("次のドーナツにジャンプする長さ")]
+    [SerializeField] float completeJumpTime = 1f;
+
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
@@ -102,6 +116,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isFreeze) return;
+
         var direction = input.isLeftStick();
         direction = playerCamera.transform.TransformDirection(direction);
 
@@ -253,15 +269,33 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.name == "Oil")   //油に着水
         {
-            //DetachDonut();
-            var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
-            //character.Move(targetPos - transform.position);
-            //velocity = Vector3.zero;
-            Instantiate(damageEffect, transform.position, Quaternion.identity);
-
-            JumpTo(targetPos, oilJumpTime);
-
+            transform.position += Vector3.up * (ObjectReferenceManeger.oilSurfaceY - transform.position.y);
+            isFreeze = true;
+            Invoke(nameof(OilJump), oilSinkTime);
             animator.SetTrigger("JumpFailtuer");
         }
+    }
+
+    void OilJump()
+    {
+        isFreeze = false;
+
+        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        JumpTo(targetPos, oilJumpTime);
+
+        Instantiate(damageEffect, transform.position, Quaternion.identity);
+    }
+
+    public void CompleteDonutReaction()
+    {
+        isFreeze = true;
+        Invoke(nameof(CompleteJump), completeReactionTime);
+    }
+
+    void CompleteJump()
+    {
+        isFreeze = false;
+        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        JumpTo(targetPos, completeJumpTime);
     }
 }

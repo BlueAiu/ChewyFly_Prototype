@@ -6,6 +6,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 {
     [Tooltip("プレイヤー")]
     [SerializeField] GameObject player;
+    PlayerController playerController;
+
+    [Tooltip("油")]
+    [SerializeField] Transform oil;
+    public static float oilSurfaceY;
 
     [Tooltip("ゲーム上のドーナツ達")]
     [SerializeField] List<GameObject> donutsList;
@@ -51,8 +56,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     public static int madeDonuts { get; private set; }
 
     [Header("ドーナツが完成したとき")]
-    [Tooltip("ドーナツが完成したときのジャンプの長さ")]
-    [SerializeField] float completeJumpTime = 3f;
+    //[Tooltip("ドーナツが完成したときのジャンプの長さ")]
+    //[SerializeField] float completeJumpTime = 3f;
     [Tooltip("完成した時のエフェクト")]
     [SerializeField] GameObject completeDonutEffect;
     [Tooltip("理想の形の時のエフェクト")]
@@ -72,6 +77,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         if (player == null)
             player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+
+        oilSurfaceY = oil.position.y + oil.localScale.y;
 
         madeDonuts = 0;
         totalScore = 0;
@@ -158,7 +166,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         if (player.transform.parent == donut.transform)
         {
-            player.GetComponent<PlayerController>().DetachDonut();
+            playerController.DetachDonut();
         }
         donutsList.Remove(donut);
         donut.GetComponent<DonutRigidBody>().SetSinkMode();
@@ -192,8 +200,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         donutsList.Remove(donut);
 
-        player.GetComponent<PlayerController>().
-            JumpTo(ClosestDonut(isFleeze: true).transform.position, completeJumpTime);
+        playerController.DetachDonut();
+        playerController.CompleteDonutReaction();
 
         madeDonuts++;
 

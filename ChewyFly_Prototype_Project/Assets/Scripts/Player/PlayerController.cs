@@ -241,6 +241,8 @@ public class PlayerController : MonoBehaviour
         velocity = horizontalDir / jumpTime     // = horizontalDir.normalized * jampVolume * Mathf.Cos(jumpSlopeAngle* Mathf.Deg2Rad);
             + Vector3.up * jumpVolume * Mathf.Sin(jumpSlopeAngle * Mathf.Deg2Rad)
             + verticalDir / jumpTime;
+
+        transform.rotation = Quaternion.LookRotation(horizontalDir);
     }
 
     public void JumpTo(Vector3 target, float time)  //’µ‚ñ‚Å‚©‚ç’…’n‚Ü‚Å‚ÌŽžŠÔ‚ðŽw’è‚·‚é
@@ -252,6 +254,8 @@ public class PlayerController : MonoBehaviour
         var verticalVelocity = direction.y / time + gravity * time / 2;
 
         velocity = horizontalVelocity + verticalVelocity * Vector3.up;
+
+        transform.rotation = Quaternion.LookRotation(horizontalVelocity);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -297,5 +301,7 @@ public class PlayerController : MonoBehaviour
         isFreeze = false;
         var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, completeJumpTime);
+
+        animator.SetTrigger("JumpTrigger");
     }
 }

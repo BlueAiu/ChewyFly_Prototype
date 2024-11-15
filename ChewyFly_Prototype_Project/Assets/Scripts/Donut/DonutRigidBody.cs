@@ -10,8 +10,8 @@ public partial class DonutRigidBody : MonoBehaviour
     [Header("ドーナツの浮力")]
     [Tooltip("浮力係数")]
     [SerializeField] float buoyancy = 20f;
-    [Tooltip("油の表面のY座標")]
-    [SerializeField] float surfaceY = 0f;
+    //[Tooltip("油の表面のY座標")]
+    //[SerializeField] float surfaceY = 0f;
 
     [Header("油中の抵抗力")]
     [Tooltip("移動の抵抗力係数")]
@@ -103,7 +103,7 @@ public partial class DonutRigidBody : MonoBehaviour
         if(other.name == "Oil")
         {
             //沈んでいる体積を求める
-            float depth = surfaceY - transform.position.y;
+            float depth = ObjectReferenceManeger.oilSurfaceY - transform.position.y;
             float sinkVolume = Mathf.Min(depth + transform.localScale.y / 2, transform.localScale.y);
 
             //浮力

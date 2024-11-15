@@ -297,11 +297,14 @@ MonoBehaviour:
   jumpSlopeAngle: 60
   playerRotateSpeed: 540
   aboveDonut: 0.5
-  damageEffect: {fileID: 8829863412455601524, guid: a5f971dd711b76e47a1100110a05fbe1, type: 3}
-  oilJumpTime: 1.5
   rotateSpeed: 10
   donutRideAccuracy: 0.01
   donutRideSpeed: 2
+  damageEffect: {fileID: 8829863412455601524, guid: a5f971dd711b76e47a1100110a05fbe1, type: 3}
+  oilSinkTime: 0.8
+  oilJumpTime: 1.5
+  completeReactionTime: 1
+  completeJumpTime: 2
 --- !u!114 &270912496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2801,6 +2804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 270912489}
+  oil: {fileID: 2143979451}
   donutsList:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
@@ -2816,7 +2820,6 @@ MonoBehaviour:
   bubbleSpawnRadius: 6
   bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
-  completeJumpTime: 2
   completeDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
   idealDonutEffect: {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
   tray: {fileID: 1874989099}
@@ -4345,8 +4348,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0
-  m_fontSizeBase: 0
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

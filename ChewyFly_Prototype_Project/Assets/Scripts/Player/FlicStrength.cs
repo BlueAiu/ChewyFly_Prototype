@@ -184,7 +184,6 @@ public class FlicStrength : MonoBehaviour
             float flicJumpPower = jumpArrowSprite.transform.localScale.z;
 
             var jumpDirection = -flicPreviousDirection.normalized;
-            transform.rotation = Quaternion.LookRotation(jumpDirection);
 
             jumpPoint.position = transform.position + jumpDirection * (flicJumpPower * jumpPower);
             playerController.JumpTo(jumpPoint.position);

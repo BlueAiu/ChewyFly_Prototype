@@ -34,9 +34,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         new Vector2(1, -1)
     };
 
-    public enum DonutScoreType
+    public enum DonutScoreType//スコアの種類(スコアの種類数を知るためにEndは最後に置く)
     {
-        Base ,BurntColor, OverNum, Ideal, End
+        Base ,BurntColor, OverNum, Ideal, Pyramid, Flower, Straight, Infinity, End
     }
 
     bool IsIdealDonut(GameObject donut)
@@ -74,7 +74,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
     void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
     {
-        donut.AddComponent<DonutScoreSaver>();
+        donut.AddComponent<DonutScoreSaver>();//ScoreSaverに点を入れてから合計点に加点
         DonutScoreSaver scoreSaver = donut.GetComponent<DonutScoreSaver>();
 
         bool isIdeal = false;//ドーナツが理想の形か

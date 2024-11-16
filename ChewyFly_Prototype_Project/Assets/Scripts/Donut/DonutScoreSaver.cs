@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DonutScoreSaver : MonoBehaviour//ドーナツ完成時、donutにこのスクリプトが付く
 {
+    [Tooltip("それぞれのスコアを格納している")]
     [SerializeField] int[] typeScores = new int[(int)ObjectReferenceManeger.DonutScoreType.End];
-    public void AddDonutScoreType(ObjectReferenceManeger.DonutScoreType scoreType, int _score)//スコアの種類に対応した加点
+    public void AddDonutScoreType(ObjectReferenceManeger.DonutScoreType scoreType, int _score)//スコアの種類に対応した点を保存
     {
         typeScores[(int)scoreType] += _score;
     }
-    public int GetDonutTypeScore(ObjectReferenceManeger.DonutScoreType scoreType)
+    public int GetDonutTypeScore(ObjectReferenceManeger.DonutScoreType scoreType)//固有のスコアを返す
     {
         return typeScores[(int)scoreType];
     }

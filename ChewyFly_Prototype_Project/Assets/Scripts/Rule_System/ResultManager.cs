@@ -11,26 +11,22 @@ using System;
 public partial class ResultManager : MonoBehaviour
 {
     [Header("参照用の項目")]
-    [SerializeField] GameObject resultUIParent;//最終的に画面に残るuiの親
+    [SerializeField] GameObject addScoreTextPrefab;
+    [Tooltip("演出時には隠すuiの親")]
+    [SerializeField] GameObject resultUIParent;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button titleButton;
-    [SerializeField] GameObject addScoreTextPrefab;
     [SerializeField] RectTransform defaultAddScoreTextPos;
     [SerializeField] Camera resultCamera;
     [SerializeField] Camera donutsCamera;
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] Transform donutSetCenterPosition;
+    [SerializeField] GameObject skipText;
+    [Tooltip("ドーナツを一つ映した時のエフェクト")]
+    [SerializeField] GameObject oneDonutEffect;
 
-    [Header("演出上の項目")]
-    [SerializeField] float downAddScoreTextY = 20f;
-    [SerializeField] AnimationCurve cameraMoveCurve;
-    [SerializeField] float donutCameraHeightY = 30f;
-    [SerializeField] AnimationCurve madeDonutTextScaleCurve;
-    [SerializeField] float time_OneDonut = 0.5f;
-    [SerializeField] float time_cameraMove = 0.5f;
-
-    enum ScoreCountState { ShowDonut, MoveToNextDonut, Finish }//スコアの加算演出中か
+    enum ScoreCountState { ShowDonut, MoveToNextDonut, Finish }//スコアの加算演出の状態
     ScoreCountState scoreCountState;
     
     List<GameObject> donuts = ObjectReferenceManeger.completeDonuts;
@@ -79,6 +75,7 @@ public partial class ResultManager : MonoBehaviour
         {
             if (input.isBButton())//スキップした
             {
+                CloseAllAddScoreTexts();
                 DesplayResultUI();
             }
             else
@@ -92,6 +89,7 @@ public partial class ResultManager : MonoBehaviour
     {
         scoreCountState = ScoreCountState.Finish;
         resultUIParent.SetActive(true);
+        skipText.SetActive(false);
         restartButton.Select();//始まった時点でリスタートボタンを選択状態にしておきます
         foreach (var i in donuts)
         {
@@ -111,7 +109,7 @@ public partial class ResultManager : MonoBehaviour
             soundManager.PlayBGM(clearBGM);
         }
     }
-    void ChangeCamera(bool activeResultCamera)
+    void ChangeCamera(bool activeResultCamera)//カメラの切り替え
     {
         resultCamera.gameObject.SetActive(activeResultCamera);
         donutsCamera.gameObject.SetActive(!activeResultCamera);

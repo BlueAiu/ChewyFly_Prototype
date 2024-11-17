@@ -42,7 +42,7 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         SetMadeDonutText(0);
         skipText.SetActive(true);
 
-        cameraPoint_to = donuts[donutIndex].transform.position;
+        cameraPoint_to = GetDonutCenterPoint(donuts[donutIndex]);
         cameraPoint_to.y += donutCameraHeightY;
         donutsCamera.gameObject.transform.position = cameraPoint_to;
 
@@ -114,9 +114,9 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         scoreCountState = ScoreCountState.MoveToNextDonut;
         scoreCountTimer = 0f;
 
-        cameraPoint_from = donuts[donutIndex - 1].transform.position;//カメラの位置を設定
+        cameraPoint_from = GetDonutCenterPoint(donuts[donutIndex - 1]);//カメラの位置を設定
         cameraPoint_from.y += donutCameraHeightY;
-        cameraPoint_to = donuts[donutIndex].transform.position;
+        cameraPoint_to = GetDonutCenterPoint(donuts[donutIndex]);
         cameraPoint_to.y += donutCameraHeightY;
 
         CloseAllAddScoreTexts();
@@ -130,5 +130,11 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         {
             addScoreTexts[i].CloseText();
         }
+    }
+    Vector3 GetDonutCenterPoint(GameObject donut)//unionを取り出して真ん中を返す
+    {
+        DonutsUnionScript union = donut.GetComponent<DonutsUnionScript>();
+        if (union != null) return union.GetDonutsCenterPoint();
+        return Vector3.zero;
     }
 }

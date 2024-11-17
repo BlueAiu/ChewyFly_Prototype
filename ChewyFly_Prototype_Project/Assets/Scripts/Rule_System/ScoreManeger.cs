@@ -73,7 +73,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         var donutShape = donut.GetComponent<DonutsUnionScript>().hexaPositions;
 
-        return CheckDonutShape(donutShape, idealShapePos,idealDonutNum);
+        return CheckDonutShape(donutShape, idealShapePos,idealDonutNum) > 0;
     }
 
     //ドーナツの特別な形状をenum:DonutScoreTypeで返す
@@ -83,19 +83,22 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         var donutsPos = donut.GetComponent<DonutsUnionScript>().hexaPositions;
         int donutCount = donutsPos.Count;
 
-        if (donutCount == idealDonutNum && CheckDonutShape(donutsPos, idealShapePos, idealDonutNum))
+        if (donutCount == idealDonutNum && CheckDonutShape(donutsPos, idealShapePos, idealDonutNum) > 0)
             return DonutScoreType.Ideal;
 
-        if(donutCount == pyramidDonutNum && 
-            (CheckDonutShape(donutsPos, pyramidShapePos, pyramidDonutNum) || CheckDonutShape(donutsPos,pyramidShapePos, pyramidDonutNum, true)))
+        if (donutCount == pyramidDonutNum &&
+            (CheckDonutShape(donutsPos, pyramidShapePos, pyramidDonutNum) > 0 || CheckDonutShape(donutsPos, pyramidShapePos, pyramidDonutNum, true) > 0)) 
             return DonutScoreType.Pyramid;
 
         if (donutCount == largePyramidDonutNum &&
-            (CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum) || CheckDonutShape(donutsPos,pyramidShapePos,largePyramidDonutNum,true)))
+            (CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum) > 0 || CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum, true) > 0))
             return DonutScoreType.Pyramid;
 
-        if(donutCount == flowerDonutNum &&  CheckDonutShape(donutsPos, flowerShapePos, flowerDonutNum))
+        if(donutCount == flowerDonutNum &&  CheckDonutShape(donutsPos, flowerShapePos, flowerDonutNum) > 0)
             return DonutScoreType.Flower;
+
+        if(donutCount == infinityDonutNum && CheckDonutShape(donutsPos, idealShapePos, idealDonutNum) == 2)
+            return DonutScoreType.Infinity;
 
         if (CheckStaightShape(donutsPos))
             return DonutScoreType.Straight;
@@ -104,10 +107,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
 
     //理想の形と同じかを見る
-    bool CheckDonutShape(List<Vector2> donutsPos, Vector2[] shapePos, int checkNum, bool isInvert = false)
+    int CheckDonutShape(List<Vector2> donutsPos, Vector2[] shapePos, int checkNum, bool isInvert = false)
     {
         int invert = isInvert ? -1 : 1;
-        int maxFitDonuts = 0;
+        int fullFitDonuts = 0;
 
         for(int i = -checkRange; i <= checkRange; i++)
         {
@@ -124,11 +127,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                     }
                 }
 
-                maxFitDonuts = Mathf.Max(maxFitDonuts, fitDonuts);
+                if(fitDonuts == checkNum) fullFitDonuts++;
             }
         }
 
-        return maxFitDonuts == checkNum;
+        return fullFitDonuts;
     }
 
     //ドーナツが直列であるか見る

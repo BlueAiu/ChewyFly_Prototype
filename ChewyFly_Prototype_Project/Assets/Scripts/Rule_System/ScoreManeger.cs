@@ -28,14 +28,16 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     const int flowerDonutNum = 7;
     const int infinityDonutNum = 10;
 
-    readonly Vector2[] idealShapePos = new Vector2[]
+    readonly Vector2[] circleShapePos = new Vector2[]
     {
         new Vector2(-1, 1),
         new Vector2(0, 1),
         new Vector2(-1, 0),
         new Vector2(1, 0),
         new Vector2(0, -1),
-        new Vector2(1, -1)
+        new Vector2(1, -1),
+
+        new Vector2(0,0)
     };
 
     readonly Vector2[] pyramidShapePos = new Vector2[]
@@ -53,17 +55,6 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         new Vector2(3, 0)
    };
 
-    readonly Vector2[] flowerShapePos = new Vector2[]
-    {
-        new Vector2(0, 0),
-        new Vector2(-1, 1),
-        new Vector2(0, 1),
-        new Vector2(-1, 0),
-        new Vector2(1, 0),
-        new Vector2(0, -1),
-        new Vector2(1, -1)
-    };
-
     public enum DonutScoreType//スコアの種類(スコアの種類数を知るためにEndは最後に置く)
     {
         Base ,BurntColor, OverNum, Ideal, Pyramid, Flower, Straight, Infinity, End
@@ -73,7 +64,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         var donutShape = donut.GetComponent<DonutsUnionScript>().hexaPositions;
 
-        return CheckDonutShape(donutShape, idealShapePos,idealDonutNum) > 0;
+        return CheckDonutShape(donutShape, circleShapePos,idealDonutNum) > 0;
     }
 
     //ドーナツの特別な形状をenum:DonutScoreTypeで返す
@@ -83,7 +74,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         var donutsPos = donut.GetComponent<DonutsUnionScript>().hexaPositions;
         int donutCount = donutsPos.Count;
 
-        if (donutCount == idealDonutNum && CheckDonutShape(donutsPos, idealShapePos, idealDonutNum) > 0)
+        if (donutCount == idealDonutNum && CheckDonutShape(donutsPos, circleShapePos, idealDonutNum) > 0)
             return DonutScoreType.Ideal;
 
         if (donutCount == pyramidDonutNum &&
@@ -94,10 +85,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             (CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum) > 0 || CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum, true) > 0))
             return DonutScoreType.Pyramid;
 
-        if(donutCount == flowerDonutNum &&  CheckDonutShape(donutsPos, flowerShapePos, flowerDonutNum) > 0)
+        if(donutCount == flowerDonutNum &&  CheckDonutShape(donutsPos, circleShapePos, flowerDonutNum) > 0)
             return DonutScoreType.Flower;
 
-        if(donutCount == infinityDonutNum && CheckDonutShape(donutsPos, idealShapePos, idealDonutNum) == 2)
+        if(donutCount == infinityDonutNum && CheckDonutShape(donutsPos, circleShapePos, idealDonutNum) == 2)
             return DonutScoreType.Infinity;
 
         if (CheckStaightShape(donutsPos))
@@ -119,8 +110,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                 int fitDonuts = 0;
                 Vector2 currentPos = new Vector2(i, j);
 
-                foreach(var v in shapePos)
+                for (int k = 0; k < checkNum; k++) 
                 {
+                    var v = shapePos[k];
                     if(donutsPos.Contains(currentPos + v * invert))
                     {
                         fitDonuts++;

@@ -8,6 +8,8 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
     [SerializeField] AnimationCurve cameraMoveCurve;
     [Tooltip("ドーナツを映すカメラの高さ")]
     [SerializeField] float donutCameraHeightY = 30f;
+    [Tooltip("ドーナツを映すカメラをどのくらい右にずらすか")]
+    [SerializeField] float donutCameraRightX = 1.2f;
     [SerializeField] AnimationCurve madeDonutTextScaleCurve;
     [Tooltip("一つのドーナツを映す時間")]
     [SerializeField] float time_OneDonut = 0.5f;
@@ -42,8 +44,7 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         SetMadeDonutText(0);
         skipText.SetActive(true);
 
-        cameraPoint_to = donuts[donutIndex].transform.position;
-        cameraPoint_to.y += donutCameraHeightY;
+        SetCameraPointToDonut(ref cameraPoint_to, donuts[donutIndex]);
         donutsCamera.gameObject.transform.position = cameraPoint_to;
 
         AddOneDonutScore();
@@ -114,10 +115,8 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         scoreCountState = ScoreCountState.MoveToNextDonut;
         scoreCountTimer = 0f;
 
-        cameraPoint_from = donuts[donutIndex - 1].transform.position;//カメラの位置を設定
-        cameraPoint_from.y += donutCameraHeightY;
-        cameraPoint_to = donuts[donutIndex].transform.position;
-        cameraPoint_to.y += donutCameraHeightY;
+        SetCameraPointToDonut(ref cameraPoint_from,donuts[donutIndex - 1]);//カメラの位置を設定
+        SetCameraPointToDonut(ref cameraPoint_to, donuts[donutIndex]);
 
         CloseAllAddScoreTexts();
 
@@ -130,5 +129,17 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         {
             addScoreTexts[i].CloseText();
         }
+    }
+    void SetCameraPointToDonut(ref Vector3 _cameraPoint, GameObject _donut)
+    {
+        _cameraPoint = GetDonutCenterPoint(_donut);
+        _cameraPoint.x += donutCameraRightX;
+        _cameraPoint.y += donutCameraHeightY;
+    }
+    Vector3 GetDonutCenterPoint(GameObject donut)//unionを取り出して真ん中を返す
+    {
+        DonutsUnionScript union = donut.GetComponent<DonutsUnionScript>();
+        if (union != null) return union.GetDonutsCenterPoint();
+        return Vector3.zero;
     }
 }

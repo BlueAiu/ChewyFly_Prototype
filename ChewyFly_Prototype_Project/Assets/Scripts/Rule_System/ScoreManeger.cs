@@ -34,7 +34,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         new Vector2(1, -1)
     };
 
-
+    public enum DonutScoreType//スコアの種類(スコアの種類数を知るためにEndは最後に置く)
+    {
+        Base ,BurntColor, OverNum, Ideal, Pyramid, Flower, Straight, Infinity, End
+    }
 
     bool IsIdealDonut(GameObject donut)
     {
@@ -71,12 +74,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
     void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
     {
+        donut.AddComponent<DonutScoreSaver>();//ScoreSaverに点を入れてから合計点に加点
+        DonutScoreSaver scoreSaver = donut.GetComponent<DonutScoreSaver>();
+
         bool isIdeal = false;//ドーナツが理想の形か
-        int donutScore = donutScore_base;//まず基礎点
+        scoreSaver.AddDonutScoreType(DonutScoreType.Base, donutScore_base);//まず基礎点
 
         if (IsIdealDonut(donut)) //理想的な形なら加算
         {
-            donutScore += donutScore_ideal;
+            scoreSaver.AddDonutScoreType(DonutScoreType.Ideal, donutScore_ideal);
             isIdeal = true;
         }
 
@@ -84,16 +90,16 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         int unionCount = unionScript.unionCount;
         if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
         {
-            donutScore += (unionCount - idealDonutNum) * donutScore_over;
+            scoreSaver.AddDonutScoreType(DonutScoreType.OverNum, (unionCount - idealDonutNum) * donutScore_over);
         }
 
         int[] burntDonutsNum = unionScript.GetBurntDonutsNum();//焦げの状態に応じて加点
         for(int i = 0; i < burntDonutsNum.Length; i++)
         {
-            donutScore += burntDonutsNum[i] * burntScores[i];
+            scoreSaver.AddDonutScoreType(DonutScoreType.BurntColor, burntDonutsNum[i] * burntScores[i]);
         }
 
-        totalScore += donutScore;
+        totalScore += scoreSaver.GetDonutTotalScore();//最後このドーナツについたスコアの分加点する
         SetDonutScoreText();
 
         CompleteDonutEffect(isIdeal, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト

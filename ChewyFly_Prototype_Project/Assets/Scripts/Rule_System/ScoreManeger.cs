@@ -23,16 +23,37 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     const int checkRange = 10;
     const int idealDonutNum = 6;
+    const int pyramidDonutNum = 6;
+    const int largePyramidDonutNum = 10;
+    const int flowerDonutNum = 7;
+    const int infinityDonutNum = 10;
 
-    readonly Vector2[] idealShapePos = new Vector2[]
+    readonly Vector2[] circleShapePos = new Vector2[]
     {
         new Vector2(-1, 1),
         new Vector2(0, 1),
         new Vector2(-1, 0),
         new Vector2(1, 0),
         new Vector2(0, -1),
-        new Vector2(1, -1)
+        new Vector2(1, -1),
+
+        new Vector2(0,0)
     };
+
+    readonly Vector2[] pyramidShapePos = new Vector2[]
+   {
+        new Vector2(0, 0),
+        new Vector2(0, 1),
+        new Vector2(0, 2),
+        new Vector2(1, 0),
+        new Vector2(1, 1),
+        new Vector2(2, 0),
+
+        new Vector2(0, 3),
+        new Vector2(1, 2),
+        new Vector2(2, 1),
+        new Vector2(3, 0)
+   };
 
     public enum DonutScoreType//スコアの種類(スコアの種類数を知るためにEndは最後に置く)
     {
@@ -42,14 +63,45 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     bool IsIdealDonut(GameObject donut)
     {
         var donutShape = donut.GetComponent<DonutsUnionScript>().hexaPositions;
-        
-        return CheckDonutShape(donutShape) == idealDonutNum;
+
+        return CheckDonutShape(donutShape, circleShapePos,idealDonutNum) > 0;
     }
 
-    //理想の形と似ているかを見る
-    int CheckDonutShape(List<Vector2> donutsPos)
+    //ドーナツの特別な形状をenum:DonutScoreTypeで返す
+    //特殊な形状出ない場合、Baseを返す
+    DonutScoreType DonutShapeType(GameObject donut)
     {
-        int maxFitDonuts = 0;
+        var donutsPos = donut.GetComponent<DonutsUnionScript>().hexaPositions;
+        int donutCount = donutsPos.Count;
+
+        if (donutCount == idealDonutNum && CheckDonutShape(donutsPos, circleShapePos, idealDonutNum) > 0)
+            return DonutScoreType.Ideal;
+
+        if (donutCount == pyramidDonutNum &&
+            (CheckDonutShape(donutsPos, pyramidShapePos, pyramidDonutNum) > 0 || CheckDonutShape(donutsPos, pyramidShapePos, pyramidDonutNum, true) > 0)) 
+            return DonutScoreType.Pyramid;
+
+        if (donutCount == largePyramidDonutNum &&
+            (CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum) > 0 || CheckDonutShape(donutsPos, pyramidShapePos, largePyramidDonutNum, true) > 0))
+            return DonutScoreType.Pyramid;
+
+        if(donutCount == flowerDonutNum &&  CheckDonutShape(donutsPos, circleShapePos, flowerDonutNum) > 0)
+            return DonutScoreType.Flower;
+
+        if(donutCount == infinityDonutNum && CheckDonutShape(donutsPos, circleShapePos, idealDonutNum) == 2)
+            return DonutScoreType.Infinity;
+
+        if (CheckStaightShape(donutsPos))
+            return DonutScoreType.Straight;
+
+        return DonutScoreType.Base;
+    }
+
+    //理想の形と同じかを見る
+    int CheckDonutShape(List<Vector2> donutsPos, Vector2[] shapePos, int checkNum, bool isInvert = false)
+    {
+        int invert = isInvert ? -1 : 1;
+        int fullFitDonuts = 0;
 
         for(int i = -checkRange; i <= checkRange; i++)
         {
@@ -58,20 +110,53 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                 int fitDonuts = 0;
                 Vector2 currentPos = new Vector2(i, j);
 
-                foreach(var v in idealShapePos)
+                for (int k = 0; k < checkNum; k++) 
                 {
-                    if(donutsPos.Contains(currentPos + v))
+                    var v = shapePos[k];
+                    if(donutsPos.Contains(currentPos + v * invert))
                     {
                         fitDonuts++;
                     }
                 }
 
-                maxFitDonuts = Mathf.Max(maxFitDonuts, fitDonuts);
+                if(fitDonuts == checkNum) fullFitDonuts++;
             }
         }
 
-        return maxFitDonuts;
+        return fullFitDonuts;
     }
+
+    //ドーナツが直列であるか見る
+    bool CheckStaightShape(List<Vector2> donutsPos)
+    {
+        var straightDir = donutsPos[1];
+
+        if(straightDir.x == 0)
+        {
+            foreach (var d in donutsPos)
+            {
+                if (d.x != 0) return false;
+            }
+        }
+        else if(straightDir.y == 0)
+        {
+            foreach (var d in donutsPos)
+            {
+                if (d.y != 0) return false;
+            }
+        }
+        else if(straightDir.x == -straightDir.y)
+        {
+            foreach (var d in donutsPos)
+            {
+                if(d.x != -d.y) return false;
+            }
+        }
+        else return false;
+
+        return true;
+    }
+
     void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
     {
         donut.AddComponent<DonutScoreSaver>();//ScoreSaverに点を入れてから合計点に加点

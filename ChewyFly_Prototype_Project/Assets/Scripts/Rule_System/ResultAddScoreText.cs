@@ -22,6 +22,7 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
     CanvasGroup canvasGroup;
     private void Start()
     {
+        if (canvasGroup == null)
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
@@ -90,6 +91,8 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
         }
 
         gameObject.SetActive(true);
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f;
         textState = TextState.Move;
         moveTimer = 0f;
         scoreText.text = typeText + " +" + score.ToString();

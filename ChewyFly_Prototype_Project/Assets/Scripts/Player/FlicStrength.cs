@@ -106,14 +106,11 @@ public class FlicStrength : MonoBehaviour
 
     private void Update()
     {
-        if (playerController.ridingDonut != null)
+        if (input.isAButton())
         {
-            if (input.isAButton())
-            {
-                isJumpMode = !isJumpMode;
-                FlicTime = 0;
-                StopArrowSprites();
-            }
+            isJumpMode = !isJumpMode;
+            FlicTime = 0;
+            StopArrowSprites();
         }
     }
 

@@ -12,9 +12,13 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [SerializeField] int donutScore_base = 160;
     [Tooltip("形が完璧な場合の追加点")]
     [SerializeField] int donutScore_ideal = 400;
-    [Tooltip("形が完璧な場合の追加点")]
+    [Tooltip("追加点:直線")]
     [SerializeField] int donutScore_straight = 200;
-    [Tooltip("形が完璧な場合の追加点")]
+    [Tooltip("追加点:フラワー型")]
+    [SerializeField] int donutScore_flower = 200;
+    [Tooltip("追加点:ピラミッド型")]
+    [SerializeField] int donutScore_pyramid = 200;
+    [Tooltip("追加点:インフィニティ")]
     [SerializeField] int donutScore_infinity = 800;
     [Tooltip("6個を超えた場合の加算点")]
     [SerializeField] int donutScore_over = 30;
@@ -173,7 +177,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         switch (scoreType)
         {
             case DonutScoreType.Flower:
+                scoreSaver.AddDonutScoreType(scoreType, donutScore_flower);
+                break;
             case DonutScoreType.Pyramid:
+                scoreSaver.AddDonutScoreType(scoreType, donutScore_pyramid);
+                break;
             case DonutScoreType.Straight:
                 scoreSaver.AddDonutScoreType(scoreType, donutScore_straight);
                 break;

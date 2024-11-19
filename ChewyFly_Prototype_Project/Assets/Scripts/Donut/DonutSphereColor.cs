@@ -55,11 +55,11 @@ public class DonutSphereColor : MonoBehaviour
         }
     }
 
-    public void BakeDonut()
+    public void BakeDonut(int donutNum)
     {
         if (BakedNum < changeTimes.Length)
         {
-            changeTimer += Time.deltaTime;
+            changeTimer += Time.deltaTime / donutNum;
 
             if (changeTimer > changeTimes[BakedNum])
             {

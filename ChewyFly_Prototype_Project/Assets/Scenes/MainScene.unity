@@ -2827,9 +2827,11 @@ MonoBehaviour:
   intervalHorizontalDistance: 3.5
   verticalSetUpNum: 4
   horizontalSetUpNum: 4
-  donutScore_base: 160
-  donutScore_ideal: 200
-  donutScore_over: 30
+  donutScore_base: 100
+  donutScore_ideal: 400
+  donutScore_straight: 200
+  donutScore_infinity: 900
+  donutScore_over: 10
   burntScores: 030000001400000005000000fbffffff
   donutScoreText: {fileID: 1186736610}
 --- !u!4 &1419900562

@@ -11,7 +11,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("基礎点")]
     [SerializeField] int donutScore_base = 160;
     [Tooltip("形が完璧な場合の追加点")]
-    [SerializeField] int donutScore_ideal = 200;
+    [SerializeField] int donutScore_ideal = 400;
+    [Tooltip("形が完璧な場合の追加点")]
+    [SerializeField] int donutScore_straight = 200;
+    [Tooltip("形が完璧な場合の追加点")]
+    [SerializeField] int donutScore_infinity = 800;
     [Tooltip("6個を超えた場合の加算点")]
     [SerializeField] int donutScore_over = 30;
 
@@ -165,10 +169,22 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         bool isIdeal = false;//ドーナツが理想の形か
         scoreSaver.AddDonutScoreType(DonutScoreType.Base, donutScore_base);//まず基礎点
 
-        if (IsIdealDonut(donut)) //理想的な形なら加算
+        DonutScoreType scoreType = DonutShapeType(donut);
+        switch (scoreType)
         {
-            scoreSaver.AddDonutScoreType(DonutScoreType.Ideal, donutScore_ideal);
-            isIdeal = true;
+            case DonutScoreType.Flower:
+            case DonutScoreType.Pyramid:
+            case DonutScoreType.Straight:
+                scoreSaver.AddDonutScoreType(scoreType, donutScore_straight);
+                break;
+            case DonutScoreType.Ideal:
+                scoreSaver.AddDonutScoreType(scoreType, donutScore_ideal);
+                isIdeal = true;
+                break;
+            case DonutScoreType.Infinity:
+                scoreSaver.AddDonutScoreType(scoreType, donutScore_infinity);
+                isIdeal = true;
+                break;
         }
 
         DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();

@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A Decide B Back
+  m_text: "A : \u3051\u3063\u3066\u3044\nB : \u3082\u3069\u3059"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
   m_sharedMaterial: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
@@ -576,9 +576,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Option
-
-'
+  m_text: "\u30AA\u30D7\u30B7\u30E7\u30F3\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
   m_sharedMaterial: {fileID: -6579087420364470871, guid: b317499010996f94d8d54dde5bc22f84, type: 2}
@@ -665,7 +663,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: SE
+      value: "SE\u97F3\u91CF"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -1281,7 +1279,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: Camera
+      value: "\u30AB\u30E1\u30E9\u611F\u5EA6"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -2044,9 +2042,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: 'BGM
-
-'
+      value: "BGM\u97F3\u91CF\n"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -2235,7 +2231,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: Jump
+      value: "\u64CD\u4F5C\u611F\u5EA6"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset

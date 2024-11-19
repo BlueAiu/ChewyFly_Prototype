@@ -110,7 +110,7 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
             if (countdownTimer <= 0)
             {
                 EnablePlayerController(true);
-                countdownText.text = "GameStart!";
+                countdownText.text = "Start!";
             }
             else
             {

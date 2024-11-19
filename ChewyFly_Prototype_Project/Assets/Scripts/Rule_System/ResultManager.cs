@@ -117,11 +117,11 @@ public partial class ResultManager : MonoBehaviour
     void SetMadeDonutText(int _num)
     {
         resultText.transform.localScale = defaultMadeDonutTextLocalScale;
-        resultText.text = "You made " + _num.ToString() + " donuts.";
+        resultText.text = "ドーナツを" + _num.ToString() + "個作った";
     }
     void SetScoreText(int _score)
     {
-        scoreText.text = "Score:  " + _score.ToString();
+        scoreText.text = "スコア :  " + _score.ToString();
     }
     private void OnDestroy()
     {

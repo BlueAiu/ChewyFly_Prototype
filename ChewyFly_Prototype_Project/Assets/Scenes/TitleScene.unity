@@ -144,7 +144,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: Credit
+      value: "\u30AF\u30B8\u30EC\u30C3\u30C8"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -266,7 +266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: Option
+      value: "\u30AA\u30D7\u30B7\u30E7\u30F3"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -1239,9 +1239,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: 'EndGame
-
-'
+      value: "\u30B2\u30FC\u30E0\u3092\u304A\u308F\u308B"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -1459,9 +1457,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: 'Tutorial
-
-'
+      value: "\u3042\u305D\u3073\u304B\u305F"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontAsset
@@ -1921,7 +1917,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_text
-      value: Start
+      value: "\u306F\u3058\u3081\u308B"
       objectReference: {fileID: 0}
     - target: {fileID: 98638207195375412, guid: 64be676107b31fb4e99f6f985c85b2f5, type: 3}
       propertyPath: m_fontSize

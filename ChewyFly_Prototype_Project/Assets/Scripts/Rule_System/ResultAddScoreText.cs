@@ -63,30 +63,30 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
         switch (type)
         {
             case ObjectReferenceManeger.DonutScoreType.Base:
-                typeText = "BaseScore";
+                typeText = "ドーナツができた";
                 break;
             case ObjectReferenceManeger.DonutScoreType.BurntColor:
-                typeText = "BurntColorBonus";
+                typeText = "ドーナツが焼けた";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Ideal:
                 scoreText.color = color_Yellow;
-                typeText = "IdealShapeScore";
+                typeText = "きれいなかたち";
                 break;
             case ObjectReferenceManeger.DonutScoreType.OverNum:
                 scoreText.color = color_Orange;
-                typeText = "OverNumBonus";
+                typeText = "大きなドーナツ";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Pyramid:
-                typeText = "Pyramid";
+                typeText = "ピラミッド";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Flower:
-                typeText = "Flower";
+                typeText = "フラワー";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Straight:
-                typeText = "Straight";
+                typeText = "まっすぐ";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Infinity:
-                typeText = "Infinity";
+                typeText = "インフィニティ";
                 break;
         }
 

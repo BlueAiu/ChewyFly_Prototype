@@ -205,9 +205,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         madeDonuts++;
 
-        AddDonutScore(donut);//現在のドーナツの形を評価して加算
-
         completeDonuts.Add(donut);
+
+        AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode();
     }

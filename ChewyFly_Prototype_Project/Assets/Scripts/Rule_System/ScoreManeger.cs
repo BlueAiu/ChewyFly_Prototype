@@ -28,6 +28,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Header("スコア表示用のテキスト")]
     [SerializeField] TMP_Text donutScoreText;
+    [SerializeField] TMP_Text donutNumText;
 
     const int checkRange = 10;
     const int idealDonutNum = 6;
@@ -215,6 +216,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {
-        donutScoreText.text = "Score:" + totalScore.ToString();
+        donutScoreText.text = "スコア:" + totalScore.ToString();
+        donutNumText.text = completeDonuts.Count.ToString() + "個";
     }
 }

@@ -144,7 +144,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             foreach(var sphere in donutSpheres) //Ä‚«F‚ğ•Ï‚¦‚é
             {
                 var sphereColor = sphere.GetComponent<DonutSphereColor>();
-                sphereColor.BakeDonut();
+                sphereColor.BakeDonut(donutSpheres.Count);
                 bakedValue += sphereColor.BakedNum;
             }
 

@@ -216,7 +216,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {
-        donutScoreText.text = "スコア:" + totalScore.ToString();
-        donutNumText.text = completeDonuts.Count.ToString() + "個";
+        donutScoreText.text = "スコア : " + totalScore.ToString();
+        donutNumText.text = completeDonuts.Count.ToString() + " コ";
     }
 }

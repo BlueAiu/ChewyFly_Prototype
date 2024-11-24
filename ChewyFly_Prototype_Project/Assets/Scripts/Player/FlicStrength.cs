@@ -52,6 +52,9 @@ public class FlicStrength : MonoBehaviour
     [Tooltip("引く力の変化の周期")]
     [SerializeField] float flicPowerPeriod = 2f;
 
+    [Tooltip("前方から方向を向けられる範囲")]
+    [SerializeField] float flicAngleRange = 120f;
+
     float FlicTime
     {
         get
@@ -120,6 +123,7 @@ public class FlicStrength : MonoBehaviour
         if (playerController.ridingDonut != null && !playerController.ridingDonutUnion.isBouncing)    //ドーナツに乗っていてドーナツがバウンド中でない場合
         {
             var direction = input.isLeftStick();
+            ClampDirection(ref direction);
             direction = playerController.playerCamera.transform.TransformDirection(direction);
 
             lastFlicTime += Time.fixedDeltaTime;
@@ -242,5 +246,14 @@ public class FlicStrength : MonoBehaviour
     {
         flicArrowSprite.SetActive(false);
         jumpArrowSprite.SetActive(false);
+    }
+
+    void ClampDirection(ref Vector3 dir)
+    {
+        if(dir == Vector3.zero) return;
+        var halfRange = flicAngleRange / 2;
+        var angle = Quaternion.LookRotation(dir).eulerAngles.y;
+        angle = Math.Clamp(angle, 180-halfRange, 180+halfRange);
+        dir = new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad),0,MathF.Cos(angle * Mathf.Deg2Rad)) * dir.magnitude;
     }
 }

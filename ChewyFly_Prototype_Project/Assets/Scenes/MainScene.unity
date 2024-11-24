@@ -405,6 +405,7 @@ MonoBehaviour:
   jumpPower: 12
   jumpPoint: {fileID: 8734375345487203448}
   flicPowerPeriod: 1.2
+  flicAngleRange: 120
 --- !u!81 &270912500
 AudioListener:
   m_ObjectHideFlags: 0

@@ -55,6 +55,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //完成したドーナツの数
     public static int madeDonuts { get; private set; }
 
+    [Header("ドーナツがくっついた時")]
+    [Tooltip("発生地との距離における衝撃の大きさ")]
+    [SerializeField] AnimationCurve impactAttenuation;
+
     [Header("ドーナツが完成したとき")]
     //[Tooltip("ドーナツが完成したときのジャンプの長さ")]
     //[SerializeField] float completeJumpTime = 3f;
@@ -193,6 +197,25 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             closestDonut.GetComponent<DonutRigidBody>().IsFreeze = true;
 
         return closestDonut;
+    }
+
+    //ドーナツがくっついた時呼び出される
+    public void MergeImpact(GameObject donut)
+    {
+        var originPoint = donut.transform.position;
+        foreach(var d in donutsList)
+        {
+            if(d == donut) continue;
+
+            var direction = d.transform.position - originPoint;
+            var distance = direction.magnitude;
+            direction.Normalize();
+            var atteLength = impactAttenuation.length;
+            var lastTime = impactAttenuation.keys[atteLength - 1].time;
+            distance *= atteLength / lastTime;
+            distance = Mathf.Clamp(distance, 0, atteLength - 1);
+            d.GetComponent<DonutRigidBody>().TakeImpulse(direction * impactAttenuation.keys[(int)distance].value, false);
+        }
     }
 
     //ドーナツが完成したとき行われる

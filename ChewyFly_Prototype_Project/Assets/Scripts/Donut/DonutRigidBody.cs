@@ -69,7 +69,6 @@ public partial class DonutRigidBody : MonoBehaviour
         {
             rb.AddForce(impulse, ForceMode.VelocityChange);
             impulse = Vector3.zero;
-            union.IsSticky = true;
         }
         
         //ドーナツや壁、泡に当たった時のバウンド
@@ -85,10 +84,11 @@ public partial class DonutRigidBody : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }
 
-    //プレイヤーから弾き入力を受け取る
-    public void TakeImpulse(Vector3 _impulse)
+    //弾き入力を受け取る
+    public void TakeImpulse(Vector3 _impulse, bool _isSticky = true)
     {
         impulse += _impulse;
+        union.IsSticky |= _isSticky;
     }
 
     //プレイヤーから回転入力を受け取る

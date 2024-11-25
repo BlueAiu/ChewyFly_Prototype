@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Cinemachine.CinemachinePathBase;
 
 public class PlayerController : MonoBehaviour
 {
@@ -98,11 +99,28 @@ public class PlayerController : MonoBehaviour
     [Tooltip("次のドーナツにジャンプする長さ")]
     [SerializeField] float completeJumpTime = 1f;
 
+    [Header("ドーナツ完成時の演出時間")]
+    [Tooltip("完成時カメラの方に向く時間")]
+    [SerializeField] float completeTime_LookCameraRotate = 0.3f;
+    [Tooltip("ズーム後のFOV")]
+    [SerializeField] float zoomFOV = 10f;
+    [Tooltip("ポーズをしている時間")]
+    [SerializeField] float completeTime_Pose;
+    [Tooltip("カメラが元の位置に戻る時間")]
+    [SerializeField] float completeTime_Reset;
+    float completeReactionTimer = 0f;//ズーム時用のタイマー
+    bool isCompleteDonutReaction = false;//完成時のリアクション中か？
+    Quaternion completeReactionRotateFrom;//プレイヤーをここから
+    Quaternion completeReactionRotateTo;//ここまで回転
+    [SerializeField] Camera mainCamera;
+    PlayerCameraRotation playerCameraRotation;
+
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         input = GetComponent<InputScript>();
+        playerCameraRotation = GetComponent<PlayerCameraRotation>();
         if (playerCamera == null)
             playerCamera = GameObject.Find("CameraAxis");
     }
@@ -116,7 +134,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFreeze) return;
+        if (isFreeze)
+        {
+            Update_CompleteDonutReaction();
+            return;
+        }
 
         var direction = input.isLeftStick();
         direction = playerCamera.transform.TransformDirection(direction);
@@ -293,7 +315,8 @@ public class PlayerController : MonoBehaviour
     public void CompleteDonutReaction()
     {
         isFreeze = true;
-        Invoke(nameof(CompleteJump), completeReactionTime);
+        StartCompleteReaction();
+        //Invoke(nameof(CompleteJump), completeReactionTime);
     }
 
     void CompleteJump()
@@ -303,5 +326,38 @@ public class PlayerController : MonoBehaviour
         JumpTo(targetPos, completeJumpTime);
 
         animator.SetTrigger("JumpTrigger");
+    }
+    void StartCompleteReaction()//ドーナツ完成時のリアクション開始
+    {
+        completeReactionTimer = 0f;
+        isCompleteDonutReaction = true;
+        completeReactionRotateFrom = transform.rotation;
+        Vector3 direction = mainCamera.transform.position - transform.position;
+        completeReactionRotateTo = Quaternion.LookRotation(direction);
+
+        playerCameraRotation.StartZoom(transform, completeTime_LookCameraRotate,zoomFOV);
+    }
+    void Update_CompleteDonutReaction()//Updateで呼ばれるドーナツ完成時のリアクション
+    {
+        if (!isCompleteDonutReaction) return;
+
+        if (completeReactionTimer < completeTime_LookCameraRotate)
+        {
+            transform.rotation = Quaternion.Lerp(completeReactionRotateFrom, completeReactionRotateTo,
+                completeReactionTimer / completeTime_LookCameraRotate);
+
+            if(completeReactionTimer + Time.deltaTime > completeTime_LookCameraRotate)//回転し終わったら
+            {
+                transform.rotation = completeReactionRotateTo;
+                animator.SetTrigger("CompletePose");
+            }
+        }
+        else if (completeReactionTimer > completeTime_LookCameraRotate + completeTime_Pose)
+        {
+            playerCameraRotation.Zoom_Reset(completeTime_Reset);//カメラを元の位置に戻して
+            CompleteJump();//ジャンプ
+            return;
+        }
+        completeReactionTimer += Time.deltaTime;
     }
 }

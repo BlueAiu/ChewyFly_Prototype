@@ -78,6 +78,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (player == null)
             player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+        if (canvas == null)
+            canvas = GameObject.Find("Canvas");
 
         oilSurfaceY = oil.position.y + oil.localScale.y;
 

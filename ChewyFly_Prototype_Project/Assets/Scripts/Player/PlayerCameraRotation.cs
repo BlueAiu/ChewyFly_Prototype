@@ -41,11 +41,36 @@ public class PlayerCameraRotation : MonoBehaviour
     [SerializeField] Transform cameraLookPoint;
     [Tooltip("鍋の中心とプレイヤーの間のどのくらいの比率の位置にカメラを向けるか")]
     [SerializeField] float cameraLookPointRatio = 0.5f;
+
+    [SerializeField] GameObject virtualCamera;
+    bool isZoom = false;//ズームしているか
+    bool isResetZoom = false;//ズーム状態から元に戻っているか
+    CinemachineVirtualCamera cinemachineVirtualCamera;
+    float zoomTime;
+    float zoomTimer;
+    float verticalFOV_default;
+    float verticalFOV_new;
+    Transform lookAtZoomPoint;//カメラが参照するポイント
+    Transform lookAtZoomPointRef;//ズームした後のポイント
+    Transform defaultLookAtTransform;
+    [SerializeField] AnimationCurve zoomCameraMoveCurve;
+
     private void Awake()//Startよりさらに前に格納しておく
     {
         input = GetComponent<InputScript>();
         if (playerCameraAxis == null)
             playerCameraAxis = GameObject.Find("CameraAxis");
+        if(virtualCamera == null)
+            virtualCamera = GameObject.Find("VirtualCamera");
+        cinemachineVirtualCamera = virtualCamera.GetComponent<CinemachineVirtualCamera>();
+        verticalFOV_default = cinemachineVirtualCamera.m_Lens.FieldOfView;
+        Transform trans = cinemachineVirtualCamera.m_LookAt.transform;
+        defaultLookAtTransform = trans;
+        isZoom = false;
+        isResetZoom = false;
+
+        GameObject newObject = new GameObject("LookAtZoomPoint");
+        lookAtZoomPoint = newObject.transform;
 
         OptionValues option = FindObjectOfType<OptionValues>();//カメラの回転速度を初期化
         SetCameraSensityvity(option);
@@ -55,6 +80,18 @@ public class PlayerCameraRotation : MonoBehaviour
         cameraLookPoint.position = potCenterPoint.position + (transform.position - potCenterPoint.position) * cameraLookPointRatio;
     }
     void LateUpdate()//Updateの後にカメラの位置を制御する
+    {
+        if (!isZoom)
+        {
+            PlayerCameraControlUpdate();
+        }
+        else
+        {
+            ZoomUpdate();
+        }
+        playerCameraAxis.transform.position = transform.position;//カメラをプレイヤーに移動させる
+    }
+    void PlayerCameraControlUpdate()
     {
         float rot = 0;
         //Debug.Log(Gamepad.current.rightStickButton.isPressed);
@@ -82,7 +119,7 @@ public class PlayerCameraRotation : MonoBehaviour
             playerCameraAxis.transform.Rotate(0, rot * sensitivity * Time.deltaTime, 0);
             isResetCamera = false;
         }
-        else if(isResetCamera)
+        else if (isResetCamera)
         {
             playerCameraAxis.transform.rotation = Quaternion.RotateTowards(playerCameraAxis.transform.rotation, transform.rotation, resetSensitivity * Time.deltaTime);
             if (Quaternion.Angle(transform.rotation, playerCameraAxis.transform.rotation) < 0.1f)
@@ -92,8 +129,6 @@ public class PlayerCameraRotation : MonoBehaviour
         }
 
         AutoCameraRotation();
-
-        playerCameraAxis.transform.position = transform.position;//カメラをプレイヤーに移動させる
     }
     void AutoCameraRotation()
     {
@@ -122,5 +157,56 @@ public class PlayerCameraRotation : MonoBehaviour
         if (optionValues == null) return;
 
         sensitivity = minSensitivity + (maxSensitivity - minSensitivity) * optionValues.GetCameraSensitivityRatio();
+    }
+    void ZoomUpdate()
+    {
+        if (!isResetZoom)//ズームする場所に移動中
+        {
+            if (zoomTimer < zoomTime)
+            {
+                MoveZoomCamera(verticalFOV_default, verticalFOV_new, 
+                    defaultLookAtTransform.position, lookAtZoomPointRef.position,  zoomTimer / zoomTime);
+            }
+        }
+        else//ズームから戻り中
+        {
+            if (zoomTimer < zoomTime)
+            {
+                MoveZoomCamera(verticalFOV_new, verticalFOV_default,
+                    lookAtZoomPointRef.position, defaultLookAtTransform.position, zoomTimer / zoomTime);
+            }
+            else
+            {
+                //状態を戻す
+                cinemachineVirtualCamera.m_Lens.FieldOfView = verticalFOV_default;
+                cinemachineVirtualCamera.m_LookAt = defaultLookAtTransform;
+                isZoom = false;
+            }
+        }
+        zoomTimer += Time.deltaTime;
+
+    }
+    void MoveZoomCamera(float fovFrom, float fovTo, Vector3 lookAt_From, Vector3 lookAt_To, float timeRatio)
+    {
+        float ratio = zoomCameraMoveCurve.Evaluate(timeRatio);
+        cinemachineVirtualCamera.m_Lens.FieldOfView = fovFrom + (fovTo - fovFrom) * ratio;//fovを少しずつ変える
+        lookAtZoomPoint.transform.position = Vector3.Lerp(lookAt_From, lookAt_To, ratio);//対象の位置に少しずつ移動
+    }
+    public void StartZoom(Transform _to, float _zoomTime,float _zoomFOV)//ズームを始める
+    {
+        isZoom = true;
+        isResetZoom = false;
+        zoomTime = _zoomTime;
+        zoomTimer = 0f;
+
+        lookAtZoomPointRef = _to;//ズーム後のLookAtを設定
+        verticalFOV_new = _zoomFOV;//ズーム後のfov
+        cinemachineVirtualCamera.m_LookAt = lookAtZoomPoint;//cinemachineのlookAtを設定
+    }
+    public void Zoom_Reset(float _zoomResetTime)//ズームをやめさせる
+    {
+        isResetZoom = true;
+        zoomTime = _zoomResetTime;
+        zoomTimer = 0f;
     }
 }

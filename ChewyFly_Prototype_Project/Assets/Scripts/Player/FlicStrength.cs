@@ -8,7 +8,8 @@ using UnityEngine;
 public class FlicStrength : MonoBehaviour
 {
     PlayerController playerController;
-    Animator animator;
+    Animator animator_Player;
+    Animator animator_Stick;
     InputScript input;
 
     [SerializeField] GameObject flicArrowSprite;
@@ -80,7 +81,8 @@ public class FlicStrength : MonoBehaviour
         lastFlicTime = 0f;
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
-        animator = GetComponent<Animator>();
+        animator_Player = transform.GetChild(0).GetComponent<Animator>();
+        animator_Stick = transform.GetChild(1).GetComponent<Animator>();
         input = GetComponent<InputScript>();
         arrowLocalScale = flicArrowSprite.transform.localScale;
 
@@ -171,6 +173,9 @@ public class FlicStrength : MonoBehaviour
 
             FlicTime = 0f;
             lastFlicTime = 0f;
+
+            animator_Player.SetTrigger("SwingTrigger");
+            animator_Stick.SetTrigger("SwingTrigger");
         }
     }
 
@@ -189,7 +194,7 @@ public class FlicStrength : MonoBehaviour
             FlicTime = 0f;
             lastFlicTime = 0f;
 
-            animator.SetTrigger("JumpTrigger");
+            animator_Player.SetTrigger("JumpTrigger");
         }
     }
 

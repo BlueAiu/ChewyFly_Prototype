@@ -16,8 +16,9 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour
     [SerializeField] float disappearTime = 1f;//消える時間
     float timer = 0f;
     CanvasGroup canvasGroup;
-    public void ScoreInitialized(ObjectReferenceManeger.DonutScoreType _type, int _score,
-        float horizontalPercent, float verticalPercent)
+    bool isShiftAppear;
+    float shiftAppearTime;
+    public void ScoreInitialized(ObjectReferenceManeger.DonutScoreType _type, int _score,Vector3 pos, float _shiftAppearTime = 0f)
     {
         timer = 0f;
         string typeText = "";
@@ -50,45 +51,58 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour
         }
         scoreText.text = typeText + " +" + _score.ToString();
 
-        RectTransform uiElement = GetComponent<RectTransform>();
-        // アンカーを中央に設定
-        uiElement.anchorMin = new Vector2(0.5f, 0.5f);
-        uiElement.anchorMax = new Vector2(0.5f, 0.5f);
+        transform.position = pos;
 
-        // ピボットを中央に設定
-        uiElement.pivot = new Vector2(0.5f, 0.5f);
-
-        // スクリーンの割合に基づいて位置を設定
-        float xPos = (horizontalPercent - 0.5f) * Screen.width;
-        float yPos = (verticalPercent - 0.5f) * Screen.height;
-
-        uiElement.anchoredPosition = new Vector2(xPos, yPos);
+        if(_shiftAppearTime != 0)
+        {
+            isShiftAppear = true;
+            shiftAppearTime = _shiftAppearTime;
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         if(canvasGroup != null)
-        canvasGroup.alpha = 1.0f;
+        {
+            if(!isShiftAppear)
+            canvasGroup.alpha = 1.0f;
+            else 
+                canvasGroup.alpha = 0.0f;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if(timer < disappearTime)
+        if (isShiftAppear)
         {
-            Vector3 pos = transform.position;
-            pos.y += upHeightPerSecond * Time.deltaTime;
-            transform.position = pos;
-            if(canvasGroup != null && alphaOne_Time < timer)
+            timer += Time.deltaTime;
+            if(timer > shiftAppearTime)
             {
-                canvasGroup.alpha = (disappearTime - timer) / (disappearTime - alphaOne_Time);
+                isShiftAppear = false;
+                timer = 0f;
+                if (canvasGroup != null)
+                    canvasGroup.alpha = 1.0f;
             }
         }
         else
         {
-            Destroy(gameObject);
+            timer += Time.deltaTime;
+            if (timer < disappearTime)
+            {
+                Vector3 pos = transform.position;
+                pos.y += upHeightPerSecond * Time.deltaTime;
+                transform.position = pos;
+                if (canvasGroup != null && alphaOne_Time < timer)
+                {
+                    canvasGroup.alpha = (disappearTime - timer) / (disappearTime - alphaOne_Time);
+                }
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

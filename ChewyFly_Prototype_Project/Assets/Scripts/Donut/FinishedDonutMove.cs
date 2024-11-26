@@ -35,7 +35,9 @@ public partial class DonutRigidBody : MonoBehaviour
 
     bool isBurnt = false;
 
-    public void SetMoveMode()
+    Vector3 previousDonutPos;
+    Vector3 newDonutPos;
+    public void SetMoveMode(Vector3 playerPos)
     {
         rb.isKinematic = true;
         isFinishMoving = true;
@@ -48,6 +50,12 @@ public partial class DonutRigidBody : MonoBehaviour
 
         union.StopAllBurntEffect();
         transform.parent = cameraAxis;
+
+        Vector3 playerDir = playerPos - Camera.main.transform.position;
+        playerDir.Normalize();
+        Vector3 donutPosDiff = transform.position - GetComponent<DonutsUnionScript>().GetDonutsCenterPoint();
+        newDonutPos = playerPos + playerDir + donutPosDiff;
+        previousDonutPos = transform.position;
     }
 
     void FinishedDonutMove()
@@ -55,15 +63,15 @@ public partial class DonutRigidBody : MonoBehaviour
         if (!isFinishMoving) return;
 
         actionTimer += Time.deltaTime;
-
         switch (actionPhese)
         {
             case 0:
                 var rotationDir = cameraAxis.TransformDirection(Vector3.left);
                 transform.RotateAround(transform.position, rotationDir, standDonutAngle * Time.deltaTime / phese1Time);
-                transform.Translate(Vector3.up * phese1ShiftY * Time.deltaTime / phese1Time);
+                //transform.Translate(Vector3.up * phese1ShiftY * Time.deltaTime / phese1Time);
+                transform.position = Vector3.Lerp(previousDonutPos, newDonutPos, actionTimer / phese1Time);
 
-                if(actionTimer > phese1Time)
+                if (actionTimer > phese1Time)
                 {
                     actionTimer = 0f; actionPhese++;
                 }

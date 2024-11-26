@@ -54,6 +54,7 @@ public class PlayerCameraRotation : MonoBehaviour
     Transform lookAtZoomPointRef;//ズームした後のポイント
     Transform defaultLookAtTransform;
     [SerializeField] AnimationCurve zoomCameraMoveCurve;
+    Vector3 zoomShift;
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -165,7 +166,7 @@ public class PlayerCameraRotation : MonoBehaviour
             if (zoomTimer < zoomTime)
             {
                 MoveZoomCamera(verticalFOV_default, verticalFOV_new, 
-                    defaultLookAtTransform.position, lookAtZoomPointRef.position,  zoomTimer / zoomTime);
+                    defaultLookAtTransform.position, lookAtZoomPointRef.position + zoomShift,  zoomTimer / zoomTime);
             }
         }
         else//ズームから戻り中
@@ -173,7 +174,7 @@ public class PlayerCameraRotation : MonoBehaviour
             if (zoomTimer < zoomTime)
             {
                 MoveZoomCamera(verticalFOV_new, verticalFOV_default,
-                    lookAtZoomPointRef.position, defaultLookAtTransform.position, zoomTimer / zoomTime);
+                    lookAtZoomPointRef.position + zoomShift, defaultLookAtTransform.position, zoomTimer / zoomTime);
             }
             else
             {
@@ -192,7 +193,7 @@ public class PlayerCameraRotation : MonoBehaviour
         cinemachineVirtualCamera.m_Lens.FieldOfView = fovFrom + (fovTo - fovFrom) * ratio;//fovを少しずつ変える
         lookAtZoomPoint.transform.position = Vector3.Lerp(lookAt_From, lookAt_To, ratio);//対象の位置に少しずつ移動
     }
-    public void StartZoom(Transform _to, float _zoomTime,float _zoomFOV)//ズームを始める
+    public void StartZoom(Transform _to,Vector3 _zoomShift, float _zoomTime,float _zoomFOV)//ズームを始める
     {
         isZoom = true;
         isResetZoom = false;
@@ -200,6 +201,7 @@ public class PlayerCameraRotation : MonoBehaviour
         zoomTimer = 0f;
 
         lookAtZoomPointRef = _to;//ズーム後のLookAtを設定
+        zoomShift = _zoomShift;
         verticalFOV_new = _zoomFOV;//ズーム後のfov
         cinemachineVirtualCamera.m_LookAt = lookAtZoomPoint;//cinemachineのlookAtを設定
     }

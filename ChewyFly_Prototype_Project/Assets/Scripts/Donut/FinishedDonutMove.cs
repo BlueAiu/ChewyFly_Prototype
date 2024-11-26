@@ -37,6 +37,8 @@ public partial class DonutRigidBody : MonoBehaviour
 
     Vector3 previousDonutPos;
     Vector3 newDonutPos;
+    [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか")]
+    [SerializeField] float donutShiftToBackLength = 2f;
     public void SetMoveMode(Vector3 playerPos)
     {
         rb.isKinematic = true;
@@ -52,7 +54,7 @@ public partial class DonutRigidBody : MonoBehaviour
         transform.parent = cameraAxis;
 
         Vector3 playerDir = playerPos - Camera.main.transform.position;
-        playerDir.Normalize();
+        playerDir.Normalize(); playerDir *= donutShiftToBackLength;
         Vector3 donutPosDiff = transform.position - GetComponent<DonutsUnionScript>().GetDonutsCenterPoint();
         newDonutPos = playerPos + playerDir + donutPosDiff;
         previousDonutPos = transform.position;

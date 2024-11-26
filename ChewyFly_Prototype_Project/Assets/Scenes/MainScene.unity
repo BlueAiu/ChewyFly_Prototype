@@ -305,12 +305,10 @@ MonoBehaviour:
   oilJumpTime: 1.5
   completeReactionTime: 1
   completeJumpTime: 0.5
-  completeTime_LookCameraRotate: 0.4
-  zoomFOV: 15
-  completeTime_Pose: 0.4
-  completeTime_Reset: 0.4
+  completeTime_LookCameraRotate: 0.6
+  completeTime_Pose: 0.3
+  completeTime_Reset: 0.7
   mainCamera: {fileID: 963194227}
-  zoomShiftX: 1
 --- !u!114 &270912496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +369,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  zoomFOV: 15
+  zoomShiftX: 1
 --- !u!114 &270912498
 MonoBehaviour:
   m_ObjectHideFlags: 0

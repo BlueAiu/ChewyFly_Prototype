@@ -42,19 +42,23 @@ public class PlayerCameraRotation : MonoBehaviour
     [Tooltip("鍋の中心とプレイヤーの間のどのくらいの比率の位置にカメラを向けるか")]
     [SerializeField] float cameraLookPointRatio = 0.5f;
 
+    [Header("ズーム時のカメラに関連する変数")]
     [SerializeField] GameObject virtualCamera;
     bool isZoom = false;//ズームしているか
     bool isResetZoom = false;//ズーム状態から元に戻っているか
     CinemachineVirtualCamera cinemachineVirtualCamera;
     float zoomTime;
     float zoomTimer;
-    float verticalFOV_default;
-    float verticalFOV_new;
+    float verticalFOV_default;//最初のFOV
     Transform lookAtZoomPoint;//カメラが参照するポイント
     Transform lookAtZoomPointRef;//ズームした後のポイント
     Transform defaultLookAtTransform;
     [SerializeField] AnimationCurve zoomCameraMoveCurve;
     Vector3 zoomShift;
+    [Tooltip("ズーム後のFOV")]
+    [SerializeField] float zoomFOV = 10f;
+    [Tooltip("ズーム時どのくらい右にずらすか")]
+    [SerializeField] float zoomShiftX = 1f;
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -165,7 +169,7 @@ public class PlayerCameraRotation : MonoBehaviour
         {
             if (zoomTimer < zoomTime)
             {
-                MoveZoomCamera(verticalFOV_default, verticalFOV_new, 
+                MoveZoomCamera(verticalFOV_default, zoomFOV, 
                     defaultLookAtTransform.position, lookAtZoomPointRef.position + zoomShift,  zoomTimer / zoomTime);
             }
         }
@@ -173,7 +177,7 @@ public class PlayerCameraRotation : MonoBehaviour
         {
             if (zoomTimer < zoomTime)
             {
-                MoveZoomCamera(verticalFOV_new, verticalFOV_default,
+                MoveZoomCamera(zoomFOV, verticalFOV_default,
                     lookAtZoomPointRef.position + zoomShift, defaultLookAtTransform.position, zoomTimer / zoomTime);
             }
             else
@@ -193,7 +197,7 @@ public class PlayerCameraRotation : MonoBehaviour
         cinemachineVirtualCamera.m_Lens.FieldOfView = fovFrom + (fovTo - fovFrom) * ratio;//fovを少しずつ変える
         lookAtZoomPoint.transform.position = Vector3.Lerp(lookAt_From, lookAt_To, ratio);//対象の位置に少しずつ移動
     }
-    public void StartZoom(Transform _to,Vector3 _zoomShift, float _zoomTime,float _zoomFOV)//ズームを始める
+    public void StartZoom(Transform _to,Vector3 _zoomShiftDir, float _zoomTime)//ズームを始める
     {
         isZoom = true;
         isResetZoom = false;
@@ -201,8 +205,7 @@ public class PlayerCameraRotation : MonoBehaviour
         zoomTimer = 0f;
 
         lookAtZoomPointRef = _to;//ズーム後のLookAtを設定
-        zoomShift = _zoomShift;
-        verticalFOV_new = _zoomFOV;//ズーム後のfov
+        zoomShift = _zoomShiftDir * zoomShiftX;
         cinemachineVirtualCamera.m_LookAt = lookAtZoomPoint;//cinemachineのlookAtを設定
     }
     public void Zoom_Reset(float _zoomResetTime)//ズームをやめさせる

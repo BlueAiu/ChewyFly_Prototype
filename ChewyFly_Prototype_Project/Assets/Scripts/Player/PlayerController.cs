@@ -102,8 +102,6 @@ public class PlayerController : MonoBehaviour
     [Header("ドーナツ完成時の演出時間")]
     [Tooltip("完成時カメラの方に向く時間")]
     [SerializeField] float completeTime_LookCameraRotate = 0.3f;
-    [Tooltip("ズーム後のFOV")]
-    [SerializeField] float zoomFOV = 10f;
     [Tooltip("ポーズをしている時間")]
     [SerializeField] float completeTime_Pose;
     [Tooltip("カメラが元の位置に戻る時間")]
@@ -114,8 +112,6 @@ public class PlayerController : MonoBehaviour
     Quaternion completeReactionRotateTo;//ここまで回転
     [SerializeField] Camera mainCamera;
     PlayerCameraRotation playerCameraRotation;
-    [Tooltip("ズーム時どのくらい右にずらすか")]
-    [SerializeField] float zoomShiftX = 1f;
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -337,7 +333,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = mainCamera.transform.position - transform.position;
         completeReactionRotateTo = Quaternion.LookRotation(direction);
 
-        playerCameraRotation.StartZoom(transform, mainCamera.transform.right * zoomShiftX , completeTime_LookCameraRotate,zoomFOV);
+        playerCameraRotation.StartZoom(transform, mainCamera.transform.right , completeTime_LookCameraRotate);
     }
     void Update_CompleteDonutReaction()//Updateで呼ばれるドーナツ完成時のリアクション
     {

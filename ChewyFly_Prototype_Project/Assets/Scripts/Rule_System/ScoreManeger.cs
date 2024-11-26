@@ -32,8 +32,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject completeReactionScoreUIPrefab;
+    [Tooltip("スコアUIをずらす高さ")]
     [SerializeField] float scoreDiffHeight = 10;
-    [Tooltip("スコアのUIを出現するずれの時間")]
+    [Tooltip("スコアのUIが出現する時のそれぞれずれの時間")]
     [SerializeField] float scoreUIAppearDiffTime = 0.2f;
     [SerializeField] Transform scorePos;
     int scoreTypeNum = 0;
@@ -181,7 +182,22 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         scoreTypeNum = 0;
         bool isIdeal = false;//ドーナツが理想の形か
-        AddScore(scoreSaver, DonutScoreType.Base, donutScore_base);//まず基礎点
+        AddOneScore(scoreSaver, DonutScoreType.Base, donutScore_base);//まず基礎点
+
+        DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
+        int unionCount = unionScript.unionCount;
+        if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
+        {
+            AddOneScore(scoreSaver, DonutScoreType.OverNum, (unionCount - idealDonutNum) * donutScore_over);
+        }
+
+        int[] burntDonutsNum = unionScript.GetBurntDonutsNum();//焦げの状態に応じて加点
+        int totalBurntScore = 0;
+        for(int i = 0; i < burntDonutsNum.Length; i++)
+        {
+            totalBurntScore += burntDonutsNum[i] * burntScores[i];
+        }
+        AddOneScore(scoreSaver, DonutScoreType.BurntColor, totalBurntScore);
 
         DonutScoreType scoreType = DonutShapeType(donut); int typeScore = 0;
         switch (scoreType)
@@ -204,22 +220,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                 isIdeal = true;
                 break;
         }
-        AddScore(scoreSaver, scoreType, typeScore);
-
-        DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
-        int unionCount = unionScript.unionCount;
-        if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
-        {
-            AddScore(scoreSaver, DonutScoreType.OverNum, (unionCount - idealDonutNum) * donutScore_over);
-        }
-
-        int[] burntDonutsNum = unionScript.GetBurntDonutsNum();//焦げの状態に応じて加点
-        int totalBurntScore = 0;
-        for(int i = 0; i < burntDonutsNum.Length; i++)
-        {
-            totalBurntScore += burntDonutsNum[i] * burntScores[i];
-        }
-        AddScore(scoreSaver, DonutScoreType.BurntColor, totalBurntScore);
+        AddOneScore(scoreSaver, scoreType, typeScore);
 
         totalScore += scoreSaver.GetDonutTotalScore();//最後このドーナツについたスコアの分加点する
         SetDonutScoreText();
@@ -231,7 +232,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donutScoreText.text = "スコア : " + totalScore.ToString();
         donutNumText.text = completeDonuts.Count.ToString() + " コ";
     }
-    void AddScore(DonutScoreSaver _saver , DonutScoreType _type, int _score)//スコアを加算して表示
+
+    void AddOneScore(DonutScoreSaver _saver , DonutScoreType _type, int _score)//スコアを加算して表示
     {
         if (_score <= 0) return;
         _saver.AddDonutScoreType(_type, _score);//スコア加算

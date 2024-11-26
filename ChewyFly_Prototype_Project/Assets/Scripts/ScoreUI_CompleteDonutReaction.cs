@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class ScoreUI_CompleteDonutReaction : MonoBehaviour
+public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリアクション時出てくるスコアのUI
 {
     [SerializeField] TMP_Text scoreText;
+    [Tooltip("上昇値(一秒につき)")]
     [SerializeField] float upHeightPerSecond = 5f;
     [Tooltip("アルファが1(表示している)の時間")]
     [SerializeField] float alphaOne_Time = 1f;
@@ -16,7 +17,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour
     [SerializeField] float disappearTime = 1f;//消える時間
     float timer = 0f;
     CanvasGroup canvasGroup;
-    bool isShiftAppear;
+    bool isShiftAppear;//演出上、出現時間をずらしているか？
     float shiftAppearTime;
     public void ScoreInitialized(ObjectReferenceManeger.DonutScoreType _type, int _score,Vector3 pos, float _shiftAppearTime = 0f)
     {
@@ -75,7 +76,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShiftAppear)
+        if (isShiftAppear)//まだ出現させない
         {
             timer += Time.deltaTime;
             if(timer > shiftAppearTime)

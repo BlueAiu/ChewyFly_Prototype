@@ -334,7 +334,7 @@ MonoBehaviour:
   maxSensitivity: 330
   minSensitivity: 30
   resetSensitivity: 800
-  nonRotationalAreaRadius: 4
+  nonRotationalAreaRadius: 9999
   reapplicationDistance: 2
   autoRotateSensitivity: 120
   potCenterPoint: {fileID: 1517723900}

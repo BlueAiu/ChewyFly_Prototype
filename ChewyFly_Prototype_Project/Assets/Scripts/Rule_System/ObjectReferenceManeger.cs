@@ -172,15 +172,15 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donut.GetComponent<DonutRigidBody>().SetSinkMode();
     }
 
-    //プレイヤーと最も距離の近いドーナツを探す, 
-    public GameObject ClosestDonut(bool isFleeze = false)
+    //targetと最も距離の近いドーナツを探す, 
+    public Vector3 ClosestDonut(Vector3 target, bool isFleeze = false)
     {
         GameObject closestDonut = null;
         float closestSqrDistance = float.MaxValue;
 
         foreach(var donut in donutsList)
         {
-            float sqrDistnce = (player.transform.position - donut.transform.position).sqrMagnitude;
+            float sqrDistnce = (target - donut.transform.position).sqrMagnitude;
 
             if(sqrDistnce < closestSqrDistance)
             {
@@ -192,7 +192,22 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (isFleeze)
             closestDonut.GetComponent<DonutRigidBody>().IsFreeze = true;
 
-        return closestDonut;
+        Vector3 closestPosition = closestDonut.transform.position;
+        closestSqrDistance = float.MaxValue;
+
+        for (int i = 0; i < closestDonut.transform.childCount; i++)
+        {
+            var donutSphere = closestDonut.transform.GetChild(i);
+            float sqrDistnce = (target - donutSphere.position).sqrMagnitude;
+
+            if (sqrDistnce < closestSqrDistance)
+            {
+                closestPosition = donutSphere.position;
+                closestSqrDistance = sqrDistnce;
+            }
+        }
+
+        return closestPosition;
     }
 
     //ドーナツが完成したとき行われる

@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4204bf9d106c80a4e83600fd0cb1fa5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objManeger: {fileID: 1419900561}
   flicArrowSprite: {fileID: 87630649}
   jumpArrowSprite: {fileID: 1504955368}
   arrowParent: {fileID: 136636854}
@@ -404,6 +405,7 @@ MonoBehaviour:
   flicCoolTime: 0.5
   jumpPower: 12
   jumpPoint: {fileID: 8734375345487203448}
+  jumpAdjustRadius: 1.2
   flicPowerPeriod: 1.2
 --- !u!81 &270912500
 AudioListener:

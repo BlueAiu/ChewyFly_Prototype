@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour
     {
         isFreeze = false;
 
-        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, oilJumpTime);
 
         Instantiate(damageEffect, transform.position, Quaternion.identity);
@@ -299,7 +299,7 @@ public class PlayerController : MonoBehaviour
     void CompleteJump()
     {
         isFreeze = false;
-        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, completeJumpTime);
 
         animator.SetTrigger("JumpTrigger");

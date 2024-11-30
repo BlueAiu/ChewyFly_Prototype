@@ -51,7 +51,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         //Õ“Ë‘Šè‚ğÁ‹
         objManeger.RemoveDonut(otherDonut.gameObject);
         //‚­‚Á‚Â‚¯‚½’¼Œã‚Í‚­‚Á‚Â‚©‚È‚¢
-        IsSticky = false;
+        //IsSticky = false;
 
         //‚­‚Á‚Â‚«ÕŒ‚‚ğ‹N‚±‚·
         objManeger.MergeImpact(gameObject);

@@ -113,7 +113,7 @@ public partial class DonutsUnionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax && !isBouncing)
+        if (collision.gameObject.tag == "Donuts" && IsSticky && unionCount < unionCountMax)// && !isBouncing)
         {
             DonutsUnionScript otherDonutsUnion = collision.transform.GetComponent<DonutsUnionScript>();
             //相手のドーナツがもしバウンド再生中なら止める

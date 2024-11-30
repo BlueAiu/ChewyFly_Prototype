@@ -2884,12 +2884,12 @@ MonoBehaviour:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   donutSpawnRadius: 6.5
-  donutSpawnYMin: 1
-  donutSpawnYMax: 1.5
+  donutSpawnYMin: 2
+  donutSpawnYMax: 3
   notSpawnDistance: 2
-  startSpawnCount: 10
+  startSpawnCount: 12
   spawnTimePeriod: 10
-  minimumDonutCount: 10
+  minimumDonutCount: 12
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6

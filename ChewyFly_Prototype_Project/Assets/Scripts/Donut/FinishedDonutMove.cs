@@ -36,7 +36,7 @@ public partial class DonutRigidBody : MonoBehaviour
     bool isBurnt = false;
 
     Vector3 previousDonutPos;
-    Vector3 newDonutPos;
+    Vector3 newDonutPos;//完成時、phese1でこの位置にドーナツが移動する
     [Header("完成時の動き")]
     [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか(-なら手前に)")]
     [SerializeField] float donutShiftToBackLength = 2f;

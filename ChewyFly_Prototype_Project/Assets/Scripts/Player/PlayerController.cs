@@ -341,6 +341,7 @@ public class PlayerController : MonoBehaviour
 
         if (completeReactionTimer < completeTime_LookCameraRotate)
         {
+            //プレイヤーをカメラに向ける
             transform.rotation = Quaternion.Lerp(completeReactionRotateFrom, completeReactionRotateTo,
                 completeReactionTimer / completeTime_LookCameraRotate);
 
@@ -350,7 +351,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("CompletePose");
             }
         }
-        else if (completeReactionTimer > completeTime_LookCameraRotate + completeTime_Pose)
+        else if (completeReactionTimer > completeTime_LookCameraRotate + completeTime_Pose)//回転、ポーズ時間終了
         {
             playerCameraRotation.Zoom_Reset(completeTime_Reset);//カメラを元の位置に戻して
             CompleteJump();//ジャンプ

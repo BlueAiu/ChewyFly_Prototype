@@ -57,7 +57,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
 
         transform.position = pos;
 
-        if(_shiftAppearTime != 0)
+        if(_shiftAppearTime != 0)//uiの出現をずらす時間が0でないなら
         {
             isShiftAppear = true;
             shiftAppearTime = _shiftAppearTime;
@@ -67,13 +67,15 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        if(canvasGroup != null)
+        if(canvasGroup == null)
         {
-            if(!isShiftAppear)
-            canvasGroup.alpha = 1.0f;
-            else 
-                canvasGroup.alpha = 0.0f;
+            gameObject.AddComponent<CanvasGroup>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
+        if (!isShiftAppear)
+            canvasGroup.alpha = 1.0f;
+        else
+            canvasGroup.alpha = 0.0f;
     }
 
     // Update is called once per frame
@@ -86,8 +88,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
             {
                 isShiftAppear = false;
                 timer = 0f;
-                if (canvasGroup != null)
-                    canvasGroup.alpha = 1.0f;
+                canvasGroup.alpha = 1.0f;
             }
         }
         else
@@ -98,7 +99,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
                 Vector3 pos = transform.position;
                 pos.y += upHeightPerSecond * Time.deltaTime;
                 transform.position = pos;
-                if (canvasGroup != null && alphaOne_Time < timer)
+                if (alphaOne_Time < timer)
                 {
                     canvasGroup.alpha = (disappearTime - timer) / (disappearTime - alphaOne_Time);
                 }

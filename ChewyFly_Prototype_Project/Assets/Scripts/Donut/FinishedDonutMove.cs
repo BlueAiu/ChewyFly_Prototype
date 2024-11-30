@@ -11,6 +11,10 @@ public partial class DonutRigidBody : MonoBehaviour
     [SerializeField] float standDonutAngle = 90;
     [Tooltip("上に移動する距離")]
     [SerializeField] float phese1ShiftY = 2f;
+    [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか(-なら手前に)")]
+    [SerializeField] float donutShiftToBackLength = 2f;
+    [Tooltip("ドーナツ完成時ドーナツをどのくらい左に置くか")]
+    [SerializeField] float donutShiftToLeftLength = 2f;
 
     [Tooltip("だんだん上に加速する時間")]
     [SerializeField] float phese2Time = 1f;
@@ -37,11 +41,6 @@ public partial class DonutRigidBody : MonoBehaviour
 
     Vector3 previousDonutPos;
     Vector3 newDonutPos;//完成時、phese1でこの位置にドーナツが移動する
-    [Header("完成時の動き")]
-    [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか(-なら手前に)")]
-    [SerializeField] float donutShiftToBackLength = 2f;
-    [Tooltip("ドーナツ完成時ドーナツをどのくらい左に置くか")]
-    [SerializeField] float donutShiftToLeftLength = 2f;
     public void SetMoveMode(Vector3 playerPos)
     {
         rb.isKinematic = true;

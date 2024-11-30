@@ -93,11 +93,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float oilJumpTime = 3f;
 
     [Header("ドーナツが完成したとき")]
-    [Tooltip("ドーナツが完成したとき留まる時間の長さ")]
-    [SerializeField] float completeReactionTime = 1f;
+    //[Tooltip("ドーナツが完成したとき留まる時間の長さ")]
+    //[SerializeField] float completeReactionTime = 1f;
 
     [Tooltip("次のドーナツにジャンプする長さ")]
     [SerializeField] float completeJumpTime = 1f;
+    [Tooltip("ドーナツ完成時元の位置からどのくらいカメラに近づけるか")]
+    [SerializeField] float completePlayerToCameraDistance = 1f;
 
     [Header("ドーナツ完成時の演出時間")]
     [Tooltip("完成時カメラの方に向く時間")]
@@ -107,12 +109,19 @@ public class PlayerController : MonoBehaviour
     [Tooltip("カメラが元の位置に戻る時間")]
     [SerializeField] float completeTime_Reset;
     float completeReactionTimer = 0f;//ズーム時用のタイマー
-    bool isCompleteDonutReaction = false;//完成時のリアクション中か？
+    enum CompleteDonutReactionState { None, LookCamera, Pose }
+    CompleteDonutReactionState completeReactionState = CompleteDonutReactionState.None;
     Quaternion completeReactionRotateFrom;//プレイヤーをここから
     Quaternion completeReactionRotateTo;//ここまで回転
+    Vector3 completeReactionPositionFrom;//プレイヤーをここから
+    Vector3 completeReactionPositionTo;//ここまで回転
     [SerializeField] Camera mainCamera;
     PlayerCameraRotation playerCameraRotation;
 
+    const float PlayerToHitPoint_DistanceRatio = 0.5f;
+    //ドーナツ完成時、プレイヤーからカメラにレイを飛ばして別のオブジェクトに当たった場合
+    //この値の比率の位置にプレイヤーを移動させる
+    const string WallLayerName = "Wall";
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
@@ -121,6 +130,7 @@ public class PlayerController : MonoBehaviour
         playerCameraRotation = GetComponent<PlayerCameraRotation>();
         if (playerCamera == null)
             playerCamera = GameObject.Find("CameraAxis");
+        completeReactionState = CompleteDonutReactionState.None;
     }
 
     // Start is called before the first frame update
@@ -328,34 +338,62 @@ public class PlayerController : MonoBehaviour
     void StartCompleteReaction()//ドーナツ完成時のリアクション開始
     {
         completeReactionTimer = 0f;
-        isCompleteDonutReaction = true;
+        completeReactionState = CompleteDonutReactionState.LookCamera;
         completeReactionRotateFrom = transform.rotation;
         Vector3 direction = mainCamera.transform.position - transform.position;
         completeReactionRotateTo = Quaternion.LookRotation(direction);
+
+        completeReactionPositionFrom = transform.position;
+        direction = direction.normalized;
+
+        Ray ray = new Ray(transform.position, direction);//プレイヤーからカメラまでのレイを準備
+        RaycastHit hit;
+        int layer = LayerMask.NameToLayer(WallLayerName);
+        LayerMask layerMask = 1 << layer;
+        if (Physics.Raycast(ray, out hit, completePlayerToCameraDistance, layerMask))//レイが当たったら移動は抑える
+        {
+            completeReactionPositionTo = transform.position + (hit.point - transform.position) * PlayerToHitPoint_DistanceRatio;
+        }
+        else
+        {
+            completeReactionPositionTo = transform.position + direction * completePlayerToCameraDistance;
+        }
 
         playerCameraRotation.StartZoom(transform, completeTime_LookCameraRotate);
     }
     void Update_CompleteDonutReaction()//Updateで呼ばれるドーナツ完成時のリアクション
     {
-        if (!isCompleteDonutReaction) return;
+        if (completeReactionState == CompleteDonutReactionState.None) return;
 
-        if (completeReactionTimer < completeTime_LookCameraRotate)
+        switch (completeReactionState)
         {
-            //プレイヤーをカメラに向ける
-            transform.rotation = Quaternion.Lerp(completeReactionRotateFrom, completeReactionRotateTo,
-                completeReactionTimer / completeTime_LookCameraRotate);
+            case CompleteDonutReactionState.LookCamera:
 
-            if(completeReactionTimer + Time.deltaTime > completeTime_LookCameraRotate)//回転し終わったら
-            {
-                transform.rotation = completeReactionRotateTo;
-                animator.SetTrigger("CompletePose");
-            }
-        }
-        else if (completeReactionTimer > completeTime_LookCameraRotate + completeTime_Pose)//回転、ポーズ時間終了
-        {
-            playerCameraRotation.Zoom_Reset(completeTime_Reset);//カメラを元の位置に戻して
-            CompleteJump();//ジャンプ
-            return;
+                //プレイヤーをカメラに向ける
+                transform.rotation = Quaternion.Lerp(completeReactionRotateFrom, completeReactionRotateTo,
+                    completeReactionTimer / completeTime_LookCameraRotate);
+                transform.position = Vector3.Lerp(completeReactionPositionFrom, completeReactionPositionTo,
+                    completeReactionTimer / completeTime_LookCameraRotate);
+
+                if (completeReactionTimer + Time.deltaTime > completeTime_LookCameraRotate)//回転し終わったら
+                {
+                    transform.rotation = completeReactionRotateTo;
+                    transform.position = completeReactionPositionTo;
+                    animator.SetTrigger("CompletePose");
+                    completeReactionState++;
+                    completeReactionTimer = 0f;
+                }
+                break;
+            case CompleteDonutReactionState.Pose:
+
+                if (completeReactionTimer + Time.deltaTime > completeTime_Pose)
+                {
+                    playerCameraRotation.Zoom_Reset(completeTime_Reset);//カメラを元の位置に戻す
+
+                    CompleteJump();//ジャンプ
+                    completeReactionState = CompleteDonutReactionState.None;
+                }
+                break;
         }
         completeReactionTimer += Time.deltaTime;
     }

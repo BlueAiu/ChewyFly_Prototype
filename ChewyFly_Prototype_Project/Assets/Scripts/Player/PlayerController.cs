@@ -26,13 +26,18 @@ public class PlayerController : MonoBehaviour
         private set
         {
             _ridingDonut = value;
-            if(value != null)//バウンドの再生中か調べるとき毎回GetComponentしないようにここで入れておく
+            if (value != null)//バウンドの再生中か調べるとき毎回GetComponentしないようにここで入れておく
                 ridingDonutUnion = _ridingDonut.GetComponent<DonutsUnionScript>();
             else
+            {
                 ridingDonutUnion = null;
+                rideDonutSphere = null;
+            }
         }
     }
     public DonutsUnionScript ridingDonutUnion { get; private set; } = null;
+
+    public Transform rideDonutSphere { get; private set; }
 
     [Tooltip("ゲームルールオブジェクト")]
     [SerializeField] ObjectReferenceManeger objManeger;
@@ -296,6 +301,7 @@ public class PlayerController : MonoBehaviour
             //hit.gameObject.GetComponent<DonutSphereReference>().OnPlayerEnter();
 
             donutRidePos = hit.transform.localPosition + Vector3.up * aboveDonut;
+            rideDonutSphere = hit.transform;
         }
     }
 
@@ -314,7 +320,7 @@ public class PlayerController : MonoBehaviour
     {
         isFreeze = false;
 
-        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, oilJumpTime);
 
         Instantiate(damageEffect, transform.position, Quaternion.identity);
@@ -330,7 +336,7 @@ public class PlayerController : MonoBehaviour
     void CompleteJump()
     {
         isFreeze = false;
-        var targetPos = objManeger.ClosestDonut(isFleeze: true).transform.position + new Vector3(0, aboveDonut, 0);
+        var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, completeJumpTime);
 
         animator.SetTrigger("JumpTrigger");

@@ -32,11 +32,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject completeReactionScoreUIPrefab;
-    [Tooltip("スコアUIをずらす高さ")]
-    [SerializeField] float scoreDiffHeight = 10;
     [Tooltip("スコアのUIが出現する時のそれぞれずれの時間")]
     [SerializeField] float scoreUIAppearDiffTime = 0.2f;
     [SerializeField] Transform scorePos;
+    [SerializeField] Transform scorePos_Next;//次のUIを置く高さ
     int scoreTypeNum = 0;
 
     const int checkRange = 10;
@@ -238,11 +237,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (_score <= 0) return;
         _saver.AddDonutScoreType(_type, _score);//スコア加算
 
-        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab);//スコアを表示
-        scoreUi.transform.SetParent(canvas.transform);
+        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
         ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
         Vector3 _scorePos = scorePos.position;
-        _scorePos.y -= scoreTypeNum * scoreDiffHeight;
+        float scoreDiffHeight = scorePos_Next.transform.position.y - scorePos.transform.position.y;
+        _scorePos.y += scoreTypeNum * scoreDiffHeight;
         component.ScoreInitialized(_type, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
 
         scoreTypeNum++;

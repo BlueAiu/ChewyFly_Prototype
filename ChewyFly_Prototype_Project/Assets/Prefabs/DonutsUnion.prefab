@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buoyancy: 20
-  surfaceY: 1
   movementResistance: 5
   rotationResistance: 2
   boundPower: 2
@@ -152,6 +151,8 @@ MonoBehaviour:
   storageArea: {x: 13, y: 2, z: 0}
   sinkMassRate: 3
   sinkTime: 1.5
+  donutShiftToBackLength: -0.3
+  donutShiftToLeftLength: 1.5
 --- !u!1001 &5611300720236083268
 PrefabInstance:
   m_ObjectHideFlags: 0

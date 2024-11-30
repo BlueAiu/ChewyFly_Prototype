@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリアクション時出てくるスコアのUI
 {
+    [SerializeField] TMP_Text scoreTypeText;
     [SerializeField] TMP_Text scoreText;
     [Tooltip("上昇値(一秒につき)")]
     [SerializeField] float upHeightPerSecond = 5f;
@@ -15,6 +16,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
     [SerializeField] float alphaOne_Time = 1f;
     [Tooltip("消える時間")]
     [SerializeField] float disappearTime = 1f;//消える時間
+
     float timer = 0f;
     CanvasGroup canvasGroup;
     bool isShiftAppear;//演出上、出現時間をずらしているか？
@@ -50,7 +52,8 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
                 typeText = "インフィニティ";
                 break;
         }
-        scoreText.text = typeText + " +" + _score.ToString();
+        scoreTypeText.text = typeText + ":";
+        scoreText.text = " +" + _score.ToString();
 
         transform.position = pos;
 

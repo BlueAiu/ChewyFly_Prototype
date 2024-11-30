@@ -333,7 +333,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = mainCamera.transform.position - transform.position;
         completeReactionRotateTo = Quaternion.LookRotation(direction);
 
-        playerCameraRotation.StartZoom(transform, mainCamera.transform.right , completeTime_LookCameraRotate);
+        playerCameraRotation.StartZoom(transform, completeTime_LookCameraRotate);
     }
     void Update_CompleteDonutReaction()//Updateで呼ばれるドーナツ完成時のリアクション
     {

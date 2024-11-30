@@ -57,8 +57,6 @@ public class PlayerCameraRotation : MonoBehaviour
     Vector3 zoomShift;
     [Tooltip("ズーム後のFOV")]
     [SerializeField] float zoomFOV = 10f;
-    [Tooltip("ズーム時どのくらい右にずらすか")]
-    [SerializeField] float zoomShiftX = 1f;
 
     private void Awake()//Startよりさらに前に格納しておく
     {
@@ -197,7 +195,7 @@ public class PlayerCameraRotation : MonoBehaviour
         cinemachineVirtualCamera.m_Lens.FieldOfView = fovFrom + (fovTo - fovFrom) * ratio;//fovを少しずつ変える
         lookAtZoomPoint.transform.position = Vector3.Lerp(lookAt_From, lookAt_To, ratio);//対象の位置に少しずつ移動
     }
-    public void StartZoom(Transform _to,Vector3 _zoomShiftDir, float _zoomTime)//ズームを始める
+    public void StartZoom(Transform _to, float _zoomTime)//ズームを始める
     {
         isZoom = true;
         isResetZoom = false;
@@ -205,7 +203,6 @@ public class PlayerCameraRotation : MonoBehaviour
         zoomTimer = 0f;
 
         lookAtZoomPointRef = _to;//ズーム後のLookAtを設定
-        zoomShift = _zoomShiftDir * zoomShiftX;
         cinemachineVirtualCamera.m_LookAt = lookAtZoomPoint;//cinemachineのlookAtを設定
     }
     public void Zoom_Reset(float _zoomResetTime)//ズームをやめさせる

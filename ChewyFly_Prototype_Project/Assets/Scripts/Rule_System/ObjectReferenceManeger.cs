@@ -180,6 +180,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         foreach(var donut in donutsList)
         {
+            if (playerController.ridingDonut == donut) continue;        //プレイヤーが乗ってるドーナツは選ばない
+
             float sqrDistnce = (target - donut.transform.position).sqrMagnitude;
 
             if(sqrDistnce < closestSqrDistance)

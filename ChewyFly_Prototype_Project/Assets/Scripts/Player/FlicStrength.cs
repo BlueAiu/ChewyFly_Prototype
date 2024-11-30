@@ -188,9 +188,8 @@ public class FlicStrength : MonoBehaviour
 
             jumpPoint.position = transform.position + jumpDirection * (flicJumpPower * jumpPower);
             var closeDonut = objManeger.ClosestDonut(jumpPoint.position, true);
-            var playerSqrDistance = (transform.position - closeDonut).sqrMagnitude;
             var jumpPointSqrDistance = (jumpPoint.position - closeDonut).sqrMagnitude;
-            if (playerSqrDistance > jumpAdjustRadius * jumpAdjustRadius && jumpAdjustRadius * jumpAdjustRadius > jumpPointSqrDistance)
+            if (jumpAdjustRadius * jumpAdjustRadius > jumpPointSqrDistance)
             {
                 jumpPoint.position = closeDonut;
             }

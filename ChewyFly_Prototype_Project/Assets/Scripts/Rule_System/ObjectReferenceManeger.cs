@@ -176,38 +176,31 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     public Vector3 ClosestDonut(Vector3 target, bool isFleeze = false)
     {
         GameObject closestDonut = null;
+        Vector3 closestPosition = Vector3.zero;
         float closestSqrDistance = float.MaxValue;
 
         foreach(var donut in donutsList)
         {
-            if (playerController.ridingDonut == donut) continue;        //プレイヤーが乗ってるドーナツは選ばない
-
-            float sqrDistnce = (target - donut.transform.position).sqrMagnitude;
-
-            if(sqrDistnce < closestSqrDistance)
+            for (int i = 0; i < donut.transform.childCount; i++)
             {
-                closestDonut = donut;
-                closestSqrDistance = sqrDistnce;
+                var donutSphere = donut.transform.GetChild(i);
+
+                if (player.transform == donutSphere) continue;  //プレイヤーは除外する
+                if (playerController.rideDonutSphere == donutSphere) continue;  //プレイヤーが乗ってるドーナツ球は除外する
+
+                float sqrDistnce = (target - donutSphere.position).sqrMagnitude;
+
+                if (sqrDistnce < closestSqrDistance)
+                {
+                    closestDonut = donut;
+                    closestPosition = donutSphere.position;
+                    closestSqrDistance = sqrDistnce;
+                }
             }
         }
 
         if (isFleeze)
             closestDonut.GetComponent<DonutRigidBody>().IsFreeze = true;
-
-        Vector3 closestPosition = closestDonut.transform.position;
-        closestSqrDistance = float.MaxValue;
-
-        for (int i = 0; i < closestDonut.transform.childCount; i++)
-        {
-            var donutSphere = closestDonut.transform.GetChild(i);
-            float sqrDistnce = (target - donutSphere.position).sqrMagnitude;
-
-            if (sqrDistnce < closestSqrDistance)
-            {
-                closestPosition = donutSphere.position;
-                closestSqrDistance = sqrDistnce;
-            }
-        }
 
         return closestPosition;
     }

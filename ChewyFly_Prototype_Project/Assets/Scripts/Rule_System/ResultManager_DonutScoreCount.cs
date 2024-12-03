@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカウントしていく演出用のクラス

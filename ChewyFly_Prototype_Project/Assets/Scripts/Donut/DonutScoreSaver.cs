@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DonutScoreSaver : MonoBehaviour//ドーナツ完成時、donutにこのスクリプトが付く

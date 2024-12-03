@@ -1,12 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEditor.ShaderKeywordFilter;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using System;
 
 public partial class ResultManager : MonoBehaviour
 {

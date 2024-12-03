@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public partial class DonutRigidBody : MonoBehaviour
@@ -9,8 +7,8 @@ public partial class DonutRigidBody : MonoBehaviour
     [SerializeField] float phese1Time = 1f;
     [Tooltip("ドーナツを立てる角度")]
     [SerializeField] float standDonutAngle = 90;
-    [Tooltip("上に移動する距離")]
-    [SerializeField] float phese1ShiftY = 2f;
+    //[Tooltip("上に移動する距離")]
+    //[SerializeField] float phese1ShiftY = 2f;
     [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか(-なら手前に)")]
     [SerializeField] float donutShiftToBackLength = 2f;
     [Tooltip("ドーナツ完成時ドーナツをどのくらい左に置くか")]

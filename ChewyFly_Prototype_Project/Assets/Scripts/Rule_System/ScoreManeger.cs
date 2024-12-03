@@ -30,6 +30,14 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [SerializeField] TMP_Text donutScoreText;
     [SerializeField] TMP_Text donutNumText;
 
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject completeReactionScoreUIPrefab;
+    [Tooltip("スコアのUIが出現する時のそれぞれずれの時間")]
+    [SerializeField] float scoreUIAppearDiffTime = 0.2f;
+    [SerializeField] Transform scorePos;
+    [SerializeField] Transform scorePos_Next;//次のUIを置く高さ
+    int scoreTypeNum = 0;
+
     const int checkRange = 10;
     const int idealDonutNum = 6;
     const int pyramidDonutNum = 6;
@@ -171,43 +179,47 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donut.AddComponent<DonutScoreSaver>();//ScoreSaverに点を入れてから合計点に加点
         DonutScoreSaver scoreSaver = donut.GetComponent<DonutScoreSaver>();
 
+        scoreTypeNum = 0;
         bool isIdeal = false;//ドーナツが理想の形か
-        scoreSaver.AddDonutScoreType(DonutScoreType.Base, donutScore_base);//まず基礎点
-
-        DonutScoreType scoreType = DonutShapeType(donut);
-        switch (scoreType)
-        {
-            case DonutScoreType.Flower:
-                scoreSaver.AddDonutScoreType(scoreType, donutScore_flower);
-                break;
-            case DonutScoreType.Pyramid:
-                scoreSaver.AddDonutScoreType(scoreType, donutScore_pyramid);
-                break;
-            case DonutScoreType.Straight:
-                scoreSaver.AddDonutScoreType(scoreType, donutScore_straight);
-                break;
-            case DonutScoreType.Ideal:
-                scoreSaver.AddDonutScoreType(scoreType, donutScore_ideal);
-                isIdeal = true;
-                break;
-            case DonutScoreType.Infinity:
-                scoreSaver.AddDonutScoreType(scoreType, donutScore_infinity);
-                isIdeal = true;
-                break;
-        }
+        AddOneScore(scoreSaver, DonutScoreType.Base, donutScore_base);//まず基礎点
 
         DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
         int unionCount = unionScript.unionCount;
         if(unionCount > idealDonutNum) //ドーナツの数が六個を超えたなら加算
         {
-            scoreSaver.AddDonutScoreType(DonutScoreType.OverNum, (unionCount - idealDonutNum) * donutScore_over);
+            AddOneScore(scoreSaver, DonutScoreType.OverNum, (unionCount - idealDonutNum) * donutScore_over);
         }
 
         int[] burntDonutsNum = unionScript.GetBurntDonutsNum();//焦げの状態に応じて加点
+        int totalBurntScore = 0;
         for(int i = 0; i < burntDonutsNum.Length; i++)
         {
-            scoreSaver.AddDonutScoreType(DonutScoreType.BurntColor, burntDonutsNum[i] * burntScores[i]);
+            totalBurntScore += burntDonutsNum[i] * burntScores[i];
         }
+        AddOneScore(scoreSaver, DonutScoreType.BurntColor, totalBurntScore);
+
+        DonutScoreType scoreType = DonutShapeType(donut); int typeScore = 0;
+        switch (scoreType)
+        {
+            case DonutScoreType.Flower:
+                typeScore = donutScore_flower;
+                break;
+            case DonutScoreType.Pyramid:
+                typeScore = donutScore_pyramid;
+                break;
+            case DonutScoreType.Straight:
+                typeScore = donutScore_straight;
+                break;
+            case DonutScoreType.Ideal:
+                typeScore = donutScore_ideal;
+                isIdeal = true;
+                break;
+            case DonutScoreType.Infinity:
+                typeScore = donutScore_infinity;
+                isIdeal = true;
+                break;
+        }
+        AddOneScore(scoreSaver, scoreType, typeScore);
 
         totalScore += scoreSaver.GetDonutTotalScore();//最後このドーナツについたスコアの分加点する
         SetDonutScoreText();
@@ -218,5 +230,20 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         donutScoreText.text = "スコア : " + totalScore.ToString();
         donutNumText.text = completeDonuts.Count.ToString() + " コ";
+    }
+
+    void AddOneScore(DonutScoreSaver _saver , DonutScoreType _type, int _score)//スコアを加算して表示
+    {
+        if (_score <= 0) return;
+        _saver.AddDonutScoreType(_type, _score);//スコア加算
+
+        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
+        ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
+        Vector3 _scorePos = scorePos.position;
+        float scoreDiffHeight = scorePos_Next.transform.position.y - scorePos.transform.position.y;
+        _scorePos.y += scoreTypeNum * scoreDiffHeight;
+        component.ScoreInitialized(_type, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
+
+        scoreTypeNum++;
     }
 }

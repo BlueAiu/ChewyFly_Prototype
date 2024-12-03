@@ -78,6 +78,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (player == null)
             player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+        if (canvas == null)
+            canvas = GameObject.Find("Canvas");
 
         oilSurfaceY = oil.position.y + oil.localScale.y;
 
@@ -219,7 +221,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
-        donut.GetComponent<DonutRigidBody>().SetMoveMode();
+        donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
     }
 
     //泡を生成する

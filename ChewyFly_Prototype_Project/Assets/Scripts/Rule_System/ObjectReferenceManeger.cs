@@ -82,6 +82,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (player == null)
             player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+        if (canvas == null)
+            canvas = GameObject.Find("Canvas");
 
         oilSurfaceY = oil.position.y + oil.localScale.y;
 
@@ -176,27 +178,37 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         donut.GetComponent<DonutRigidBody>().SetSinkMode();
     }
 
-    //プレイヤーと最も距離の近いドーナツを探す, 
-    public GameObject ClosestDonut(bool isFleeze = false)
+    //targetと最も距離の近いドーナツを探す, 
+    public Vector3 ClosestDonut(Vector3 target, bool isFleeze = false)
     {
         GameObject closestDonut = null;
+        Vector3 closestPosition = Vector3.zero;
         float closestSqrDistance = float.MaxValue;
 
         foreach(var donut in donutsList)
         {
-            float sqrDistnce = (player.transform.position - donut.transform.position).sqrMagnitude;
-
-            if(sqrDistnce < closestSqrDistance)
+            for (int i = 0; i < donut.transform.childCount; i++)
             {
-                closestDonut = donut;
-                closestSqrDistance = sqrDistnce;
+                var donutSphere = donut.transform.GetChild(i);
+
+                if (player.transform == donutSphere) continue;  //プレイヤーは除外する
+                if (playerController.rideDonutSphere == donutSphere) continue;  //プレイヤーが乗ってるドーナツ球は除外する
+
+                float sqrDistnce = (target - donutSphere.position).sqrMagnitude;
+
+                if (sqrDistnce < closestSqrDistance)
+                {
+                    closestDonut = donut;
+                    closestPosition = donutSphere.position;
+                    closestSqrDistance = sqrDistnce;
+                }
             }
         }
 
         if (isFleeze)
             closestDonut.GetComponent<DonutRigidBody>().IsFreeze = true;
 
-        return closestDonut;
+        return closestPosition;
     }
 
     //ドーナツがくっついた時呼び出される
@@ -232,7 +244,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
-        donut.GetComponent<DonutRigidBody>().SetMoveMode();
+        donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
     }
 
     //泡を生成する

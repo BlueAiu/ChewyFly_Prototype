@@ -10,6 +10,7 @@ public class FlicStrength : MonoBehaviour
     PlayerController playerController;
     Animator animator;
     InputScript input;
+    [SerializeField] ObjectReferenceManeger objManeger;
 
     [SerializeField] GameObject flicArrowSprite;
     [SerializeField] GameObject jumpArrowSprite;
@@ -44,6 +45,9 @@ public class FlicStrength : MonoBehaviour
 
     [Tooltip("ジャンプ着地地点")]
     [SerializeField] Transform jumpPoint;
+
+    [Tooltip("ジャンプ調整の半径")]
+    [SerializeField] float jumpAdjustRadius = 0.7f;
 
     Vector3 arrowLocalScale;
     float flicTime;
@@ -183,6 +187,13 @@ public class FlicStrength : MonoBehaviour
             var jumpDirection = -flicPreviousDirection.normalized;
 
             jumpPoint.position = transform.position + jumpDirection * (flicJumpPower * jumpPower);
+            var closeDonut = objManeger.ClosestDonut(jumpPoint.position);
+            var jumpPointSqrDistance = (jumpPoint.position - closeDonut).sqrMagnitude;
+            if (jumpAdjustRadius * jumpAdjustRadius > jumpPointSqrDistance)
+            {
+                jumpPoint.position = closeDonut;
+            }
+
             playerController.JumpTo(jumpPoint.position);
             jumpPoint.LookAt(jumpPoint.position + playerController.velocity - Vector3.up * playerController.velocity.y * 2);
 

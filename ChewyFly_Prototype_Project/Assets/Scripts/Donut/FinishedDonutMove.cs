@@ -11,6 +11,10 @@ public partial class DonutRigidBody : MonoBehaviour
     [SerializeField] float standDonutAngle = 90;
     [Tooltip("上に移動する距離")]
     [SerializeField] float phese1ShiftY = 2f;
+    [Tooltip("ドーナツ完成時ドーナツをどのくらい奥に置くか(-なら手前に)")]
+    [SerializeField] float donutShiftToBackLength = 2f;
+    [Tooltip("ドーナツ完成時ドーナツをどのくらい左に置くか")]
+    [SerializeField] float donutShiftToLeftLength = 2f;
 
     [Tooltip("だんだん上に加速する時間")]
     [SerializeField] float phese2Time = 1f;
@@ -35,7 +39,9 @@ public partial class DonutRigidBody : MonoBehaviour
 
     bool isBurnt = false;
 
-    public void SetMoveMode()
+    Vector3 previousDonutPos;
+    Vector3 newDonutPos;//完成時、phese1でこの位置にドーナツが移動する
+    public void SetMoveMode(Vector3 playerPos)
     {
         rb.isKinematic = true;
         isFinishMoving = true;
@@ -48,6 +54,13 @@ public partial class DonutRigidBody : MonoBehaviour
 
         union.StopAllBurntEffect();
         transform.parent = cameraAxis;
+
+        Vector3 playerDir = playerPos - Camera.main.transform.position;
+        playerDir.Normalize(); playerDir *= donutShiftToBackLength;
+        Vector3 donutPosDiff = transform.position - GetComponent<DonutsUnionScript>().GetDonutsCenterPoint();
+        donutPosDiff += -Camera.main.transform.right * donutShiftToLeftLength;
+        newDonutPos = playerPos + playerDir + donutPosDiff;
+        previousDonutPos = transform.position;
     }
 
     void FinishedDonutMove()
@@ -55,15 +68,15 @@ public partial class DonutRigidBody : MonoBehaviour
         if (!isFinishMoving) return;
 
         actionTimer += Time.deltaTime;
-
         switch (actionPhese)
         {
             case 0:
                 var rotationDir = cameraAxis.TransformDirection(Vector3.left);
                 transform.RotateAround(transform.position, rotationDir, standDonutAngle * Time.deltaTime / phese1Time);
-                transform.Translate(Vector3.up * phese1ShiftY * Time.deltaTime / phese1Time);
+                //transform.Translate(Vector3.up * phese1ShiftY * Time.deltaTime / phese1Time);
+                transform.position = Vector3.Lerp(previousDonutPos, newDonutPos, actionTimer / phese1Time);
 
-                if(actionTimer > phese1Time)
+                if (actionTimer > phese1Time)
                 {
                     actionTimer = 0f; actionPhese++;
                 }

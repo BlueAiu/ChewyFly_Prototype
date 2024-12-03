@@ -81,7 +81,7 @@ public class FlicStrength : MonoBehaviour
         lastFlicTime = 0f;
         flicPreviousDirection = Vector3.zero;
         playerController = GetComponent<PlayerController>();
-        animator_Player = transform.GetChild(0).GetComponent<Animator>();
+        animator_Player = GetComponent<Animator>();   //transform.GetChild(0).GetComponent<Animator>();
         animator_Stick = transform.GetChild(1).GetComponent<Animator>();
         input = GetComponent<InputScript>();
         arrowLocalScale = flicArrowSprite.transform.localScale;

@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
 
 public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリアクション時出てくるスコアのUI
 {

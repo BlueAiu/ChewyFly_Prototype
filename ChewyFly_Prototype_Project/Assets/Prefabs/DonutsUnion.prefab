@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buoyancy: 20
-  movementResistance: 5
+  movementResistance: 3
   rotationResistance: 2
   boundPower: 2
   phese1Time: 0.5

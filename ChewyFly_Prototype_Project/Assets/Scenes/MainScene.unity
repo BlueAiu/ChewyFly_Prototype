@@ -426,7 +426,7 @@ MonoBehaviour:
   maxSensitivity: 330
   minSensitivity: 30
   resetSensitivity: 800
-  nonRotationalAreaRadius: 4
+  nonRotationalAreaRadius: 9999
   reapplicationDistance: 2
   autoRotateSensitivity: 120
   potCenterPoint: {fileID: 1517723900}
@@ -489,7 +489,7 @@ MonoBehaviour:
   flicArrowSprite: {fileID: 87630649}
   jumpArrowSprite: {fileID: 1504955368}
   arrowParent: {fileID: 136636854}
-  maxArrowLength: 2
+  maxArrowLength: 3
   minFlicBorder: 0.1
   flicPowerCurve:
     serializedVersion: 2
@@ -515,13 +515,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxFlicDonutPower: 10
+  maxFlicDonutPower: 12
   flicUpPower: 1
   stickSpeed: 25
   maxStickSpeed: 45
-  minStickSpeed: 0
+  minStickSpeed: 5
   flicCoolTime: 0.5
-  jumpPower: 12
+  jumpPower: 12.2
   jumpPoint: {fileID: 8734375345487203448}
   jumpAdjustRadius: 1.2
 --- !u!81 &270912500
@@ -3036,17 +3036,41 @@ MonoBehaviour:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   donutSpawnRadius: 6.5
-  donutSpawnYMin: 1
-  donutSpawnYMax: 1.5
-  notSpawnDistance: 2
-  startSpawnCount: 15
+  donutSpawnYMin: 2
+  donutSpawnYMax: 3
+  notSpawnDistance: 3
+  startSpawnCount: 11
   spawnTimePeriod: 10
-  minimumDonutCount: 15
+  minimumDonutCount: 10
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6
   bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
+  impactAttenuation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 7
+      inSlope: -3.2581687
+      outSlope: -3.2581687
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1138889
+    - serializedVersion: 3
+      time: 7
+      value: 0
+      inSlope: -0.005717465
+      outSlope: -0.005717465
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.275
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   completeDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
   idealDonutEffect: {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
   tray: {fileID: 1874989099}

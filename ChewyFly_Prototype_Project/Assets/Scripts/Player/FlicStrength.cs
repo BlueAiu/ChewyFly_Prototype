@@ -143,11 +143,17 @@ public class FlicStrength : MonoBehaviour
             {
                 FlicTime += Time.fixedDeltaTime;
                 StretchArrow(direction);
+
+                animator_Player.SetBool("isWaitSwing", !isJumpMode);
+                animator_Stick.SetBool("isWaitSwing", !isJumpMode);
             }
             else
             {
                 StopArrowSprites();
                 FlicTime = 0f;
+
+                animator_Player.SetBool("isWaitSwing", false);
+                animator_Stick.SetBool("isWaitSwing", false);
             }
 
             flicPreviousDirection = direction;

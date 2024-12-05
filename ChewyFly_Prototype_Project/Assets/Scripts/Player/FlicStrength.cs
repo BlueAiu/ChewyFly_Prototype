@@ -50,8 +50,8 @@ public class FlicStrength : MonoBehaviour
     float flicTime;
     float lastFlicTime;
     float flicPower;
-    [Tooltip("ˆø‚­—Í‚Ì•Ï‰»‚ÌŽüŠú")]
-    [SerializeField] float flicPowerPeriod = 2f;
+    //[Tooltip("ˆø‚­—Í‚Ì•Ï‰»‚ÌŽüŠú")]
+    //[SerializeField] float flicPowerPeriod = 2f;
 
     float FlicTime
     {
@@ -62,8 +62,8 @@ public class FlicStrength : MonoBehaviour
         set
         {
             flicTime = value;
-            flicPower = (1 - (float)Math.Cos(flicTime * Mathf.PI / flicPowerPeriod)) * lastPowerCurveTime;
-            ;
+            //flicPower = (1 - (float)Math.Cos(flicTime * Mathf.PI / flicPowerPeriod)) * lastPowerCurveTime;
+            flicPower = flicPreviousDirection.magnitude * lastPowerCurveTime;
         }
     }
 

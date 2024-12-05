@@ -1,143 +1,166 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OptionManager : OptionValues
 {
-    [Header("ボタンUI")]
-    [SerializeField] Button bgmButton;
-    [SerializeField] Button seButton;
-    [SerializeField] Button jumpSensitivityButton;
-    [SerializeField] Button cameraSensitivityButton;
+    [Header("ボタンImage")]
+    [SerializeField] Image bgmButton;
+    [SerializeField] Image seButton;
+    [SerializeField] Image jumpSensitivityButton;
+    [SerializeField] Image cameraSensitivityButton;
+    [SerializeField] Sprite SelectSprite;
+    [SerializeField] Sprite NoneSelectSprite;
+
 
     [Header("スライダーUI")]
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider seSlider;
     [SerializeField] Slider jumpSensitivitySlider;
     [SerializeField] Slider cameraSensitivitySlider;
-
-    [SerializeField] EventSystem eventSystem;//現在選択しているボタンの取得に必要
-    private Button previousButton;
-    private Slider currentSlider;
-    private int previousValue;//設定を変更しない場合この値に戻す
-
-    public bool OnUseSlider { get; private set; } = false;
-    bool isSelectSlider;
-    bool wasSelectSliderThisFrame = false;
     InputScript input;
 
+    [Tooltip("スライダーの値をいくつに分ける？")]
+    [SerializeField] int sliderValueDivideNum;
+
     LoadSceneManager LoadSceneManager;
+
+    [SerializeField] TextMeshProUGUI resetCountText;
+    [Tooltip("この時間ボタンを押したら全部値をリセット")]
+    [SerializeField] float resetPushTime;
+    bool isValueChanged;
+    float _resetTimer = 0f;
+    float ResetTimer
+    {
+        get
+        {
+            return _resetTimer;
+        }
+        set
+        {
+            if (value == 0f)
+            {
+                resetCountText.gameObject.SetActive(false);
+            }
+            else if (_resetTimer == 0f)//最初に押した
+            {
+                resetCountText.gameObject.SetActive(true);
+                resetCountText.text = resetCountNum.ToString();
+            }
+
+            _resetTimer = value;
+            if (_resetTimer > 0f && _resetTimer < resetPushTime)
+            {
+                resetCountText.text = ((int)(((resetPushTime - _resetTimer) / resetPushTime) * resetCountNum) + 1).ToString();
+            }
+        }
+    }
+    const int resetCountNum = 3;
     // Start is called before the first frame update
     void Start()
     {
         input = GetComponent<InputScript>();
 
         //最大値、最小値に初期化
-        bgmSlider.maxValue = soundMaxValue; bgmSlider.minValue = soundMinValue;
-        seSlider.maxValue = soundMaxValue; seSlider.minValue = soundMinValue;
-        jumpSensitivitySlider.maxValue = sensitivityMaxValue; jumpSensitivitySlider.minValue = sensitivityMinValue;
-        cameraSensitivitySlider.maxValue = sensitivityMaxValue; cameraSensitivitySlider.minValue = sensitivityMinValue;
+        bgmSlider.minValue = 0; bgmSlider.maxValue = sliderValueDivideNum;
+        seSlider.minValue = 0; seSlider.maxValue = sliderValueDivideNum;
+        jumpSensitivitySlider.minValue = 0; jumpSensitivitySlider.maxValue = sliderValueDivideNum;
+        cameraSensitivitySlider.minValue = 0; cameraSensitivitySlider.maxValue = sliderValueDivideNum;
 
         OpenOption();
+        isValueChanged = true;
+        ResetTimer = 0f;
 
         LoadSceneManager = GetComponent<LoadSceneManager>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (OnUseSlider)
+        if (input.isBButton())
         {
-            if (isSelectSlider)//ボタンを押すタイミングとUpdateのタイミングが合わないのでここでスライダーを有効化する
-            {
-                currentSlider.enabled = true;
-                currentSlider.Select();
-                isSelectSlider = false;
-            }
-            else
-            {
-                if (wasSelectSliderThisFrame)   //スライド選択の入力と値決定の入力を同時に読み取らないようにする
-                {
-                    wasSelectSliderThisFrame = false;
-                }
-                else　if (input.isAButton())
-                {
-                    ActiveOptionButtons(true);
-                    currentSlider = null;
-                }
-                else if (input.isBButton())//Bボタンを押したなら前の値に戻す
-                {
-                    currentSlider.value = previousValue;
-                    ActiveOptionButtons(true);
-                    currentSlider = null;
-                }
-            }
+            LoadSceneManager.LoadSceneName("TitleScene");//タイトルに戻る
         }
-        else//ボタン選択状態
-        {
-            if (input.isBButton())
-            {
-                LoadSceneManager.LoadSceneName("TitleScene");//タイトルに戻る
-            }
-        }
+        else
+            ResetUpdate();
     }
     public void OpenOption()
     {
-        currentSlider = null;
-        previousButton = null;
-        ActiveOptionButtons(true);
+        SetSliderValue(bgmSlider, BGMValue);
+        SetSliderValue(seSlider, SEValue);
+        SetSliderValue(jumpSensitivitySlider, JumpSensitivity);
+        SetSliderValue(cameraSensitivitySlider, CameraSensitivity);
 
-        bgmSlider.SetValueWithoutNotify(BGMValue);//イベントを発生させずにスライダーの値を変更
-        seSlider.SetValueWithoutNotify(SEValue);
-        jumpSensitivitySlider.SetValueWithoutNotify(JumpSensitivity);
-        cameraSensitivitySlider.SetValueWithoutNotify(CameraSensitivity);
-
-        //ボタンだけを選択できる状態にするためスライダーを止める
-        bgmSlider.enabled = false; seSlider.enabled = false;
-        jumpSensitivitySlider.enabled = false; cameraSensitivitySlider.enabled = false;
+        bgmSlider.Select();
+        SliderSelect(bgmButton);
     }
-    void ActiveOptionButtons(bool active)//左にあるボタンたちを有効、非有効化する
+    void SetSliderValue(Slider slider, int value)//イベントを発生させずにスライダーの値を変更
     {
-        bgmButton.enabled = active;
-        seButton.enabled = active;
-        jumpSensitivityButton.enabled = active;
-        cameraSensitivityButton.enabled = active;
-        if (currentSlider != null && active) currentSlider.enabled = false;
-        OnUseSlider = !active;
-
-        if (active)
+        if (slider == bgmSlider || slider == seSlider)
         {
-            if (previousButton == null)
-                bgmButton.Select();
-            else
-                previousButton.Select();
+            slider.SetValueWithoutNotify(sliderValueDivideNum * (float)((float)(value - soundMinValue) / (soundMaxValue - soundMinValue)));
+        }
+        else if (slider == jumpSensitivitySlider || slider == cameraSensitivitySlider)
+        {
+            slider.SetValueWithoutNotify(sliderValueDivideNum * (float)((float)(value - sensitivityMinValue) / (sensitivityMaxValue - sensitivityMinValue)));
         }
     }
-    public void SelectSlider(Slider slider)//ボタンの右にあるスライダーを選択状態にする(Buttonが呼ぶ)
+    void ResetUpdate()//Updateで呼ばれる値リセットの処理
     {
-        isSelectSlider = true;
-        currentSlider = slider;
-        previousButton = eventSystem.currentSelectedGameObject.gameObject.GetComponent<Button>();
-        previousValue = (int)slider.value;
-        wasSelectSliderThisFrame = true;
-
-        ActiveOptionButtons(false);
+        if (isValueChanged &&
+            (input.isLeftTrigger() || input.isLeftShoulder()) && (input.isRightTrigger() || input.isRightShoulder()))//右左のボタンを押し続けたらリセット
+        {
+            ResetTimer += Time.deltaTime;
+            if (ResetTimer > resetPushTime)
+            {
+                ResetAllSliderValue();
+            }
+        }
+        else if (ResetTimer != 0f)
+        {
+            ResetTimer = 0f;
+        }
+    }
+    void ResetAllSliderValue()//sliderの値をすべてリセット
+    {
+        bgmSlider.value = sliderValueDivideNum / 2f;//スライダーを動かせば値は勝手に入る
+        seSlider.value = sliderValueDivideNum / 2f;
+        jumpSensitivitySlider.value = sliderValueDivideNum / 2f;
+        cameraSensitivitySlider.value = sliderValueDivideNum / 2f;
+        ResetTimer = 0f;
+        isValueChanged = false;
     }
 
     //それぞれの値を変更する
     public void SetBGMValue(Slider slider)
     {
-        BGMValue = (int)slider.value;
+        BGMValue = soundMinValue + (int)((soundMaxValue - soundMinValue) * (slider.value / sliderValueDivideNum));
+        isValueChanged = true;
     }
     public void SetSEValue(Slider slider)
     {
-        SEValue = (int)slider.value;
+        SEValue = soundMinValue + (int)((soundMaxValue - soundMinValue) * (slider.value / sliderValueDivideNum));
+        isValueChanged = true;
     }
     public void SetJumpSensibility(Slider slider)
     {
-        JumpSensitivity = (int)slider.value;
+        JumpSensitivity = sensitivityMinValue + (int)((sensitivityMaxValue - sensitivityMinValue) * (slider.value / sliderValueDivideNum));
+        isValueChanged = true;
     }
     public void SetCameraSensibility(Slider slider)
     {
-        CameraSensitivity = (int)slider.value;
+        CameraSensitivity = sensitivityMinValue + (int)((sensitivityMaxValue - sensitivityMinValue) * (slider.value / sliderValueDivideNum));
+        isValueChanged = true;
+    }
+    public void SliderSelect(Image sliderButtonImage)//buttonを選択状態のSpriteに変える
+    {
+        bgmButton.sprite = NoneSelectSprite;
+        seButton.sprite = NoneSelectSprite;
+        jumpSensitivityButton.sprite = NoneSelectSprite;
+        cameraSensitivityButton.sprite = NoneSelectSprite;
+
+        sliderButtonImage.sprite = SelectSprite;
     }
 }

@@ -79,7 +79,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (input.isAButton())
+        if (input.isBButton())
         {
             CloseTutorial();
         }

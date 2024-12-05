@@ -24,7 +24,7 @@ public class Title_OptionManager : MonoBehaviour//optionを一つのシーンで管理する
     // Update is called once per frame
     void Update()
     {
-        if (titleScene == TITLESCENE.Option && !option.OnUseSlider)//スライダーを選択していない
+        if (titleScene == TITLESCENE.Option)
         {
             if (input.isBButton())
             {

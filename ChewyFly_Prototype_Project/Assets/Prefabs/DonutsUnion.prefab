@@ -100,6 +100,7 @@ MonoBehaviour:
   maxBounceTime: 0.5
   maxBounceScaleSize: 1
   sphereDistance: 0.9
+  mergeEffect: {fileID: 9142502302445622606, guid: ee8b6641e6d08314391e937b495e8d8b, type: 3}
 --- !u!54 &-6562012546730319946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -145,7 +146,6 @@ MonoBehaviour:
   boundPower: 2
   phese1Time: 0.5
   standDonutAngle: 45
-  phese1ShiftY: 0.5
   donutShiftToBackLength: -2.5
   donutShiftToLeftLength: 1.2
   phese2Time: 1

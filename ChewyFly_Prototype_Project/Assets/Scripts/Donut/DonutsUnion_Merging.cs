@@ -14,6 +14,9 @@ public partial class DonutsUnionScript : MonoBehaviour
     [Tooltip("DonutSphere同士の間の距離")]
     [SerializeField] float sphereDistance = 0.8f;
 
+    [Tooltip("くっつけた時のエフェクト")]
+    [SerializeField] GameObject mergeEffect;
+
     readonly Vector3 triangleAxisX = new Vector3 (1, 0, 0);
     readonly Vector3 triangleAxisY = new Vector3 (0.5f, 0, Mathf.Sqrt(3) / 2);
 
@@ -50,6 +53,8 @@ public partial class DonutsUnionScript : MonoBehaviour
         objManeger.RemoveDonut(otherDonut.gameObject);
         //くっつけた直後はくっつかない
         IsSticky = false;
+
+        Instantiate(mergeEffect, transform.position, Quaternion.identity);
 
         //くっつき衝撃を起こす
         objManeger.MergeImpact(gameObject);

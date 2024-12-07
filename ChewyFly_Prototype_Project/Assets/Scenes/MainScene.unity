@@ -517,6 +517,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxFlicDonutPower: 12
   flicUpPower: 1
+  oilSplash: {fileID: 4584354999136969276, guid: b3652a3f1b3108d4ea722d58182431be, type: 3}
   stickSpeed: 25
   maxStickSpeed: 45
   minStickSpeed: 5

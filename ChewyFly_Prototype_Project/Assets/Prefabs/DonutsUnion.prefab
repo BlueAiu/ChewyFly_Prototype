@@ -55,6 +55,7 @@ MonoBehaviour:
   donutMassRate: 1
   soundManager: {fileID: 0}
   mergeSE: {fileID: 8300000, guid: 5784e4d00b053fa46834c94f95cd3f64, type: 3}
+  completeSE: {fileID: 8300000, guid: 402eac092ce800e4d97cdd8f07cb8cfc, type: 3}
   bounceScaleCurve:
     serializedVersion: 2
     m_Curve:

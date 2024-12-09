@@ -1981,7 +1981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 110, y: 115}
+  m_AnchoredPosition: {x: 121.2, y: 122.6}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &970197804
@@ -1997,8 +1997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 270912499}
-  donutModeSprite: {fileID: 21300000, guid: 9d054b6548a75404c9ea4465b502dc83, type: 3}
-  jumpModeSprite: {fileID: 21300000, guid: e3931aa5bfb010c4c969b336b06f9a4f, type: 3}
+  donutModeSprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
+  jumpModeSprite: {fileID: 21300000, guid: 290888e164552784591f40afbe64e54c, type: 3}
 --- !u!222 &970197806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2027,7 +2027,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d054b6548a75404c9ea4465b502dc83, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

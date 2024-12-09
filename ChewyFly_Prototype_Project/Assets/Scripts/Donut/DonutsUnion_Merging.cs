@@ -14,6 +14,7 @@ public partial class DonutsUnionScript : MonoBehaviour
     [Tooltip("DonutSphere“¯m‚ÌŠÔ‚Ì‹——£")]
     [SerializeField] float sphereDistance = 0.8f;
 
+
     readonly Vector3 triangleAxisX = new Vector3 (1, 0, 0);
     readonly Vector3 triangleAxisY = new Vector3 (0.5f, 0, Mathf.Sqrt(3) / 2);
 
@@ -50,6 +51,7 @@ public partial class DonutsUnionScript : MonoBehaviour
         objManeger.RemoveDonut(otherDonut.gameObject);
         //‚­‚Á‚Â‚¯‚½’¼Œã‚Í‚­‚Á‚Â‚©‚È‚¢
         IsSticky = false;
+
 
         //‚­‚Á‚Â‚«ÕŒ‚‚ğ‹N‚±‚·
         objManeger.MergeImpact(gameObject);

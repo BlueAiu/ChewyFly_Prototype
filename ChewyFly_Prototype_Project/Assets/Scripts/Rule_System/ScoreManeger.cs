@@ -224,6 +224,13 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         SetDonutScoreText();
 
         CompleteDonutEffect(scoreType, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト
+
+        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
+        int _score = scoreSaver.GetDonutTotalScore();
+
+        ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
+        Vector3 _scorePos = scorePos.position;
+        component.ScoreInitialized(0, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {

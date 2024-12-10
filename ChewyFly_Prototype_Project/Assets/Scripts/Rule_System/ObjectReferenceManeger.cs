@@ -250,13 +250,14 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         var position = RandomVector(bubbleSpawnRadius, bubbleSpawnYMin, bubbleSpawnYMax);
         Instantiate(oilBubble, position, Quaternion.identity);
     }
-    void CompleteDonutEffect(DonutScoreType type, GameObject _donutParent, Vector3 effectPos)//完成時のエフェクト生成
+    void CompleteDonutEffect(DonutScoreType type)//完成時のエフェクト生成
     {
         GameObject completeEffect;
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 effectPos = cameraTransform.position + cameraTransform.forward * completeEffectCameraDistance;
 
         completeEffect = Instantiate(completeDonutEffects[(int)type], effectPos, Quaternion.identity);
-
-        completeEffect.transform.parent = _donutParent.transform;//エフェクトがドーナツについていくようにする
+        completeEffect.transform.parent = cameraTransform;//エフェクトがカメラについていくようにする
         completeEffect.transform.Translate(0, 1, 0);
     }
 

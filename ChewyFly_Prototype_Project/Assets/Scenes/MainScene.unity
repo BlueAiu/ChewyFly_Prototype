@@ -3195,7 +3195,7 @@ MonoBehaviour:
   scoreUIAppearDiffTime: 0.2
   scorePos: {fileID: 366752450}
   scorePos_Next: {fileID: 2115783274}
-  completeEffectCameraDistance: 7
+  completeEffectCameraDistance: 6
 --- !u!4 &1419900562
 Transform:
   m_ObjectHideFlags: 0

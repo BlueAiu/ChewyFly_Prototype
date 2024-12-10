@@ -517,6 +517,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxFlicDonutPower: 12
   flicUpPower: 1
+  oilSplash: {fileID: 4584354999136969276, guid: b3652a3f1b3108d4ea722d58182431be, type: 3}
   stickSpeed: 25
   maxStickSpeed: 45
   minStickSpeed: 5
@@ -1980,7 +1981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 110, y: 115}
+  m_AnchoredPosition: {x: 121.2, y: 122.6}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &970197804
@@ -1996,8 +1997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 270912499}
-  donutModeSprite: {fileID: 21300000, guid: 9d054b6548a75404c9ea4465b502dc83, type: 3}
-  jumpModeSprite: {fileID: 21300000, guid: e3931aa5bfb010c4c969b336b06f9a4f, type: 3}
+  donutModeSprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
+  jumpModeSprite: {fileID: 21300000, guid: 290888e164552784591f40afbe64e54c, type: 3}
 --- !u!222 &970197806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2026,7 +2027,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d054b6548a75404c9ea4465b502dc83, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3046,7 +3047,7 @@ MonoBehaviour:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   donutSpawnRadius: 6.5
-  donutSpawnYMin: 2
+  donutSpawnYMin: 2.5
   donutSpawnYMax: 3
   notSpawnDistance: 3
   startSpawnCount: 11
@@ -3081,8 +3082,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  completeDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
-  idealDonutEffect: {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
+  completeDonutEffects:
+  - {fileID: 6575183288115656163, guid: e242921112dc83d46a9216e40ab5709b, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 4933240482243729165, guid: f743735ed65aa7d4789761345959fdd3, type: 3}
+  - {fileID: 1768597564027112230, guid: abca4c51d67a3934f86b615f687cf9d9, type: 3}
+  - {fileID: 1762801812478555313, guid: dfe10919668df78479d98b37b74635fb, type: 3}
+  - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
+  - {fileID: 0}
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

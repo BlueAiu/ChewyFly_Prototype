@@ -29,6 +29,9 @@ public class FlicStrength : MonoBehaviour
     [Tooltip("はじいたときの上方向への力")]
     [SerializeField] float flicUpPower;
 
+    [Tooltip("弾いた時の油飛沫")]
+    [SerializeField] GameObject oilSplash;
+
     [Tooltip("弾き入力を検知するスティックの速さ")]
     [SerializeField] float stickSpeed = 40f;
     [SerializeField] float maxStickSpeed = 45f;
@@ -179,6 +182,8 @@ public class FlicStrength : MonoBehaviour
 
             FlicTime = 0f;
             lastFlicTime = 0f;
+
+            Instantiate(oilSplash, transform.position, transform.rotation);
 
             animator_Player.SetTrigger("SwingTrigger");
             animator_Stick.SetTrigger("SwingTrigger");

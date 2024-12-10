@@ -223,7 +223,14 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         totalScore += scoreSaver.GetDonutTotalScore();//最後このドーナツについたスコアの分加点する
         SetDonutScoreText();
 
-        CompleteDonutEffect(isIdeal, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト
+        CompleteDonutEffect(scoreType, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト
+
+        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
+        int _score = scoreSaver.GetDonutTotalScore();
+
+        ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
+        Vector3 _scorePos = scorePos.position;
+        component.ScoreInitialized(0, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {
@@ -236,12 +243,12 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (_score <= 0) return;
         _saver.AddDonutScoreType(_type, _score);//スコア加算
 
-        GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
-        ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
-        Vector3 _scorePos = scorePos.position;
-        float scoreDiffHeight = scorePos_Next.transform.position.y - scorePos.transform.position.y;
-        _scorePos.y += scoreTypeNum * scoreDiffHeight;
-        component.ScoreInitialized(_type, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
+        //GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
+        //ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
+        //Vector3 _scorePos = scorePos.position;
+        //float scoreDiffHeight = scorePos_Next.transform.position.y - scorePos.transform.position.y;
+        //_scorePos.y += scoreTypeNum * scoreDiffHeight;
+        //component.ScoreInitialized(_type, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
 
         scoreTypeNum++;
     }

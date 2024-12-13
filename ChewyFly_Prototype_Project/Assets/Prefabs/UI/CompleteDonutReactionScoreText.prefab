@@ -53,9 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreTypeText: {fileID: 6561747632671262676}
   scoreText: {fileID: 5632213662838910917}
-  upHeightPerSecond: 12
+  upHeightPerSecond: 6
   alphaOne_Time: 2
-  disappearTime: 3
+  disappearTime: 2
 --- !u!225 &1193149218288673144
 CanvasGroup:
   m_ObjectHideFlags: 0

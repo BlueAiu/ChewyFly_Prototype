@@ -42,7 +42,14 @@ public partial class DonutsUnionScript : MonoBehaviour
     [SerializeField] float donutMassRate = 1f;
 
     [SerializeField] SoundManager soundManager;
+    [Tooltip("くっつけた時の効果音")]
     [SerializeField] AudioClip mergeSE;
+    [Tooltip("完成したときの効果音")]
+    [SerializeField] AudioClip completeSE;
+
+
+    [Tooltip("くっつけた時のエフェクト")]
+    [SerializeField] GameObject mergeEffect;
 
     private void Awake()
     {
@@ -118,14 +125,19 @@ public partial class DonutsUnionScript : MonoBehaviour
 
             MergeDonuts(collision);
 
-            //mergeSE.Play();
-            soundManager.PlaySE(mergeSE);
 
             if (unionCount >= unionCountMax) //ドーナツが完成する
             {
                 IsComplete = true;
                 rb.velocity = Vector3.zero;
                 objManeger.CompleteDonut(this.gameObject);
+
+                soundManager.PlaySE(completeSE);
+            }
+            else
+            {
+                soundManager.PlaySE(mergeSE);
+                Instantiate(mergeEffect, transform.position, Quaternion.identity);
             }
 
             InstantiateBounceDonuts(collision.transform);

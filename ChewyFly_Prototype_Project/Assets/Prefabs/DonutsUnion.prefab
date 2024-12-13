@@ -55,6 +55,8 @@ MonoBehaviour:
   donutMassRate: 1
   soundManager: {fileID: 0}
   mergeSE: {fileID: 8300000, guid: 5784e4d00b053fa46834c94f95cd3f64, type: 3}
+  completeSE: {fileID: 8300000, guid: 402eac092ce800e4d97cdd8f07cb8cfc, type: 3}
+  mergeEffect: {fileID: 9142502302445622606, guid: ee8b6641e6d08314391e937b495e8d8b, type: 3}
   bounceScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -145,9 +147,8 @@ MonoBehaviour:
   boundPower: 2
   phese1Time: 0.5
   standDonutAngle: 45
-  phese1ShiftY: 0.5
   donutShiftToBackLength: -2.5
-  donutShiftToLeftLength: 1.2
+  donutShiftToLeftLength: 0.3
   phese2Time: 1
   phese2Acceleration: 0.2
   storageArea: {x: 13, y: 2, z: 0}

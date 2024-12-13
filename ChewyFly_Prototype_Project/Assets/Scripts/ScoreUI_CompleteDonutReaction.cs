@@ -48,6 +48,7 @@ public class ScoreUI_CompleteDonutReaction : MonoBehaviour//ドーナツ完成時のリア
                 break;
         }
         scoreTypeText.text = typeText + ":";
+        scoreTypeText.text = "";
         scoreText.text = " +" + _score.ToString();
 
         transform.position = pos;

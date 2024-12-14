@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8706611888006387847}
   - component: {fileID: -6077934765361714068}
   - component: {fileID: 8119786309733305538}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eff_CreateDonut_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4910,7 +4910,7 @@ GameObject:
   - component: {fileID: 7132577570149996552}
   - component: {fileID: 4090204382131481457}
   - component: {fileID: 8485788937733486460}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: glitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9798,7 +9798,7 @@ GameObject:
   - component: {fileID: 2289717509692341320}
   - component: {fileID: 1806760156967474266}
   - component: {fileID: 7828180132379885562}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Normal_add
   m_TagString: Untagged
   m_Icon: {fileID: 0}

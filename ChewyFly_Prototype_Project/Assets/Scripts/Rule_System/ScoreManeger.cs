@@ -37,6 +37,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [SerializeField] Transform scorePos;
     [SerializeField] Transform scorePos_Next;//次のUIを置く高さ
     int scoreTypeNum = 0;
+    [Tooltip("完成時のエフェクトの発生する時のカメラからの距離")]
+    [SerializeField] float completeEffectCameraDistance = 5f;
 
     const int checkRange = 10;
     const int idealDonutNum = 6;
@@ -224,7 +226,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         totalScore += scoreSaver.GetDonutTotalScore();//最後このドーナツについたスコアの分加点する
         SetDonutScoreText();
 
-        CompleteDonutEffect(scoreType, donut, unionScript.GetDonutsCenterPoint());//完成時のエフェクト
+        CompleteDonutEffect(scoreType);//完成時のエフェクト
 
         GameObject scoreUi = Instantiate(completeReactionScoreUIPrefab, canvas.transform);//スコアを表示
         int _score = scoreSaver.GetDonutTotalScore();

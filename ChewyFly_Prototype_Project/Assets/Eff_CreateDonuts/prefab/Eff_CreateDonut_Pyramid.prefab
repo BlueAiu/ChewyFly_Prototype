@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7724408994395555305}
   - component: {fileID: 8391577521098421653}
   - component: {fileID: 9051199724791163046}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Normal_add
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 5177151224273154206}
   - component: {fileID: 8447368703793901985}
   - component: {fileID: 8955317153988227543}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: glitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9787,7 +9787,7 @@ GameObject:
   - component: {fileID: 5094914341581683711}
   - component: {fileID: 8947193398366286753}
   - component: {fileID: 4654264214693015798}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Eff_CreateDonut_Pyramid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

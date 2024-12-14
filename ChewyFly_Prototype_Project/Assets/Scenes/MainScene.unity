@@ -3352,15 +3352,15 @@ MonoBehaviour:
   donutSpawnYMin: 2.5
   donutSpawnYMax: 3
   notSpawnDistance: 3
-  startSpawnCount: 11
+  startSpawnCount: 8
   spawnTimePeriod: 10
-  minimumDonutCount: 10
+  minimumDonutCount: 7
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6
   bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
-  impactRate: 2
+  impactRate: 0
   impactAttenuation:
     serializedVersion: 2
     m_Curve:
@@ -3394,6 +3394,8 @@ MonoBehaviour:
   - {fileID: 1762801812478555313, guid: dfe10919668df78479d98b37b74635fb, type: 3}
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 0}
+  increaseMinDonut: 1
+  increaseMergeImpact: 0.2
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

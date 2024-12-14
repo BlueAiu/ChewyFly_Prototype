@@ -28,6 +28,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Header("スコア表示用のテキスト")]
     [SerializeField] TMP_Text donutScoreText;
     [SerializeField] TMP_Text donutNumText;
+    [SerializeField] ScoreBarScript scoreBar;
 
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject completeReactionScoreUIPrefab;
@@ -236,8 +237,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {
-        donutScoreText.text = "スコア : " + totalScore.ToString();
+        donutScoreText.text = " : " + totalScore.ToString();
         donutNumText.text = completeDonuts.Count.ToString() + " コ";
+
+        scoreBar.Score = totalScore;
     }
 
     void AddOneScore(DonutScoreSaver _saver , DonutScoreType _type, int _score)//スコアを加算して表示

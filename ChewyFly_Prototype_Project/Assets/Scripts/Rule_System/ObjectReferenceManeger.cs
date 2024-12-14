@@ -55,6 +55,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     public static int madeDonuts { get; private set; }
 
     [Header("ドーナツがくっついた時")]
+    [Tooltip("衝撃の大きさ倍率")]
+    [SerializeField] float impactRate = 5f;
+
     [Tooltip("発生地との距離における衝撃の大きさ")]
     [SerializeField] AnimationCurve impactAttenuation;
 
@@ -212,6 +215,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     public void MergeImpact(GameObject donut)
     {
         var originPoint = donut.transform.position;
+        var mergeSpeed = donut.GetComponent<Rigidbody>().velocity.magnitude;
         foreach(var d in donutsList)
         {
             if(d == donut) continue;
@@ -223,7 +227,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             var lastTime = impactAttenuation.keys[atteLength - 1].time;
             distance *= atteLength / lastTime;
             distance = Mathf.Clamp(distance, 0, atteLength - 1);
-            d.GetComponent<DonutRigidBody>().TakeImpulse(direction * impactAttenuation.keys[(int)distance].value, false);
+            d.GetComponent<DonutRigidBody>().TakeImpulse(direction * (impactAttenuation.keys[(int)distance].value * impactRate * mergeSpeed), false);
         }
     }
 

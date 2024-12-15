@@ -122,12 +122,13 @@ public class FlicStrength : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        lastFlicTime += Time.fixedDeltaTime;
+
         if (playerController.ridingDonut != null && !playerController.ridingDonutUnion.isBouncing)    //ドーナツに乗っていてドーナツがバウンド中でない場合
         {
             var direction = input.isLeftStick();
             direction = playerController.playerCamera.transform.TransformDirection(direction);
 
-            lastFlicTime += Time.fixedDeltaTime;
 
             if (isJumpMode)
             {

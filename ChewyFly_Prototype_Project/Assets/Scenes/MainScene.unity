@@ -3360,7 +3360,7 @@ MonoBehaviour:
   bubbleSpawnRadius: 6
   bubbleSpawnYMin: 0.5
   bubbleSpawnYMax: 0.5
-  impactRate: 2.5
+  impactRate: 2
   impactAttenuation:
     serializedVersion: 2
     m_Curve:

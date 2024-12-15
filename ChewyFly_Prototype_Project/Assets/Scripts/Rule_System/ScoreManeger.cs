@@ -180,7 +180,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         DonutScoreSaver scoreSaver = donut.GetComponent<DonutScoreSaver>();
 
         scoreTypeNum = 0;
-        bool isIdeal = false;//ドーナツが理想の形か
+        //bool isIdeal = false;//ドーナツが理想の形か
         AddOneScore(scoreSaver, DonutScoreType.Base, donutScore_base);//まず基礎点
 
         DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
@@ -212,11 +212,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                 break;
             case DonutScoreType.Ideal:
                 typeScore = donutScore_ideal;
-                isIdeal = true;
                 break;
             case DonutScoreType.Infinity:
                 typeScore = donutScore_infinity;
-                isIdeal = true;
                 break;
         }
         AddOneScore(scoreSaver, scoreType, typeScore);

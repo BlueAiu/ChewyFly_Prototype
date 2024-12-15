@@ -166,7 +166,7 @@ public class FlicStrength : MonoBehaviour
 
     void FlicDonut(Vector3 direction)
     {
-        if (playerController.ridingDonutUnion != null && playerController.ridingDonutUnion.isBouncing) return;//バウンド中なら受け付けない
+        //if (playerController.ridingDonutUnion != null && playerController.ridingDonutUnion.isBouncing) return;//バウンド中なら受け付けない
 
         if (IsFlic(direction))  //弾かれる処理
         {

@@ -67,6 +67,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("完成した時のエフェクト")]
     [SerializeField] GameObject[] completeDonutEffects;
 
+    const int minminDonutCount = 5;
+    
     [Tooltip("完成したとき( )個ドーナツを増やす")]
     [SerializeField] int increaseMinDonut = 1;
     [Tooltip("完成したとき( )くっつき衝撃力が増える")]
@@ -247,8 +249,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         madeDonuts++;
         completeDonuts.Add(donut);
 
-        minimumDonutCount += increaseMinDonut;
-        impactRate += increaseMergeImpact;
+        minimumDonutCount = Mathf.Max(minimumDonutCount + increaseMinDonut, minminDonutCount);
+        impactRate = Mathf.Max(impactRate + increaseMergeImpact, 0);
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 

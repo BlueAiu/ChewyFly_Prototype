@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
         public Sprite sprite;
         [TextArea] public string desc;
     }
-    enum MoveState { Stop, Right, Left };//説明ウィンドウが動く状態
+    enum MoveState { Stop, Right, Left , Loop};//説明ウィンドウが動く状態
 
     [Header("Sceneのオブジェクト参照の項目")]
     [SerializeField] DescObject[] descObjects = new DescObject[sceneDescImageNum];
@@ -40,6 +40,8 @@ public class TutorialManager : MonoBehaviour
     float moveTimer = 0f;
     bool isHalfLapse = false;//moveTimerが半分経過したか？
     MoveState moveState;
+    [Tooltip("右端左端から反対方向に移動した後入力を受け付けない時間")]
+    [SerializeField] float loopStopTime = 0.2f;
     int _currentIndex = 0;//現在表示中の画像の番号(中心)
     int CurrentIndex
     {
@@ -66,13 +68,17 @@ public class TutorialManager : MonoBehaviour
     void InitializeImages()//初期化
     {
         moveState = MoveState.Stop;
+        SetAllSprites();
+    }
+    void SetAllSprites()//CurrentIndexに対応したスプライトを表示
+    {
         SetDescText(CurrentIndex);
         SetTriangleColor();
         for (int i = 0; i < sceneDescImageNum; i++)
         {
             defaultTransform[i].position = descObjects[i].rectTransform.position;
             defaultTransform[i].localScale = descObjects[i].rectTransform.localScale;
-            descObjects[i].index = i - (sceneDescImageNum / 2);
+            descObjects[i].index = CurrentIndex + i - (sceneDescImageNum / 2);
             SetSpriteImage(descObjects[i]);//最初の画像をセット
         }
     }
@@ -97,7 +103,13 @@ public class TutorialManager : MonoBehaviour
                 StartMove(false);
             }
         }
-        else//動いてる
+        else if (moveState == MoveState.Loop)
+        {
+            moveTimer += Time.deltaTime;
+            if (moveTimer > loopStopTime)
+                moveState = MoveState.Stop;
+        }
+        else if (moveState == MoveState.Right || moveState == MoveState.Left)//動いてる
         {
             UpdateImagesMove();
         }
@@ -138,15 +150,33 @@ public class TutorialManager : MonoBehaviour
         if (moveState != MoveState.Stop) return;
 
         moveTimer = 0f; isHalfLapse = false;
-        if (!inputRight && 0 < CurrentIndex)
+        if (!inputRight)
         {
-            moveState = MoveState.Right;
-            CurrentIndex--;
+            if (0 < CurrentIndex)
+            {
+                moveState = MoveState.Right;
+                CurrentIndex--;
+            }
+            else//左端なら右端に移す
+            {
+                CurrentIndex = descNum - 1;
+                moveState = MoveState.Loop;
+                SetAllSprites();
+            }
         }
-        else if (inputRight && CurrentIndex < descNum - 1)
+        else if (inputRight)
         {
-            moveState = MoveState.Left;
-            CurrentIndex++;
+            if (CurrentIndex < descNum - 1)
+            {
+                moveState = MoveState.Left;
+                CurrentIndex++;
+            }
+            else
+            {
+                CurrentIndex = 0;
+                moveState = MoveState.Loop;
+                SetAllSprites();
+            }
         }
     }
 

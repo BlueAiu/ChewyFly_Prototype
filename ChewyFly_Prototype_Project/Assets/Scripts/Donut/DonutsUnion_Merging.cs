@@ -9,7 +9,8 @@ public partial class DonutsUnionScript : MonoBehaviour
     const float fullCircleRadian = 2 * Mathf.PI;
     const int fullCircleDegrees = 360;
 
-    public List<Vector2> hexaPositions { get; private set; } = new List<Vector2>();
+    [Tooltip("六角座標上でのドーナツの位置")]
+    [SerializeField] public List<Vector2> hexaPositions = new List<Vector2>();
 
     [Tooltip("DonutSphere同士の間の距離")]
     [SerializeField] float sphereDistance = 0.8f;

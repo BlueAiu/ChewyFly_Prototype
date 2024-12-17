@@ -17,6 +17,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
 
+    [Tooltip("二つの球がついたドーナツ")]
+    [SerializeField] GameObject doubleSphereDonut;
+
 
     [Header("ドーナツを生成する")]
     //[SerializeField] Vector3 donutSpawnMin = Vector3.zero;
@@ -64,6 +67,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("完成した時のエフェクト")]
     [SerializeField] GameObject[] completeDonutEffects;
 
+    [Tooltip("二つ球ドーナツを生成する数")]
+    [SerializeField] int createDoubleDonutNum = 1;
+
     public static List<GameObject> completeDonuts = new();
 
 
@@ -89,7 +95,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         for(int i = 0; i < startSpawnCount; i++)
         {
-            CreateDonutUnion();
+            CreateDonutUnion(donutUnion);
         }
 
         InvokeRepeating(nameof(CreateDonutUnion), spawnTimePeriod, spawnTimePeriod);
@@ -103,7 +109,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     {
         if(donutsList.Count < minimumDonutCount)
         {
-            CreateDonutUnion();
+            CreateDonutUnion(donutUnion);
         }
     }
 
@@ -155,11 +161,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     }
 
     //新たなドーナツを鍋に追加する
-    public void CreateDonutUnion()
+    public void CreateDonutUnion(GameObject createDonut)
     {
         var position = RandomVector(donutSpawnRadius, donutSpawnYMin, donutSpawnYMax);
         position = MoveAwayDonut(position);
-        GameObject newUnion = Instantiate(donutUnion, position, Quaternion.identity) as GameObject;
+        GameObject newUnion = Instantiate(createDonut, position, Quaternion.identity) as GameObject;
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
     }
@@ -236,12 +242,16 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         playerController.CompleteDonutReaction();
 
         madeDonuts++;
-
         completeDonuts.Add(donut);
 
         AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
+
+        for (int i = 0; i < createDoubleDonutNum; i++)
+        {
+            CreateDonutUnion(doubleSphereDonut);
+        }
     }
 
     //泡を生成する

@@ -99,7 +99,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxBounceTime: 0.5
+  maxBounceTime: 0.3
   maxBounceScaleSize: 1
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946

@@ -3432,6 +3432,7 @@ MonoBehaviour:
   donutsList:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  doubleSphereDonut: {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
   donutSpawnRadius: 6.5
   donutSpawnYMin: 2.5
   donutSpawnYMax: 3
@@ -3477,6 +3478,7 @@ MonoBehaviour:
   - {fileID: 1762801812478555313, guid: dfe10919668df78479d98b37b74635fb, type: 3}
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 0}
+  createDoubleDonutNum: 1
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

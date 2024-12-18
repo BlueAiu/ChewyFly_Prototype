@@ -15,7 +15,7 @@ public class OptionValues : MonoBehaviour
     private static int cameraSensitivity = 0;
 
 
-    [SerializeField] SoundManager soundManager;
+    [SerializeField] protected SoundManager soundManager;
     private void Start()
     {
         if (soundManager == null) soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();

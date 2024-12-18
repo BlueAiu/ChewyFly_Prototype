@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] SoundManager soundManager;
+    [SerializeField] AudioClip BGM;
+
     [System.Serializable]
     private class DescObject//Sceneã‚É‚ ‚éà–¾•¶
     {
@@ -62,6 +65,8 @@ public class TutorialManager : MonoBehaviour
         sceneManager = GetComponent<LoadSceneManager>();
 
         InitializeImages();
+
+        soundManager.PlayBGM(BGM);
     }
     void InitializeImages()//‰Šú‰»
     {

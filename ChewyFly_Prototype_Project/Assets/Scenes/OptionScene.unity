@@ -2320,6 +2320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundManager: {fileID: 993165836}
+  BGM: {fileID: 8300000, guid: ae063ebaaaf52744d96d6ee5016aa391, type: 3}
   bgmButton: {fileID: 1774429447}
   seButton: {fileID: 776964650}
   jumpSensitivityButton: {fileID: 1803657249}

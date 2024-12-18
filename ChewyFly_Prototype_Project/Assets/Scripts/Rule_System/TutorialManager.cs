@@ -93,12 +93,14 @@ public class TutorialManager : MonoBehaviour
         if (moveState == MoveState.Stop)
         {
             if (input.isRightShoulder() || input.isRightTrigger()
-                || input.isLeftDpad().x > 0)//‰E‚ð“ü—Í‚µ‚½
+                || input.isLeftDpad().x > 0 || input.isLeftStick().x > 0
+                || input.isRightStick().x > 0)//‰E‚ð“ü—Í‚µ‚½
             {
                 StartMove(true);
             }
             else if (input.isLeftShoulder() || input.isLeftTrigger()
-                || input.isLeftDpad().x < 0)//¶‚ð“ü—Í‚µ‚½
+                || input.isLeftDpad().x < 0 || input.isLeftStick().x < 0
+                || input.isRightStick().x < 0)//¶‚ð“ü—Í‚µ‚½
             {
                 StartMove(false);
             }

@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class OptionManager : OptionValues
 {
+    [SerializeField] AudioClip BGM;
+
     [Header("ƒ{ƒ^ƒ“Image")]
     [SerializeField] Image bgmButton;
     [SerializeField] Image seButton;
@@ -75,6 +74,7 @@ public class OptionManager : OptionValues
         ResetTimer = 0f;
 
         LoadSceneManager = GetComponent<LoadSceneManager>();
+        soundManager.PlayBGM(BGM);
     }
     // Update is called once per frame
     void Update()

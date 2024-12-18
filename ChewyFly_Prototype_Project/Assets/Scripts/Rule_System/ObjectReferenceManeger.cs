@@ -98,7 +98,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             CreateDonutUnion(donutUnion);
         }
 
-        InvokeRepeating(nameof(CreateDonutUnion), spawnTimePeriod, spawnTimePeriod);
+        InvokeRepeating(nameof(CreateSingleDonut), spawnTimePeriod, spawnTimePeriod);
         SetDonutScoreText();
 
         InvokeRepeating(nameof(CreateBubble), bubbleSpawnPeriod, bubbleSpawnPeriod);
@@ -169,6 +169,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         newUnion.GetComponent<DonutsUnionScript>().objManeger = this;
         donutsList.Add(newUnion);
     }
+
+    void CreateSingleDonut() { CreateDonutUnion(donutUnion); }
 
     //ドーナツを鍋から除外する
     public void RemoveDonut(GameObject donut)

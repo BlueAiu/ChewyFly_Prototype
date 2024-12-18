@@ -43,8 +43,8 @@ public partial class DonutsUnionScript : MonoBehaviour
             child.localPosition -= new Vector3(0, child.localPosition.y, 0);
             donutSpheres.Add(child.gameObject);
             hexaPositions.Add(CloseHexaPosition(child.localPosition));
-            unionCount++;
         }
+        unionCount = donutSpheres.Count;
 
         //Ž¿—Ê‚ðŒvŽZ
         rb.mass = 1 + (unionCount - 1) * donutMassRate;

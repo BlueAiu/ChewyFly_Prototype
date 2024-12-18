@@ -20,6 +20,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("二つの球がついたドーナツ")]
     [SerializeField] GameObject doubleSphereDonut;
 
+    [Tooltip("まんまるまであと一つのドーナツ")]
+    [SerializeField] GameObject reachDonut;
+
 
     [Header("ドーナツを生成する")]
     //[SerializeField] Vector3 donutSpawnMin = Vector3.zero;
@@ -69,6 +72,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Tooltip("二つ球ドーナツを生成する数")]
     [SerializeField] int createDoubleDonutNum = 1;
+
 
     public static List<GameObject> completeDonuts = new();
 
@@ -246,13 +250,17 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         madeDonuts++;
         completeDonuts.Add(donut);
 
-        AddDonutScore(donut);//現在のドーナツの形を評価して加算
+        var shapeType = AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
 
         for (int i = 0; i < createDoubleDonutNum; i++)
         {
             CreateDonutUnion(doubleSphereDonut);
+        }
+        if (shapeType != DonutScoreType.Base)
+        {
+            CreateDonutUnion(reachDonut);
         }
     }
 

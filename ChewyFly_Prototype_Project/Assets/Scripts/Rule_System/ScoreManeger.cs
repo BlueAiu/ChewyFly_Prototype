@@ -176,13 +176,13 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         return true;
     }
 
-    void AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
+    DonutScoreType AddDonutScore(GameObject donut)//ドーナツのドーナツの形を評価し、加点。
     {
         donut.AddComponent<DonutScoreSaver>();//ScoreSaverに点を入れてから合計点に加点
         DonutScoreSaver scoreSaver = donut.GetComponent<DonutScoreSaver>();
 
         scoreTypeNum = 0;
-        bool isIdeal = false;//ドーナツが理想の形か
+        //bool isIdeal = false;//ドーナツが理想の形か
         AddOneScore(scoreSaver, DonutScoreType.Base, donutScore_base);//まず基礎点
 
         DonutsUnionScript unionScript = donut.GetComponent<DonutsUnionScript>();
@@ -214,11 +214,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
                 break;
             case DonutScoreType.Ideal:
                 typeScore = donutScore_ideal;
-                isIdeal = true;
                 break;
             case DonutScoreType.Infinity:
                 typeScore = donutScore_infinity;
-                isIdeal = true;
                 break;
         }
         AddOneScore(scoreSaver, scoreType, typeScore);
@@ -234,6 +232,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         ScoreUI_CompleteDonutReaction component = scoreUi.GetComponent<ScoreUI_CompleteDonutReaction>();
         Vector3 _scorePos = scorePos.position;
         component.ScoreInitialized(0, _score, _scorePos, scoreUIAppearDiffTime * scoreTypeNum);
+
+        return scoreType;
     }
     void SetDonutScoreText() //UIに現在のスコアを表示
     {

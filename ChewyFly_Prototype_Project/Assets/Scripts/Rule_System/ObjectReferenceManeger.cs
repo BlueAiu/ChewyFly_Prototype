@@ -73,6 +73,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("二つ球ドーナツを生成する数")]
     [SerializeField] int createDoubleDonutNum = 1;
 
+    [Tooltip("ゲーム時間を増加する量")]
+    [SerializeField] float increaseGameTime = 3f;
+
 
     public static List<GameObject> completeDonuts = new();
 
@@ -261,6 +264,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         if (shapeType != DonutScoreType.Base)
         {
             CreateDonutUnion(reachDonut);
+            GetComponent<TimerManager>().Timer += increaseGameTime;
         }
     }
 

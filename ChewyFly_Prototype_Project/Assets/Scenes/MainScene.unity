@@ -3480,6 +3480,7 @@ MonoBehaviour:
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 0}
   createDoubleDonutNum: 1
+  increaseGameTime: 3
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

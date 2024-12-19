@@ -43,6 +43,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("最低限ゲーム上に存在するドーナツの数")]
     [SerializeField] int minimumDonutCount = 15;
 
+    [Tooltip("もち球の総数が--以上ならダブルやリーチを作らない")]
+    [SerializeField] int donutSphereLimit = 20;
+
 
     [Header("ドーナツを弾く泡生成")]
     [Tooltip("生成する泡オブジェクト")]
@@ -170,6 +173,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //新たなドーナツを鍋に追加する
     public void CreateDonutUnion(GameObject createDonut)
     {
+        int createDonutSpheres = createDonut.GetComponent<DonutsUnionScript>().unionCount;
+        if (CountDonutSphereNum() + createDonutSpheres > donutSphereLimit) return;
+
         var position = RandomVector(donutSpawnRadius, donutSpawnYMin, donutSpawnYMax);
         position = MoveAwayDonut(position);
         GameObject newUnion = Instantiate(createDonut, position, Quaternion.identity) as GameObject;
@@ -292,6 +298,18 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             Destroy(i);
         }
         completeDonuts.Clear();
+    }
+
+    int CountDonutSphereNum()
+    {
+        int sum = 0;
+
+        foreach(var d in donutsList)
+        {
+            sum += d.GetComponent<DonutsUnionScript>().unionCount;
+        }
+
+        return sum;
     }
 
     //没

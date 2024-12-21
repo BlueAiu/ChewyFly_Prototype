@@ -20,6 +20,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("二つの球がついたドーナツ")]
     [SerializeField] GameObject doubleSphereDonut;
 
+    [Tooltip("まんまるまであと一つのドーナツ")]
+    [SerializeField] GameObject reachDonut;
+
 
     [Header("ドーナツを生成する")]
     //[SerializeField] Vector3 donutSpawnMin = Vector3.zero;
@@ -39,6 +42,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Tooltip("最低限ゲーム上に存在するドーナツの数")]
     [SerializeField] int minimumDonutCount = 15;
+
+    [Tooltip("もち球の総数が--以上ならダブルやリーチを作らない")]
+    [SerializeField] int donutSphereLimit = 20;
 
 
     [Header("ドーナツを弾く泡生成")]
@@ -69,6 +75,10 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     [Tooltip("二つ球ドーナツを生成する数")]
     [SerializeField] int createDoubleDonutNum = 1;
+
+    [Tooltip("ゲーム時間を増加する量")]
+    [SerializeField] float increaseGameTime = 3f;
+
 
     public static List<GameObject> completeDonuts = new();
 
@@ -163,6 +173,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //新たなドーナツを鍋に追加する
     public void CreateDonutUnion(GameObject createDonut)
     {
+        int createDonutSpheres = createDonut.GetComponent<DonutsUnionScript>().unionCount;
+        if (CountDonutSphereNum() + createDonutSpheres > donutSphereLimit) return;
+
         var position = RandomVector(donutSpawnRadius, donutSpawnYMin, donutSpawnYMax);
         position = MoveAwayDonut(position);
         GameObject newUnion = Instantiate(createDonut, position, Quaternion.identity) as GameObject;
@@ -246,13 +259,18 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         madeDonuts++;
         completeDonuts.Add(donut);
 
-        AddDonutScore(donut);//現在のドーナツの形を評価して加算
+        var shapeType = AddDonutScore(donut);//現在のドーナツの形を評価して加算
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
 
         for (int i = 0; i < createDoubleDonutNum; i++)
         {
             CreateDonutUnion(doubleSphereDonut);
+        }
+        if (shapeType != DonutScoreType.Base)
+        {
+            CreateDonutUnion(reachDonut);
+            GetComponent<TimerManager>().Timer += increaseGameTime;
         }
     }
 
@@ -280,6 +298,18 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             Destroy(i);
         }
         completeDonuts.Clear();
+    }
+
+    int CountDonutSphereNum()
+    {
+        int sum = 0;
+
+        foreach(var d in donutsList)
+        {
+            sum += d.GetComponent<DonutsUnionScript>().unionCount;
+        }
+
+        return sum;
     }
 
     //没

@@ -61,6 +61,12 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
     float timer = 0f;
     float timeUpTimer = 0f;
 
+    public float Timer
+    {
+        get { return timer; }
+        set { timer = Mathf.Clamp(value, 0, timeLimit); }
+    }
+
     const int startCountdownNum = 3;
     const int endCountdownNum = 10;
 

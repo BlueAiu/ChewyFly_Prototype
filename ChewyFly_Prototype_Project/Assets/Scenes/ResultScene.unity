@@ -490,21 +490,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addScoreTextPrefab: {fileID: 1688451309591314394, guid: 015cd5b4e0ef06e49801e186d949e1c0, type: 3}
+  resultCamera: {fileID: 58463215}
+  donutsCamera: {fileID: 387270469}
+  donutSetCenterPosition: {fileID: 230263652}
+  oneDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
   resultUIParent: {fileID: 1574281104}
   restartButton: {fileID: 745813883}
   titleButton: {fileID: 1644214957}
   defaultAddScoreTextPos: {fileID: 1966052084}
-  resultCamera: {fileID: 58463215}
-  donutsCamera: {fileID: 387270469}
   resultText: {fileID: 2063163385}
   scoreText: {fileID: 1996338017}
-  donutSetCenterPosition: {fileID: 230263652}
   skipText: {fileID: 230845198}
-  oneDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
   scoreQuota: 800
   soundManager: {fileID: 1573882422}
   clearBGM: {fileID: 8300000, guid: 5af30641fa4c04047b242ecf8df749da, type: 3}
   failureBGM: {fileID: 8300000, guid: 7fb27b8181c875a47935d6cb7a1553e1, type: 3}
+  normalSE: {fileID: 8300000, guid: a94ec2235b062a84fa0fbf927e6f0039, type: 3}
+  shapeSE: {fileID: 0}
   cameraMoveCurve:
     serializedVersion: 2
     m_Curve:

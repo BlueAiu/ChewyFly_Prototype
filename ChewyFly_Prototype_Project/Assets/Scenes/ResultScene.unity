@@ -494,6 +494,8 @@ MonoBehaviour:
   donutsCamera: {fileID: 387270469}
   donutSetCenterPosition: {fileID: 230263652}
   oneDonutEffect: {fileID: 8057556218953405037, guid: 6612928b84c471448a6a092a1a8e2302, type: 3}
+  PlayerAnimation: {fileID: 4120001700730251048}
+  StickAnimation: {fileID: 854571811}
   resultUIParent: {fileID: 1574281104}
   restartButton: {fileID: 745813883}
   titleButton: {fileID: 1644214957}

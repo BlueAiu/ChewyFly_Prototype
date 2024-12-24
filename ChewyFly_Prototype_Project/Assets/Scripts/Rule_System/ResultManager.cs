@@ -12,6 +12,8 @@ public partial class ResultManager : MonoBehaviour
     [SerializeField] Transform donutSetCenterPosition;
     [Tooltip("ドーナツを一つ映した時のエフェクト")]
     [SerializeField] GameObject oneDonutEffect;
+    [SerializeField] Animator PlayerAnimation;
+    [SerializeField] Animator StickAnimation;
 
     [Header("UI")]
 
@@ -109,6 +111,8 @@ public partial class ResultManager : MonoBehaviour
         else
         {
             soundManager.PlayBGM(clearBGM);
+            PlayerAnimation.SetTrigger("Clear");
+            StickAnimation.SetTrigger("Clear");
         }
     }
     void ChangeCamera(bool activeResultCamera)//カメラの切り替え

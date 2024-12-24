@@ -7,30 +7,39 @@ public partial class ResultManager : MonoBehaviour
 {
     [Header("参照用の項目")]
     [SerializeField] GameObject addScoreTextPrefab;
+    [SerializeField] Camera resultCamera;
+    [SerializeField] Camera donutsCamera;
+    [SerializeField] Transform donutSetCenterPosition;
+    [Tooltip("ドーナツを一つ映した時のエフェクト")]
+    [SerializeField] GameObject oneDonutEffect;
+    [SerializeField] Animator PlayerAnimation;
+    [SerializeField] Animator StickAnimation;
+
+    [Header("UI")]
+
     [Tooltip("演出時には隠すuiの親")]
     [SerializeField] GameObject resultUIParent;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button titleButton;
     [SerializeField] RectTransform defaultAddScoreTextPos;
-    [SerializeField] Camera resultCamera;
-    [SerializeField] Camera donutsCamera;
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text scoreText;
-    [SerializeField] Transform donutSetCenterPosition;
     [SerializeField] GameObject skipText;
-    [Tooltip("ドーナツを一つ映した時のエフェクト")]
-    [SerializeField] GameObject oneDonutEffect;
 
     enum ScoreCountState { ShowDonut, MoveToNextDonut, Finish }//スコアの加算演出の状態
     ScoreCountState scoreCountState;
     
     List<GameObject> donuts = ObjectReferenceManeger.completeDonuts;
 
+    [Header("Sound")]
+
     [Tooltip("鳴らすBGMを分けるノルマスコア")]
     [SerializeField] int scoreQuota = 800;
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip clearBGM;
     [SerializeField] AudioClip failureBGM;
+    [SerializeField] AudioClip normalSE;
+    [SerializeField] AudioClip shapeSE;
 
     InputScript input;
 
@@ -102,6 +111,8 @@ public partial class ResultManager : MonoBehaviour
         else
         {
             soundManager.PlayBGM(clearBGM);
+            PlayerAnimation.SetTrigger("Clear");
+            StickAnimation.SetTrigger("Clear");
         }
     }
     void ChangeCamera(bool activeResultCamera)//カメラの切り替え

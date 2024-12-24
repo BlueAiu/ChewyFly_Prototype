@@ -3433,13 +3433,15 @@ MonoBehaviour:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   doubleSphereDonut: {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
-  donutSpawnRadius: 6.5
+  reachDonut: {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+  donutSpawnRadius: 6
   donutSpawnYMin: 2.5
   donutSpawnYMax: 3
   notSpawnDistance: 3
   startSpawnCount: 11
   spawnTimePeriod: 10
   minimumDonutCount: 10
+  donutSphereLimit: 20
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6
@@ -3479,6 +3481,7 @@ MonoBehaviour:
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
   createDoubleDonutNum: 1
+  increaseGameTime: 3
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

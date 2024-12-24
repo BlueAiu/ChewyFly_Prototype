@@ -107,6 +107,8 @@ public partial class ResultManager : MonoBehaviour
         if (ObjectReferenceManeger.totalScore < scoreQuota)
         {
             soundManager.PlayBGM(failureBGM);
+            PlayerAnimation.SetTrigger("Failture");
+            StickAnimation.SetTrigger("Failture");
         }
         else
         {

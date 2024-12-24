@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.99974084, g: 0.99974084, b: 0.99974084, a: 1}
+  m_IndirectSpecularColor: {r: 0.99999905, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -507,7 +507,7 @@ MonoBehaviour:
   soundManager: {fileID: 1573882422}
   clearBGM: {fileID: 8300000, guid: 5af30641fa4c04047b242ecf8df749da, type: 3}
   failureBGM: {fileID: 8300000, guid: 7fb27b8181c875a47935d6cb7a1553e1, type: 3}
-  normalSE: {fileID: 8300000, guid: a94ec2235b062a84fa0fbf927e6f0039, type: 3}
+  normalSE: {fileID: 0}
   shapeSE: {fileID: 0}
   cameraMoveCurve:
     serializedVersion: 2

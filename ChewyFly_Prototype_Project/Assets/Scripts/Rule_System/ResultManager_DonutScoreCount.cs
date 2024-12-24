@@ -55,6 +55,9 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         DonutsUnionScript union = donuts[donutIndex].GetComponent<DonutsUnionScript>();
         Instantiate(oneDonutEffect, union.GetDonutsCenterPoint(), Quaternion.identity);
 
+        
+        bool isShape = false;
+
         DonutScoreSaver saver = donuts[donutIndex].GetComponent<DonutScoreSaver>();
         int textIndex = 0;
         for (int i = 0; i < (int)ObjectReferenceManeger.DonutScoreType.End; i++)//そのドーナツのスコア状態を取得
@@ -64,8 +67,15 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
             {
                 addScoreTexts[textIndex].SetScore((ObjectReferenceManeger.DonutScoreType)i, typeScore);
                 textIndex++;
+
+                if(i >= (int)ObjectReferenceManeger.DonutScoreType.Ideal) isShape = true;
             }
         }
+
+        if (isShape) { soundManager.PlaySE(shapeSE); }
+        else {  soundManager.PlaySE(normalSE); }
+
+
         oneDonutScore = saver.GetDonutTotalScore();
         directingMadeDonutNum++;
         SetMadeDonutText(directingMadeDonutNum);

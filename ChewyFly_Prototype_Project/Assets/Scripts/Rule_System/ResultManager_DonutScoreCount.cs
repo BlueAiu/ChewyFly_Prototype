@@ -8,6 +8,8 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
     [SerializeField] float donutCameraHeightY = 30f;
     [Tooltip("ドーナツを映すカメラをどのくらい右にずらすか")]
     [SerializeField] float donutCameraRightX = 1.2f;
+    [Tooltip("ドーナツを移すカメラを奥にずらす")]
+    [SerializeField] float donutCameraBackZ = 3f;
     [SerializeField] AnimationCurve madeDonutTextScaleCurve;
     [Tooltip("一つのドーナツを映す時間")]
     [SerializeField] float time_OneDonut = 0.5f;
@@ -113,6 +115,7 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
     }
     private void MoveToNextDonut()//次のドーナツに移動する準備をする
     {
+        donuts[donutIndex].GetComponent<Rigidbody>().isKinematic = false;
         donutIndex++;
         if (donutIndex >= donuts.Count)//すべてのドーナツを見せ終わったら終了
         {
@@ -143,6 +146,7 @@ public partial class ResultManager : MonoBehaviour//ドーナツのスコアを一つずつカ
         _cameraPoint = GetDonutCenterPoint(_donut);
         _cameraPoint.x += donutCameraRightX;
         _cameraPoint.y += donutCameraHeightY;
+        _cameraPoint.z -= donutCameraBackZ;
     }
     Vector3 GetDonutCenterPoint(GameObject donut)//unionを取り出して真ん中を返す
     {

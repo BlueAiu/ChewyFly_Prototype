@@ -49,16 +49,21 @@ public partial class ResultManager : MonoBehaviour
         input = GetComponent<InputScript>();
         if (input == null) { gameObject.AddComponent<InputScript>(); input = GetComponent<InputScript>(); }
 
-        Vector3 donutUnionsCenterPos = Vector3.zero;
-        foreach (var d in donuts)  { donutUnionsCenterPos += d.transform.position;   }
-        donutUnionsCenterPos /= donuts.Count;
+        //Vector3 donutUnionsCenterPos = Vector3.zero;
+        //foreach (var d in donuts)  { donutUnionsCenterPos += d.transform.position;   }
+        //donutUnionsCenterPos /= donuts.Count;
         defaultMadeDonutTextLocalScale = resultText.transform.localScale;
 
         foreach (var i in donuts)
         {
-            i.transform.position = i.transform.position + (donutSetCenterPosition.transform.position - donutUnionsCenterPos);
+            //i.transform.position = i.transform.position + (donutSetCenterPosition.transform.position - donutUnionsCenterPos);
+            //i.SetActive(false);
+            i.GetComponent<DonutRigidBody>().isConstraints = false;
+            i.transform.position = donutSetCenterPosition.position;
+            i.transform.rotation = Quaternion.identity;
+            i.transform.Rotate(-60, 0, 0);
+            i.GetComponent<Rigidbody>().isKinematic = true;
             i.SetActive(false);
-            //i.GetComponent<Rigidbody>().isKinematic = true;
         }
 
         if (donuts.Count == 0)

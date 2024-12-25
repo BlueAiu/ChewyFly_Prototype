@@ -27,6 +27,7 @@ public partial class DonutRigidBody : MonoBehaviour
     float torque = 0;
 
     bool isFreeze = false;
+    public bool isConstraints { get; set; } = true;
     public bool IsFreeze
     {
         get { return isFreeze; }
@@ -79,7 +80,8 @@ public partial class DonutRigidBody : MonoBehaviour
         //プレイヤーから受け取った回転入力
         rb.AddTorque(Vector3.up * torque, ForceMode.Acceleration);
         //乗ってるドーナツが転覆しないようにする
-        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+        if (isConstraints)
+        { transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0); }
     }
 
     //弾き入力を受け取る

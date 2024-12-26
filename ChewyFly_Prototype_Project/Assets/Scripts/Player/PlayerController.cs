@@ -123,6 +123,9 @@ public class PlayerController : MonoBehaviour
     //ドーナツ完成時、プレイヤーからカメラにレイを飛ばして別のオブジェクトに当たった場合
     //この値の比率の位置にプレイヤーを移動させる
     const string WallLayerName = "Wall";
+
+    Vector3 initialPosition;
+    float resetPosHeight;//この高さに落ちたら位置をリセット
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
@@ -132,6 +135,15 @@ public class PlayerController : MonoBehaviour
         if (playerCamera == null)
             playerCamera = GameObject.Find("CameraAxis");
         completeReactionState = CompleteDonutReactionState.None;
+
+        initialPosition = transform.position;
+        GameObject resetPosHeightObj = GameObject.Find("ResetHeightPoint");
+        if (resetPosHeightObj != null)
+        {
+            resetPosHeight = resetPosHeightObj.transform.position.y;
+            Destroy(resetPosHeightObj);
+        }
+        else Debug.Log("ResetHeightPointを用意してください");
     }
 
     // Start is called before the first frame update
@@ -180,6 +192,7 @@ public class PlayerController : MonoBehaviour
         //    DetachDonut();
         //    velocityY = jumpPower;
         //}
+        ResetPosition_Fall();
 
         animator.SetFloat("VerticalVelocity", velocity.y);
         animator.SetBool("IsRideDonut", ridingDonut != null);
@@ -398,5 +411,18 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         completeReactionTimer += Time.deltaTime;
+    }
+    void ResetPosition_Fall()//落ちた時初期位置に戻した後ジャンプする
+    {
+        if (transform.position.y < resetPosHeight)
+        {
+            if (ridingDonut == null)
+            {
+                transform.position = initialPosition;
+                CompleteJump();
+            }
+            else
+                ridingDonut.transform.position = initialPosition;
+        }
     }
 }

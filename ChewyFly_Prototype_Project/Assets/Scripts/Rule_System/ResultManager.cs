@@ -103,6 +103,7 @@ public partial class ResultManager : MonoBehaviour
         foreach (var i in donuts)
         {
             i.SetActive(true);
+            i.GetComponent<Rigidbody>().isKinematic = false;
         }
         ChangeCamera(true);
 

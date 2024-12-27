@@ -16,6 +16,8 @@ public partial class DonutRigidBody : MonoBehaviour
     [SerializeField] float movementResistance = 2f;
     [Tooltip("‰ñ“]‚Ì’ïR—ÍŒW”")]
     [SerializeField] float rotationResistance = 2f;
+    [Tooltip("’……(–û)‚µ‚½‚Æ‚«‚ÌŒ¸‘¬Š„‡")]
+    [SerializeField] float oilLandingImpulse = 0.5f;
 
     const float largerSpeed = 1f;
 
@@ -123,6 +125,14 @@ public partial class DonutRigidBody : MonoBehaviour
 
             //rb.AddTorque(-rb.angularVelocity.normalized * (rb.angularVelocity.sqrMagnitude * rotationResistance * sinkVolume));
             rb.AddTorque(-rb.angularVelocity * (rotationResistance * sinkVolume), ForceMode.Acceleration);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Oil")
+        {
+            rb.AddForce(-rb.velocity * oilLandingImpulse, ForceMode.Impulse);
         }
     }
 

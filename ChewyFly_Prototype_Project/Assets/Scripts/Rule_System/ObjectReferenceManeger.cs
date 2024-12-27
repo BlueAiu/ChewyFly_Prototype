@@ -17,11 +17,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
 
-    [Tooltip("二つの球がついたドーナツ")]
-    [SerializeField] GameObject doubleSphereDonut;
+    [Tooltip("ドーナツが完成したとき生成するドーナツ")]
+    [SerializeField] GameObject donutWhenCompleteAny;
 
-    [Tooltip("まんまるまであと一つのドーナツ")]
-    [SerializeField] GameObject reachDonut;
+    [Tooltip("形を作った時生成するドーナツ")]
+    [SerializeField] GameObject donutWhenCompleteShape;
 
 
     [Header("ドーナツを生成する")]
@@ -265,11 +265,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         for (int i = 0; i < createDoubleDonutNum; i++)
         {
-            CreateDonutUnion(doubleSphereDonut);
+            CreateDonutUnion(donutWhenCompleteAny);
         }
         if (shapeType != DonutScoreType.Base)
         {
-            CreateDonutUnion(reachDonut);
+            CreateDonutUnion(donutWhenCompleteShape);
             GetComponent<TimerManager>().Timer += increaseGameTime;
         }
     }

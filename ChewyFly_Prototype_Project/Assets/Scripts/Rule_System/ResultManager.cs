@@ -43,6 +43,8 @@ public partial class ResultManager : MonoBehaviour
 
     InputScript input;
 
+    const float shiftYPeriod = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +106,12 @@ public partial class ResultManager : MonoBehaviour
         {
             i.SetActive(true);
             i.GetComponent<Rigidbody>().isKinematic = false;
+        }
+        float shiftY = 0;
+        for(int i = donutIndex; i < donuts.Count; i++)
+        {
+            donuts[i].transform.position += Vector3.up * shiftY;
+            shiftY += shiftYPeriod;
         }
         ChangeCamera(true);
 

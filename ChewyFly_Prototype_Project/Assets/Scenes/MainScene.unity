@@ -3432,8 +3432,8 @@ MonoBehaviour:
   donutsList:
   - {fileID: 39569745}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  donutWhenCompleteAny: {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
-  donutWhenCompleteShape: {fileID: 8521677064010724999, guid: 3aff3fffd143c37458adc3a49a891e46, type: 3}
+  anyBonusDonut: {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
+  shapeBonusDonut: {fileID: 8521677064010724999, guid: 3aff3fffd143c37458adc3a49a891e46, type: 3}
   donutSpawnRadius: 5
   donutSpawnYMin: 2.5
   donutSpawnYMax: 3
@@ -3480,7 +3480,8 @@ MonoBehaviour:
   - {fileID: 1762801812478555313, guid: dfe10919668df78479d98b37b74635fb, type: 3}
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 5601734142010017906, guid: a9a2c81870c2f0745a433fcaee8a6b30, type: 3}
-  createDoubleDonutNum: 1
+  createAnyBonusDonutNum: 1
+  createShapeBonusDonutNum: 2
   increaseGameTime: 3
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3

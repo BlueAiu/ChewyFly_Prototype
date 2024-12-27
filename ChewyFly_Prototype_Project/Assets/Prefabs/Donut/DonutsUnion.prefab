@@ -146,6 +146,7 @@ MonoBehaviour:
   buoyancy: 20
   movementResistance: 3
   rotationResistance: 2
+  oilLandingImpulse: 0.8
   boundPower: 2
   phese1Time: 0.5
   standDonutAngle: 45

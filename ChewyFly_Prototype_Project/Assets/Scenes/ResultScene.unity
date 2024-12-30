@@ -504,7 +504,7 @@ MonoBehaviour:
   resultText: {fileID: 2063163385}
   scoreText: {fileID: 1996338017}
   skipText: {fileID: 230845198}
-  scoreQuota: 800
+  scoreQuota: 2000
   soundManager: {fileID: 1573882422}
   clearBGM: {fileID: 8300000, guid: 5af30641fa4c04047b242ecf8df749da, type: 3}
   failureBGM: {fileID: 8300000, guid: 7fb27b8181c875a47935d6cb7a1553e1, type: 3}

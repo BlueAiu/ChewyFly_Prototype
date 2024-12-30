@@ -52,6 +52,7 @@ public partial class DonutRigidBody : MonoBehaviour
 
         union.StopAllBurntEffect();
         transform.parent = cameraAxis;
+        torque = 0;
 
         Vector3 playerDir = playerPos - Camera.main.transform.position;
         playerDir.Normalize(); playerDir *= donutShiftToBackLength;

@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     CharacterController character;
-    Animator animator;
+    Animator animator_Player;
+    Animator animator_Stick;
     InputScript input;
 
     bool isFreeze = false;
@@ -129,7 +130,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()//Startよりさらに前に格納しておく
     {
         character = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator_Player = GetComponent<Animator>();
+        animator_Stick = transform.GetChild(1).GetComponent<Animator>();
         input = GetComponent<InputScript>();
         playerCameraRotation = GetComponent<PlayerCameraRotation>();
         if (playerCamera == null)
@@ -194,8 +196,10 @@ public class PlayerController : MonoBehaviour
         //}
         ResetPosition_Fall();
 
-        animator.SetFloat("VerticalVelocity", velocity.y);
-        animator.SetBool("IsRideDonut", ridingDonut != null);
+        animator_Player.SetFloat("VerticalVelocity", velocity.y);
+        animator_Stick.SetFloat("VerticalVelocity", velocity.y);
+        animator_Player.SetBool("IsRideDonut", ridingDonut != null);
+        animator_Stick.SetBool("IsRideDonut",ridingDonut != null);
     }
 
     private void FixedUpdate()
@@ -321,7 +325,8 @@ public class PlayerController : MonoBehaviour
             transform.position += Vector3.up * (ObjectReferenceManeger.oilSurfaceY - transform.position.y);
             isFreeze = true;
             Invoke(nameof(OilJump), oilSinkTime);
-            animator.SetTrigger("JumpFailtuer");
+            animator_Player.SetTrigger("JumpFailtuer");
+            //animator_Stick.SetTrigger("JumpFailtuer");
         }
     }
 
@@ -348,7 +353,8 @@ public class PlayerController : MonoBehaviour
         var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, completeJumpTime);
 
-        animator.SetTrigger("JumpTrigger");
+        animator_Player.SetTrigger("JumpTrigger");
+        animator_Stick.SetTrigger("JumpTrigger");
     }
     void StartCompleteReaction()//ドーナツ完成時のリアクション開始
     {
@@ -394,7 +400,8 @@ public class PlayerController : MonoBehaviour
                 {
                     transform.rotation = completeReactionRotateTo;
                     transform.position = completeReactionPositionTo;
-                    animator.SetTrigger("CompletePose");
+                    //animator_Player.SetTrigger("CompletePose");
+                    //animator_Stick.SetTrigger("CompletePose");
                     completeReactionState++;
                     completeReactionTimer = 0f;
                 }

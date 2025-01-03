@@ -248,7 +248,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.14220664
   m_TransitionOffset: 0
   m_ExitTime: 0.78571427
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -383,7 +383,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 299a328885200464998cee366dba7843, type: 2}
+  m_Motion: {fileID: 7400000, guid: fcc9d784409e7094ab81c7c407e23be0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -435,7 +435,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 112fc3e46fb0de441b497949687c6702, type: 2}
+  m_Motion: {fileID: 7400000, guid: aef8fb7d13af4894e8b270b6d92d0ef2, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -561,7 +561,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dd77fe7258477064fb7de527013ce39e, type: 2}
+  m_Motion: {fileID: 7400000, guid: d8a53005c9e097349b1a32d526af6a11, type: 2}
   m_Tag: 
   m_SpeedParameter: VerticalVelocity
   m_MirrorParameter: IsRideDonut

@@ -290,7 +290,7 @@ MonoBehaviour:
   whiteBar_: {fileID: 2369961320230789243}
   normalBar_: {fileID: 4795108616964067563}
   clearBar_: {fileID: 4332151836587564524}
-  scoreQuota: 2000
+  scoreQuota: 1500
   scoreShiftRate: 150
 --- !u!1 &7521868697062931001
 GameObject:

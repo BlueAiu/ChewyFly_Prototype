@@ -17,11 +17,11 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("生成するドーナツオブジェクト")]
     [SerializeField] GameObject donutUnion;
 
-    [Tooltip("二つの球がついたドーナツ")]
-    [SerializeField] GameObject doubleSphereDonut;
+    [Tooltip("ドーナツが完成したとき生成するドーナツ")]
+    [SerializeField] List<GameObject> anyBonusDonut;
 
-    [Tooltip("まんまるまであと一つのドーナツ")]
-    [SerializeField] GameObject reachDonut;
+    [Tooltip("形を作った時生成するドーナツ")]
+    [SerializeField] List<GameObject> shapeBonusDonut;
 
 
     [Header("ドーナツを生成する")]
@@ -72,9 +72,6 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     //[SerializeField] float completeJumpTime = 3f;
     [Tooltip("完成した時のエフェクト")]
     [SerializeField] GameObject[] completeDonutEffects;
-
-    [Tooltip("二つ球ドーナツを生成する数")]
-    [SerializeField] int createDoubleDonutNum = 1;
 
     [Tooltip("ゲーム時間を増加する量")]
     [SerializeField] float increaseGameTime = 3f;
@@ -263,13 +260,21 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
         donut.GetComponent<DonutRigidBody>().SetMoveMode(player.transform.position);
 
-        for (int i = 0; i < createDoubleDonutNum; i++)
+        
+        if (shapeType == DonutScoreType.Base)
         {
-            CreateDonutUnion(doubleSphereDonut);
+            foreach( var d in anyBonusDonut)
+            {
+                CreateDonutUnion(d);
+            }
         }
-        if (shapeType != DonutScoreType.Base)
+        else
         {
-            CreateDonutUnion(reachDonut);
+            foreach(var d in shapeBonusDonut)
+            {
+                CreateDonutUnion(d);
+            }
+            
             GetComponent<TimerManager>().Timer += increaseGameTime;
         }
     }

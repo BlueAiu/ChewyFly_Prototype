@@ -25,6 +25,7 @@ public partial class ResultManager : MonoBehaviour
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] GameObject skipText;
+    [SerializeField] TMP_Text highScoreText;
 
     enum ScoreCountState { ShowDonut, MoveToNextDonut, Finish }//スコアの加算演出の状態
     ScoreCountState scoreCountState;
@@ -45,6 +46,7 @@ public partial class ResultManager : MonoBehaviour
 
     const float shiftYPeriod = 1f;
 
+    bool isHighScore = false;//ハイスコアが出たか?
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +78,7 @@ public partial class ResultManager : MonoBehaviour
         {
             InitializeScoreCountClass();
         }
-
+        isHighScore = ObjectReferenceManeger.SetHighScore(ObjectReferenceManeger.totalScore);
     }
 
     // Update is called once per frame
@@ -129,6 +131,16 @@ public partial class ResultManager : MonoBehaviour
             soundManager.PlayBGM(clearBGM);
             PlayerAnimation.SetTrigger("Clear");
             StickAnimation.SetTrigger("Clear");
+        }
+
+        if (isHighScore)
+        {
+            highScoreText.gameObject.SetActive(true);
+            highScoreText.text = "ハイスコア!";
+        }
+        else
+        {
+            highScoreText.gameObject.SetActive(false);
         }
     }
     void ChangeCamera(bool activeResultCamera)//カメラの切り替え

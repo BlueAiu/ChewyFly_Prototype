@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    static bool isTransitionToMainGame;//メインゲームに遷移中か
+    public static void TransitionToMainGame()
+    {
+        isTransitionToMainGame = true;
+    }
+
     [SerializeField] SoundManager soundManager;
     [SerializeField] AudioClip BGM;
 
@@ -28,6 +34,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI descText;
     [SerializeField] Image triangle_Left;
     [SerializeField] Image triangle_Right;
+
+    [SerializeField] Button skipButton;//ゲームに移行する場合のスキップボタン
 
     [Header("右左の矢印の色")]
     [SerializeField] Color triangleColor_Right;
@@ -69,6 +77,11 @@ public class TutorialManager : MonoBehaviour
         InitializeImages();
 
         soundManager.PlayBGM(BGM);
+
+        if (ObjectReferenceManeger.highScore > 0)
+            isTransitionToMainGame = false;
+
+        skipButton.gameObject.SetActive(isTransitionToMainGame);
     }
     void InitializeImages()//初期化
     {
@@ -119,6 +132,11 @@ public class TutorialManager : MonoBehaviour
         else if (moveState == MoveState.Right || moveState == MoveState.Left)//動いてる
         {
             UpdateImagesMove();
+        }
+
+        if (isTransitionToMainGame && input.isNorthButton())
+        {
+            StartMainGame();
         }
     }
 
@@ -180,6 +198,9 @@ public class TutorialManager : MonoBehaviour
             }
             else
             {
+                if (isTransitionToMainGame)//右端に行き着いている
+                { StartMainGame(); return; }
+
                 CurrentIndex = 0;
                 moveState = MoveState.Loop;
                 SetAllSprites();
@@ -240,5 +261,13 @@ public class TutorialManager : MonoBehaviour
     public void CloseTutorial()  //画面を閉じる処理
     {
         sceneManager.LoadSceneName("TitleScene");
+    }
+    public void StartMainGame()
+    {
+        sceneManager.LoadSceneName("MainScene");
+    }
+    public void OnDestroy()
+    {
+        isTransitionToMainGame = false;
     }
 }

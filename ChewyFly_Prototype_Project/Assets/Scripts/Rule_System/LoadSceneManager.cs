@@ -10,7 +10,18 @@ public class LoadSceneManager : MonoBehaviour
 
     public void LoadSceneName(string sceneName)//渡されたシーン名のシーンを読み込みます
     {
+
         SceneManager.LoadScene(sceneName);
+    }
+    public void LoadMainSceneFromTitle()//タイトルからメインシーンに移行する場合
+    {
+        if (ObjectReferenceManeger.highScore <= 0)//MainSceneに移行中かつハイスコアがまだ0以下
+        {
+            TutorialManager.TransitionToMainGame();
+            SceneManager.LoadScene("TutorialScene");
+            return;
+        }
+        SceneManager.LoadScene("MainScene");
     }
     public void LoadNowScene()//現在のシーンを再ロード
     {

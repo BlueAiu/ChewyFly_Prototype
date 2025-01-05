@@ -509,8 +509,8 @@ MonoBehaviour:
   soundManager: {fileID: 1573882422}
   clearBGM: {fileID: 8300000, guid: 5af30641fa4c04047b242ecf8df749da, type: 3}
   failureBGM: {fileID: 8300000, guid: 7fb27b8181c875a47935d6cb7a1553e1, type: 3}
-  normalSE: {fileID: 8300000, guid: a94ec2235b062a84fa0fbf927e6f0039, type: 3}
-  shapeSE: {fileID: 0}
+  normalSE: {fileID: 8300000, guid: 402eac092ce800e4d97cdd8f07cb8cfc, type: 3}
+  shapeSE: {fileID: 8300000, guid: a94ec2235b062a84fa0fbf927e6f0039, type: 3}
   cameraMoveCurve:
     serializedVersion: 2
     m_Curve:
@@ -885,7 +885,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.25, z: 0.27}
-  m_LocalScale: {x: 0.8, y: 0.5, z: 0.05}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 870326848}
@@ -1580,7 +1580,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0.388, y: 0.25, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.5, z: 0.566}
+  m_LocalScale: {x: 0.05, y: 1, z: 0.566}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 870326848}
@@ -1819,7 +1819,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.25, z: -0.27}
-  m_LocalScale: {x: 0.8, y: 0.5, z: 0.05}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 870326848}
@@ -2018,7 +2018,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0.388, y: 0.25, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.5, z: 0.566}
+  m_LocalScale: {x: 0.05, y: 1, z: 0.566}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 870326848}

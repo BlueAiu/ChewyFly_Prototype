@@ -150,7 +150,7 @@ public class InputScript : MonoBehaviour
         bool gamepadInput = false;
         if (Gamepad.current != null)
             gamepadInput = Gamepad.current.yButton.wasPressedThisFrame;
-        return Keyboard.current.cKey.wasPressedThisFrame;
+        return gamepadInput|| Keyboard.current.cKey.wasPressedThisFrame;
     }
     public bool isEastButton()//右ての右にあるボタン
     {

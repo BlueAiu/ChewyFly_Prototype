@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button optionButton;
     [SerializeField] private Button creditButton;
+    [SerializeField] private TMP_Text highScoreText;
 
     [Header("BGM")]
     [SerializeField] private SoundManager soundManager;
@@ -17,6 +19,8 @@ public class TitleManager : MonoBehaviour
         startButton.Select();
 
         soundManager.PlayBGM(BGM);
+
+        highScoreText.text = "ハイスコア " + ObjectReferenceManeger.highScore;
     }
     // Update is called once per frame
     void Update()

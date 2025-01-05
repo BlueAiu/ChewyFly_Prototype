@@ -164,9 +164,9 @@ MonoBehaviour:
   - rectTransform: {fileID: 904645124}
     image: {fileID: 904645123}
   - rectTransform: {fileID: 61352549}
-    image: {fileID: 543505951}
-  - rectTransform: {fileID: 543505952}
     image: {fileID: 61352548}
+  - rectTransform: {fileID: 543505952}
+    image: {fileID: 543505951}
   defaultTransform:
   - {fileID: 1865375718}
   - {fileID: 1275331633}
@@ -267,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4340906101564178465, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
       propertyPath: m_Name
-      value: DescImage4
+      value: DescImage3
       objectReference: {fileID: 0}
     - target: {fileID: 4983865363729329555, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
       propertyPath: m_Pivot.x
@@ -1111,7 +1111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4340906101564178465, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
       propertyPath: m_Name
-      value: DescImage3
+      value: DescImage4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340906101564178465, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4983865363729329555, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
       propertyPath: m_Pivot.x
@@ -1208,6 +1212,10 @@ PrefabInstance:
     - target: {fileID: 6980475030580992510, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
       propertyPath: m_Name
       value: Description4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980475030580992510, guid: 721070ec698dcae4faa4d3fda911b908, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

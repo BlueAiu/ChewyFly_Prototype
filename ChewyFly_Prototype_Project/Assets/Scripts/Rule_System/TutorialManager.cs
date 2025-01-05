@@ -85,6 +85,11 @@ public class TutorialManager : MonoBehaviour
     }
     void InitializeImages()//初期化
     {
+        for (int i = 0; i < sceneDescImageNum; i++)//初期位置を設定
+        {
+            defaultTransform[i].position = descObjects[i].rectTransform.position;
+            defaultTransform[i].localScale = descObjects[i].rectTransform.localScale;
+        }
         moveState = MoveState.Stop;
         SetAllSprites();
     }
@@ -94,8 +99,8 @@ public class TutorialManager : MonoBehaviour
         SetTriangleColor();
         for (int i = 0; i < sceneDescImageNum; i++)
         {
-            defaultTransform[i].position = descObjects[i].rectTransform.position;
-            defaultTransform[i].localScale = descObjects[i].rectTransform.localScale;
+            descObjects[i].rectTransform.position = defaultTransform[i].position;
+            descObjects[i].rectTransform.localScale = defaultTransform[i].localScale;
             descObjects[i].index = CurrentIndex + i - (sceneDescImageNum / 2);
             SetSpriteImage(descObjects[i]);//最初の画像をセット
         }

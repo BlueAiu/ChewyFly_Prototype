@@ -64,7 +64,7 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
                 typeText = "ドーナツができた";
                 break;
             case ObjectReferenceManeger.DonutScoreType.BurntColor:
-                typeText = "ドーナツが揚がった";
+                typeText = "ドーナツの焼き色";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Ideal:
                 scoreText.color = color_Yellow;

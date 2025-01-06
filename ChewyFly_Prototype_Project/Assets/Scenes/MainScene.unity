@@ -389,7 +389,7 @@ MonoBehaviour:
   donutRideAccuracy: 0.01
   donutRideSpeed: 2
   damageEffect: {fileID: 8829863412455601524, guid: a5f971dd711b76e47a1100110a05fbe1, type: 3}
-  oilSinkTime: 0.8
+  oilSinkTime: 1
   oilJumpTime: 1.5
   completeJumpTime: 0.5
   completePlayerToCameraDistance: 8

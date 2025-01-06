@@ -326,6 +326,9 @@ public class PlayerController : MonoBehaviour
             isFreeze = true;
             Invoke(nameof(OilJump), oilSinkTime);
             animator_Player.SetTrigger("JumpFailtuer");
+
+            Instantiate(damageEffect, transform.position, Quaternion.identity);
+            //油に触れた段階でエフェクトが発生するよう変更
             //animator_Stick.SetTrigger("JumpFailtuer");
         }
     }
@@ -337,7 +340,7 @@ public class PlayerController : MonoBehaviour
         var targetPos = objManeger.ClosestDonut(transform.position, isFleeze: true) + new Vector3(0, aboveDonut, 0);
         JumpTo(targetPos, oilJumpTime);
 
-        Instantiate(damageEffect, transform.position, Quaternion.identity);
+        //Instantiate(damageEffect, transform.position, Quaternion.identity);
     }
 
     public void CompleteDonutReaction()

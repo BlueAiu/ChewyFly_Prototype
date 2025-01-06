@@ -431,7 +431,7 @@ MonoBehaviour:
   autoRotateSensitivity: 120
   potCenterPoint: {fileID: 1517723900}
   cameraLookPoint: {fileID: 161169804}
-  cameraLookPointRatio: 0.5
+  cameraLookPointRatio: 0.65
   virtualCamera: {fileID: 879198375}
   zoomCameraMoveCurve:
     serializedVersion: 2
@@ -497,8 +497,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -520,7 +520,7 @@ MonoBehaviour:
   oilSplash: {fileID: 4584354999136969276, guid: b3652a3f1b3108d4ea722d58182431be, type: 3}
   stickSpeed: 25
   maxStickSpeed: 45
-  minStickSpeed: 5
+  minStickSpeed: 2
   flicCoolTime: 1
   jumpPower: 12.2
   jumpPoint: {fileID: 8734375345487203448}

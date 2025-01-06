@@ -385,8 +385,6 @@ MonoBehaviour:
   jumpSlopeAngle: 60
   playerRotateSpeed: 540
   aboveDonut: 0.5
-  flicSpeed: 1
-  flicPower: 10
   rotateSpeed: 10
   donutRideAccuracy: 0.01
   donutRideSpeed: 2

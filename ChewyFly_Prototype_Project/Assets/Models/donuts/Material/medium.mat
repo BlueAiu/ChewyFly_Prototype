@@ -27,11 +27,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _1st_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: 7046b0824d01dea48bfc4ed97706c233, type: 3}
+        m_Texture: {fileID: 2800000, guid: 803a48927b56eab479ada8705eaec9e2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _2nd_ShadeMap:
-        m_Texture: {fileID: 2800000, guid: 7046b0824d01dea48bfc4ed97706c233, type: 3}
+        m_Texture: {fileID: 2800000, guid: 803a48927b56eab479ada8705eaec9e2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BakedNormal:
@@ -75,7 +75,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7046b0824d01dea48bfc4ed97706c233, type: 3}
+        m_Texture: {fileID: 2800000, guid: 803a48927b56eab479ada8705eaec9e2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:

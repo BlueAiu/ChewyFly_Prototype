@@ -11,6 +11,9 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
     [SerializeField] Color color_default;
     [SerializeField] Color color_Orange;
     [SerializeField] Color color_Yellow;
+    [SerializeField] Color color_Red;
+    [SerializeField] Color color_Green;
+    [SerializeField] Color color_Pink;
 
     [SerializeField] float moveX;
     [SerializeField] float moveTime;
@@ -67,20 +70,23 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
                 typeText = "ドーナツの焼き色";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Ideal:
-                scoreText.color = color_Yellow;
-                typeText = "きれいなかたち";
+                scoreText.color = color_Red;
+                typeText = "まんまる";
                 break;
             case ObjectReferenceManeger.DonutScoreType.OverNum:
                 scoreText.color = color_Orange;
                 typeText = "大きなドーナツ";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Pyramid:
+                scoreText.color = color_Green;
                 typeText = "ピラミッド";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Flower:
+                scoreText.color = color_Pink;
                 typeText = "フラワー";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Straight:
+                scoreText.color = color_Yellow;
                 typeText = "まっすぐ";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Infinity:

@@ -69,10 +69,10 @@ public class PlayerController : MonoBehaviour
     //[Header("ƒh[ƒiƒc‚Ìã‚Éæ‚Á‚Ä‚¢‚éê‡‚Ì’e‚«‘€ì")]
     //[Tooltip("¬‚³‚¢‚Æ”»’è‚·‚é‹«ŠE")]
     //[SerializeField] float flicBorder = 0.1f;
-    //[Tooltip("’e‚¢‚½‚Æ”»’è‚·‚é‘‚³")]
-    //[SerializeField] float flicSpeed = 5f;
-    //[Tooltip("’e‚­—Í‚Ì‹­‚³")]
-    //[SerializeField] float flicPower = 20f;
+    [Tooltip("’e‚¢‚½‚Æ”»’è‚·‚é‘‚³")]
+    [SerializeField] float flicSpeed = 5f;
+    [Tooltip("’e‚­—Í‚Ì‹­‚³")]
+    [SerializeField] float flicPower = 20f;
 
     [Tooltip("ƒh[ƒiƒc‚ğ‰ñ“]‚³‚¹‚é‘¬‚³")]
     [SerializeField] float rotateSpeed = 5f;

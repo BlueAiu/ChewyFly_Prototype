@@ -90,6 +90,7 @@ public class ResultAddScoreText : MonoBehaviour//ResultSceneのドーナツ表示演出時
                 typeText = "まっすぐ";
                 break;
             case ObjectReferenceManeger.DonutScoreType.Infinity:
+                scoreText.color = color_Red;
                 typeText = "インフィニティ";
                 break;
         }

@@ -10,6 +10,13 @@ public class InputScript : MonoBehaviour
             gamepadInput = Gamepad.current.aButton.wasPressedThisFrame;
         return gamepadInput || Keyboard.current.spaceKey.wasPressedThisFrame;
     }
+    public bool holdAButton()//Aボタンを継続して押している
+    {
+        bool gamepadInput = false;
+        if (Gamepad.current != null)
+            gamepadInput = Gamepad.current.aButton.isPressed;
+        return gamepadInput || Keyboard.current.spaceKey.isPressed;
+    }
     public bool isBButton()//ジャンプしたか
     {
         bool gamepadInput = false;

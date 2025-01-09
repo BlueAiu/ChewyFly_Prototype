@@ -106,9 +106,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
 
         InvokeRepeating(nameof(CreateSingleDonut), spawnTimePeriod, spawnTimePeriod);
+        InvokeRepeating(nameof(CreateBubble), bubbleSpawnPeriod, bubbleSpawnPeriod);
         SetDonutScoreText();
 
-        InvokeRepeating(nameof(CreateBubble), bubbleSpawnPeriod, bubbleSpawnPeriod);
     }
 
     // Update is called once per frame

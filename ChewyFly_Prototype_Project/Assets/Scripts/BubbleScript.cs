@@ -12,13 +12,13 @@ public class BubbleScript : MonoBehaviour
     [Tooltip("ドーナツを弾き飛ばす力")]
     [SerializeField] float donutBoundPower = 5f;
 
-    new Collider collider;
+    Collider col;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<Collider>();
-        collider.enabled = false;
+        col = GetComponent<Collider>();
+        col.enabled = false;
 
         Invoke(nameof(BoundStart), bubbleStartTime);
         Invoke(nameof(Delete), bubbleStartTime + Random.Range(lifeTimeMin, lifeTimeMax));
@@ -32,7 +32,7 @@ public class BubbleScript : MonoBehaviour
 
     void BoundStart()
     {
-        collider.enabled = true;
+        col.enabled = true;
     }
 
     void Delete()

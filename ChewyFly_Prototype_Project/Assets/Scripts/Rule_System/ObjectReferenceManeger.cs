@@ -137,7 +137,13 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     Vector3 MoveAwayDonut(Vector3 SpawnPos)
     {
-        Vector3[] directions = new Vector3[4]
+        if (Vector3.SqrMagnitude(SpawnPos - player.transform.position) > notSpawnDistance * notSpawnDistance)
+        { return SpawnPos; }
+        SpawnPos.x = -SpawnPos.x; SpawnPos.z = -SpawnPos.z;
+        if (Vector3.SqrMagnitude(SpawnPos - player.transform.position) > notSpawnDistance * notSpawnDistance)
+        { return SpawnPos; }
+
+        Vector3[] directions =
         {
             Vector3.forward,
             Vector3.right,

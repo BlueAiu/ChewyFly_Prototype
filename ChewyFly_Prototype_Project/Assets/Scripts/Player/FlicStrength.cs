@@ -111,8 +111,9 @@ public class FlicStrength : MonoBehaviour
 
     private void Update()
     {
+        bool isHold =( input.holdAButton() || input.holdBButton() || input.holdXButton() || input.holdYButton());
         //if (input.isAButton())
-        if (isJumpMode != input.holdAButton())
+        if (isJumpMode != isHold)
         {
             isJumpMode = !isJumpMode;
             FlicTime = 0;

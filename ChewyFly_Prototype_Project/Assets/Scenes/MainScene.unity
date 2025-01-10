@@ -3159,7 +3159,7 @@ MonoBehaviour:
   anyBonusDonut:
   - {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
   shapeBonusDonut:
-  - {fileID: 8521677064010724999, guid: 3aff3fffd143c37458adc3a49a891e46, type: 3}
+  - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
   donutSpawnRadius: 5
   donutSpawnYMin: 2.5

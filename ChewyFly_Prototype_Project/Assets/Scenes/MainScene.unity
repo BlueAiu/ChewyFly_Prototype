@@ -3163,7 +3163,7 @@ MonoBehaviour:
   - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
   donutSpawnRadius: 5
   donutSpawnYMin: 2.5
-  donutSpawnYMax: 3
+  donutSpawnYMax: 4
   notSpawnDistance: 3
   startSpawnCount: 10
   spawnTimePeriod: 10

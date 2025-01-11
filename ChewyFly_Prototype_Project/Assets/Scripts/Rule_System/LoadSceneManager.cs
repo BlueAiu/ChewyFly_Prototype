@@ -15,7 +15,7 @@ public class LoadSceneManager : MonoBehaviour
     }
     public void LoadMainSceneFromTitle()//タイトルからメインシーンに移行する場合
     {
-        if (ObjectReferenceManeger.highScore <= 0)//MainSceneに移行中かつハイスコアがまだ0以下
+        if (ObjectReferenceManeger.HighScore <= 0)//MainSceneに移行中かつハイスコアがまだ0以下
         {
             TutorialManager.TransitionToMainGame();
             SceneManager.LoadScene("TutorialScene");

@@ -20,7 +20,7 @@ public class TitleManager : MonoBehaviour
 
         soundManager.PlayBGM(BGM);
 
-        highScoreText.text = "ハイスコア " + ObjectReferenceManeger.highScore;
+        highScoreText.text = "ハイスコア " + ObjectReferenceManeger.HighScore;
     }
     // Update is called once per frame
     void Update()

@@ -4,7 +4,25 @@ using UnityEngine;
 
 public partial class ObjectReferenceManeger : MonoBehaviour
 {
-    public static int highScore { get; private set; } = 0;
+    public static int HighScore 
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("HighScore"))
+            {
+                return PlayerPrefs.GetInt("HighScore");
+            }
+            else 
+            { 
+            return 0;
+            }
+        }
+        private set
+        {
+            PlayerPrefs.SetInt("HighScore", value);
+        }
+    }
+
     [SerializeField] public static int totalScore { get; private set; } = 0;
 
     [Header("ドーナツのスコア計算")]
@@ -261,9 +279,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
 
     public static bool SetHighScore(int currentScore)//ハイスコアが出たらtrueを返す
     {
-        if (currentScore > highScore)
+        if (currentScore > HighScore)
         {
-            highScore = currentScore;
+            HighScore = currentScore;
             return true;
         }
         return false;

@@ -9,6 +9,10 @@ public class FlicModeUI : MonoBehaviour
     [SerializeField] Sprite donutModeSprite;
     [SerializeField] Sprite jumpModeSprite;
 
+    [SerializeField] SoundManager soundManager;
+    [SerializeField] AudioClip changeSE;
+    bool preJumpMode = false;
+
     private void Awake()
     {
         //TMPtext = GetComponent<TMP_Text>();
@@ -24,7 +28,8 @@ public class FlicModeUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.isJumpMode)
+        bool isJumpMode = player.isJumpMode;
+        if (isJumpMode)
         {
             //TMPtext.text = "Jump";
             image_.sprite = jumpModeSprite;
@@ -34,5 +39,11 @@ public class FlicModeUI : MonoBehaviour
             //TMPtext.text = "Donut";
             image_.sprite= donutModeSprite;
         }
+
+        if(preJumpMode ^ isJumpMode)
+        {
+            soundManager.PlaySE(changeSE);
+        }
+        preJumpMode = isJumpMode;
     }
 }

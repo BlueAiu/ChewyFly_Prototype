@@ -2025,6 +2025,8 @@ MonoBehaviour:
   player: {fileID: 270912499}
   donutModeSprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
   jumpModeSprite: {fileID: 21300000, guid: 290888e164552784591f40afbe64e54c, type: 3}
+  soundManager: {fileID: 164948201}
+  changeSE: {fileID: 8300000, guid: e0f5786ce68ba7f47afe57c93e00aa13, type: 3}
 --- !u!222 &970197806
 CanvasRenderer:
   m_ObjectHideFlags: 0

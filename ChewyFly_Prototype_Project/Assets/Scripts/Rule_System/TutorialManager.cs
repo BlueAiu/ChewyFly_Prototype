@@ -189,6 +189,8 @@ public class TutorialManager : MonoBehaviour
             }
             else//¶’[‚È‚ç‰E’[‚ÉˆÚ‚·
             {
+                if (isTransitionToMainGame) return;
+
                 CurrentIndex = descNum - 1;
                 moveState = MoveState.Loop;
                 SetAllSprites();

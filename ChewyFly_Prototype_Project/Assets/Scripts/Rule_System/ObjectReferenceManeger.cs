@@ -283,9 +283,12 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             {
                 CreateDonutUnion(d);
             }
-            
-            GetComponent<TimerManager>().Timer += increaseGameTime;
-            addTimeAnimator.SetTrigger("makeNamedDonuts");
+
+            if (GetComponent<TimerManager>().Timer > 0)
+            {
+                GetComponent<TimerManager>().Timer += increaseGameTime;
+                addTimeAnimator.SetTrigger("makeNamedDonuts");
+            }
         }
     }
 

@@ -176,6 +176,10 @@ public class TimerManager : MonoBehaviour //ゲームプレイのタイマー兼シーン移行
             }
             previousEndCountDownNum = currentCountDownNum;
         }
+        else
+        {
+            endCountDownText.enabled = false;
+        }
     }
     void GamePlayTimer()
     {

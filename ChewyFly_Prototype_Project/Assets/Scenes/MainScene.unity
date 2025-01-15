@@ -4204,6 +4204,7 @@ MonoBehaviour:
   - {fileID: 4859407561247551956, guid: 4a6a1a192a0221242bf1c8a5ac2bce11, type: 3}
   - {fileID: 6575183288115656163, guid: 7e896dfd945a7664e9bb832c0c623106, type: 3}
   increaseGameTime: 5
+  addTimeAnimator: {fileID: 2034746088}
   tray: {fileID: 1874989099}
   intervalVerticalDistance: 3
   intervalHorizontalDistance: 3.5

@@ -76,6 +76,9 @@ public partial class ObjectReferenceManeger : MonoBehaviour
     [Tooltip("ƒQ[ƒ€ŠÔ‚ğ‘‰Á‚·‚é—Ê")]
     [SerializeField] float increaseGameTime = 3f;
 
+    [Tooltip("ŠÔ‘‰Á‚Ì‰‰o")]
+    [SerializeField] Animator addTimeAnimator;
+
 
     public static List<GameObject> completeDonuts = new();
 
@@ -282,6 +285,7 @@ public partial class ObjectReferenceManeger : MonoBehaviour
             }
             
             GetComponent<TimerManager>().Timer += increaseGameTime;
+            addTimeAnimator.SetTrigger("makeNamedDonuts");
         }
     }
 

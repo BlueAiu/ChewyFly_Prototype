@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6562012546730319946}
   - component: {fileID: -6421514284340536435}
   m_Layer: 0
-  m_Name: TripleSphereCurveDonutsUnion
+  m_Name: Triple_PyramidDonutsUnion
   m_TagString: Donuts
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   hexaPositions:
   - {x: 0, y: -1}
   - {x: 1, y: -1}
-  - {x: 1, y: 0}
+  - {x: 0, y: 0}
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946
 Rigidbody:
@@ -240,7 +240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6757372017237255268, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6757372017237255268, guid: 2eef800d7b6a6294abef8a0a1043f137, type: 3}
       propertyPath: m_LocalPosition.y

@@ -1489,8 +1489,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -5695,9 +5695,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4862458460791308387, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862458460791308387, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9004877935002575821, guid: d11e1209a25be664398d8064e44015d0, type: 3}
       propertyPath: m_Name
       value: arrow_Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222547192754356901, guid: d11e1209a25be664398d8064e44015d0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2540160754492284168, guid: d11e1209a25be664398d8064e44015d0, type: 3}

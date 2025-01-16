@@ -166,7 +166,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             var donut = donutSpheres[i];
             var pos = hexaPositions[i];
 
-            donut.transform.localPosition = pos.x * triangleAxisX + pos.y * triangleAxisY;
+            donut.transform.localPosition = (pos.x * triangleAxisX + pos.y * triangleAxisY) * sphereDistance;
         }
 
         rb.mass = 1 + (unionCount - 1) * donutMassRate;

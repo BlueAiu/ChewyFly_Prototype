@@ -3171,6 +3171,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   donutBoundPower: 3
+--- !u!1 &1009038452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8521677064010724999, guid: 50269cc14220d5e4d9c19d99fa0cf74d, type: 3}
+  m_PrefabInstance: {fileID: 2100492758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1157005387
 GameObject:
   m_ObjectHideFlags: 0
@@ -4144,14 +4149,33 @@ MonoBehaviour:
   player: {fileID: 270912489}
   oil: {fileID: 2143979451}
   donutsList:
-  - {fileID: 0}
+  - {fileID: 1009038452}
   donutUnion: {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  anyBonusDonut:
-  - {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
-  shapeBonusDonut:
-  - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
-  - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-  - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  bonusDonuts:
+  - donuts:
+    - {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
+  - donuts: []
+  - donuts: []
+  - donuts:
+    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  - donuts:
+    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  - donuts:
+    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  - donuts:
+    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+  - donuts:
+    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
   donutSpawnRadius: 5
   donutSpawnYMin: 2.5
   donutSpawnYMax: 4

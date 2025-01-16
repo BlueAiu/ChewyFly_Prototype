@@ -15,13 +15,14 @@ public class LoadSceneManager : MonoBehaviour
     }
     public void LoadMainSceneFromTitle()//タイトルからメインシーンに移行する場合
     {
-        if (ObjectReferenceManeger.HighScore <= 0)//MainSceneに移行中かつハイスコアがまだ0以下
+        //if (ObjectReferenceManeger.HighScore <= 0)//MainSceneに移行中かつハイスコアがまだ0以下
+        if(true)
         {
             TutorialManager.TransitionToMainGame();
             SceneManager.LoadScene("TutorialScene");
             return;
         }
-        SceneManager.LoadScene("MainScene");
+        //SceneManager.LoadScene("MainScene");
     }
     public void LoadNowScene()//現在のシーンを再ロード
     {

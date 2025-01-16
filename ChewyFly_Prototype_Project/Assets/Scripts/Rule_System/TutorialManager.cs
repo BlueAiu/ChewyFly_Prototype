@@ -78,8 +78,8 @@ public class TutorialManager : MonoBehaviour
 
         soundManager.PlayBGM(BGM);
 
-        if (ObjectReferenceManeger.HighScore > 0)
-            isTransitionToMainGame = false;
+        //if (ObjectReferenceManeger.HighScore > 0)
+        //    isTransitionToMainGame = false;
 
         skipButton.gameObject.SetActive(isTransitionToMainGame);
     }

@@ -44,7 +44,7 @@ public partial class DonutsUnionScript : MonoBehaviour
             donutSpheres.Add(child.gameObject);
             hexaPositions.Add(CloseHexaPosition(child.localPosition));
         }
-        unionCount = donutSpheres.Count;
+        //unionCount = donutSpheres.Count;
 
         //Ž¿—Ê‚ðŒvŽZ
         rb.mass = 1 + (unionCount - 1) * donutMassRate;
@@ -157,5 +157,18 @@ public partial class DonutsUnionScript : MonoBehaviour
         hexaPosition.y = Mathf.Round(hexaPosition.y);
 
         return hexaPosition;
+    }
+
+    void AdjustDonutPosition()
+    {
+        for (int i = 0; i < donutSpheres.Count; i++) 
+        {
+            var donut = donutSpheres[i];
+            var pos = hexaPositions[i];
+
+            donut.transform.localPosition = pos.x * triangleAxisX + pos.y * triangleAxisY;
+        }
+
+        rb.mass = 1 + (unionCount - 1) * donutMassRate;
     }
 }

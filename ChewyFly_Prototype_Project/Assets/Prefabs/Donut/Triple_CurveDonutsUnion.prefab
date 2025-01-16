@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6562012546730319946}
   - component: {fileID: -6421514284340536435}
   m_Layer: 0
-  m_Name: TripleSphereCurveDonutsUnion
+  m_Name: Triple_CurveDonutsUnion
   m_TagString: Donuts
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

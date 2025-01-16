@@ -31,7 +31,7 @@ public partial class DonutsUnionScript : MonoBehaviour
     [SerializeField] public float stickySpeed = 5f;
 
     //くっついているドーナツの数
-    public int unionCount { get; private set; } = 1;
+    public int unionCount { get { return donutSpheres.Count; } }
     [Tooltip("合体の最大数")]
     [SerializeField] int unionCountMax = 6;
 
@@ -69,6 +69,8 @@ public partial class DonutsUnionScript : MonoBehaviour
             hexaPositions.Add(Vector2.zero);
         }
         //mergeSE = GetComponent<AudioSource>();
+
+        AdjustDonutPosition();
     }
 
     // Update is called once per frame

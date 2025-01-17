@@ -14,8 +14,6 @@ public class KeepScale : MonoBehaviour
         initialScale = transform.lossyScale;
         //initialScale = Vector3.one;
         initalParentScale = parentTransform.lossyScale;
-        Debug.Log("c: " + initialScale);
-        Debug.Log("p: " +  initalParentScale);
     }
 
     // Update is called once per frame

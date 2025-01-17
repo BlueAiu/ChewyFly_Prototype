@@ -106,8 +106,8 @@ MonoBehaviour:
   maxBounceTime: 0.3
   maxBounceScaleSize: 1
   hexaPositions:
-  - {x: -1, y: 0}
   - {x: 0, y: 0}
+  - {x: -1, y: 0}
   - {x: 1, y: 0}
   sphereDistance: 0.9
 --- !u!54 &-6562012546730319946

@@ -3013,7 +3013,7 @@ MonoBehaviour:
   donutModeSprite: {fileID: 21300000, guid: 6c51b065b8b798c43917e7e80cb123be, type: 3}
   jumpModeSprite: {fileID: 21300000, guid: 5801a5f9f6b8f3a48a12a39579d4ba03, type: 3}
   soundManager: {fileID: 164948201}
-  changeSE: {fileID: 8300000, guid: e0f5786ce68ba7f47afe57c93e00aa13, type: 3}
+  changeSE: {fileID: 8300000, guid: 3687b33e0d00a9049b30684bf8d31278, type: 3}
 --- !u!222 &970197806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4157,21 +4157,17 @@ MonoBehaviour:
   - donuts: []
   - donuts: []
   - donuts:
-    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: 50269cc14220d5e4d9c19d99fa0cf74d, type: 3}
+    - {fileID: 8521677064010724999, guid: cd8ea9273ee1ced4ab7ece512c1d2981, type: 3}
   - donuts:
-    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: cd8ea9273ee1ced4ab7ece512c1d2981, type: 3}
+    - {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
   - donuts:
-    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: cd8ea9273ee1ced4ab7ece512c1d2981, type: 3}
+    - {fileID: 8521677064010724999, guid: dc3602e11ba13a649bb967f4fa965d8e, type: 3}
   - donuts:
-    - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
-    - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
+    - {fileID: 8521677064010724999, guid: dc3602e11ba13a649bb967f4fa965d8e, type: 3}
+    - {fileID: 8521677064010724999, guid: 01f96af714e758b4689a5cf830f45083, type: 3}
   - donuts:
     - {fileID: 8521677064010724999, guid: f6feafe3b87cc204a96c1a19e353493c, type: 3}
     - {fileID: 8521677064010724999, guid: 227363a750b7d9946b3edb9e1fe17f25, type: 3}
@@ -4180,10 +4176,10 @@ MonoBehaviour:
   donutSpawnYMin: 2.5
   donutSpawnYMax: 4
   notSpawnDistance: 3
-  startSpawnCount: 10
+  startSpawnCount: 12
   spawnTimePeriod: 10
-  minimumDonutCount: 7
-  donutSphereLimit: 15
+  minimumDonutCount: 8
+  donutSphereLimit: 18
   oilBubble: {fileID: 3532124914727953334, guid: 18f51547aad5b87478f9abb2f4558dbf, type: 3}
   bubbleSpawnPeriod: 3.5
   bubbleSpawnRadius: 6
@@ -7038,6 +7034,18 @@ PrefabInstance:
     - target: {fileID: 5850243562347525402, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913068528559383336, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: Pan2D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913068528559383336, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913068528559383336, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7130439616566163928, guid: 3f30e74981188cb43982c6f5d9118f59, type: 3}
       propertyPath: optionValues

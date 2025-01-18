@@ -83,6 +83,10 @@ public class OptionManager : OptionValues
         {
             LoadSceneManager.LoadSceneName("TitleScene");//ƒ^ƒCƒgƒ‹‚É–ß‚é
         }
+        else if (input.isResetHighScoreKey())
+        {
+            ObjectReferenceManeger.ResetHighScore();
+        }
         else
             ResetUpdate();
     }

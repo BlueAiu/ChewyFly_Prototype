@@ -201,6 +201,10 @@ public class InputScript : MonoBehaviour
             gamepadInput = Gamepad.current.leftTrigger.isPressed;
         return gamepadInput || Keyboard.current.nKey.wasPressedThisFrame;
     }
+    public bool isResetHighScoreKey()//ハイスコアのリセットボタン
+    {
+        return Keyboard.current.deleteKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame;
+    }
 
 
 

@@ -286,4 +286,8 @@ public partial class ObjectReferenceManeger : MonoBehaviour
         }
         return false;
     }
+    public static void ResetHighScore()
+    {
+        HighScore = 0;
+    }
 }
